@@ -1,6 +1,11 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -8,20 +13,61 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
 }
+h1{  /*Titulo principal*/
+  color: #000000;
+  font-weight: 700;
+  font-family: 'Mulish', sans-serif;
+  font-size: 36px;
+  
+}
+h2{  /*Titulo Secundario*/
+  font-weight: 700;
+  font-family: 'Mulish', sans-serif;
+  font-size: 28px;
+}
+h3{ /*Titulo Terceriario*/
+  color: #000000;
+  font-weight: 700;
+  font-family: 'Mulish', sans-serif;
+  font-size: 22px;
+  
+}
+h4{   /*Texto normal negrilla*/ 
+  color: #000000;
+  font-weight: 700;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+}
+h5{ /*Texto normal*/
+  color: #000000;
+  font-weight: 400;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  
 
+}
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  
+}
+.desplegableOptions{
+  width: 200px;
+  height: auto;
+  top:80px;
+  background-color: #CAFBF2;
+  box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  position: absolute;
+  transition: 1000ms;
+  
+}
+main{
+  padding: 100px;
+  padding-left: 80px;
 }
