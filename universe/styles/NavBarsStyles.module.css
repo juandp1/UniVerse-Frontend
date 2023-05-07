@@ -18,18 +18,18 @@
     width: 100%;
     justify-content: center;
     padding-bottom: 3px;
-    
     border-radius: 5px;
     align-items: center;
+}
+.button_Lateral_NavBar:hover{
+    background-color: #9eb8b4;
 }
 .button_Lateral_NavBar a{
     border-bottom: 1.5px solid #ffffff;
     padding-bottom: 5px;
     
 }
-.button_Lateral_NavBar:hover{
-    background-color: #A9E9DF;
-}
+
 
 .NavBar{
     background-color:#E8FFFB;
