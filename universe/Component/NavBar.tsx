@@ -22,7 +22,7 @@ function Navbar():JSX.Element{
             <nav className={style.NavBar}>
 
                 <div className='w-auto'>
-                    <Image src="/public/images/universelogo.png"
+                    <Image src="/images/universelogo.png"
                         width={159}
                         height={80}
                         alt="logo"
