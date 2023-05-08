@@ -1,0 +1,42 @@
+.imagen_logo {
+    display: flex;
+    justify-content: center;
+    max-width: 1000px;
+    height: 550px;
+    border-top-width: 80px;
+    margin: 0 auto;
+}
+
+.rectangle {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 60%;
+    height: 128px;
+    background: #A9E9DF;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+}
+
+.rectangle_text {
+    display:flex;
+    justify-content: center;
+    left: 27.22%;
+    right: 27.22%;
+    top: 71.48%;
+    bottom: 24.71%;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 55%;
+    /* or 22px */
+
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+
+    
+}
