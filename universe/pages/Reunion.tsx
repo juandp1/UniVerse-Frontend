@@ -33,7 +33,7 @@ export default function Reunion() {
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div className={style.add}>
                     <img src="./images/add.png" alt="add" className={style.add_image}/>
                     <h1 className={style.add_text}>Crear nueva reunión</h1>
                 </div>
