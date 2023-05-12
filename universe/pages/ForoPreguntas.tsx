@@ -5,7 +5,7 @@ import PreguntaForo from '../Component/PreguntaForo'
 import Head from 'next/head';
 import style from "/styles/ForoStyles.module.css";
 
-export default function Foro() {
+export default function ForoPreguntas() {
     return (
         <>
             <Head>
@@ -33,7 +33,7 @@ export default function Foro() {
 
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div className={style.add}>
                     <img src="./images/add.png" alt="add" className={style.add_image}/>
                     <h1 className={style.add_text}>Crear nueva duda</h1>
                 </div>

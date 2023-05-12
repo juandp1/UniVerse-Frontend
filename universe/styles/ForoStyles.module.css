@@ -60,25 +60,31 @@
     color: #000000;
 }
 
+.add {
+    position: fixed;
+    width: 396px;
+    height: 100px;
+    left: 71%;
+    top: 87%;
+    cursor: pointer;
+}
+
 .add_image {
     position: absolute;
     width: 100px;
     height: 100px;
-    left: 91%;
-    top: 87.5%;
 }
 
 .add_text {
     position: absolute;
-    left: 74%;
-    top: 87.5%;
-    
     font-family: 'Mulish';
     font-style: normal;
     font-weight: 700;
     font-size: 28px;
     line-height: 22px;
     /* identical to box height, or 79% */
+    left: 120px;
+    top: 33px;
     
     display: flex;
     align-items: center;
@@ -91,10 +97,11 @@
     overflow-y: scroll; /* Habilita el desplazamiento vertical */
     position: absolute;
     width: 1350px;
-    height: 470px;
-    left: 12.5%;
-    top: 24.5%;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 58vh; /* Utiliza el 60% del alto de la ventana */
+    left: 50%; /* Centra horizontalmente */
+    top: 55%; /* Centra verticalmente */
+    transform: translate(-50%, -50%); /* Ajusta la posición al centro */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 30px;
     background-color: aliceblue;
 }
@@ -104,6 +111,7 @@
     width: 1213px;
     height: 450px;
     left: 4.5%;
+    margin-top: 20px;
     margin-bottom: 150px; /* Espacio entre cada copia del componente */
 }
 
