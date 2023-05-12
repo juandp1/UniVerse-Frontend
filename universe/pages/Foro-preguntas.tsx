@@ -1,4 +1,3 @@
-
 import LateralNavBar from '../Component/LateralNavBar'
 import Navbar from '../Component/NavBar'
 import Head from 'next/head';
@@ -21,7 +20,8 @@ export default function Foro() {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <img src="./images/foro.png" alt="camera" className={style.img}/>
                     <div>
-                        <h1 className={style.title_tema}>Nombre del tema</h1>
+                        <h1 className={style.title}>Foro</h1>
+                        <h2 className={style.subtitle}>Selecciona un tema para acceder a su foro.</h2>
                     </div>
                 </div>
             </main>
