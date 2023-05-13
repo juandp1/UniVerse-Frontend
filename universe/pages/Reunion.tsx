@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Inter } from 'next/font/google'
 import LateralNavBar from '../Component/LateralNavBar'
 import Navbar from '../Component/NavBar'
 import Head from 'next/head';
