@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import style from "/styles/ReunionesStyle.module.css";
 
+interface TipoReunionProps {
+    titulo: string;
+  }
 
-
-
-
-
-function TipoReunion():JSX.Element{
-    const [menuDesplegable, setMenuDesplegable] = useState(false) 
+function TipoReunion(props: TipoReunionProps):JSX.Element{
     
     return (
         <>
@@ -17,7 +15,7 @@ function TipoReunion():JSX.Element{
                 </div>
 
                 <div className={style.bottom_rectangle}>
-                    <h1 className={style.bottom_rectangle_text}>Próximas reuniones</h1>
+                    <h1 className={style.bottom_rectangle_text}>{props.titulo}</h1>
 
                 </div>
             </div>

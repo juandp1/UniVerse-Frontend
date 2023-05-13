@@ -1,9 +1,11 @@
+import Link from 'next/link';
 import { Inter } from 'next/font/google'
 import LateralNavBar from '../Component/LateralNavBar'
 import Navbar from '../Component/NavBar'
 import Head from 'next/head';
 import style from "/styles/ReunionesStyle.module.css";
 import TipoReunion from 'universe/Component/TipoReunion';
+
 
 export default function Reunion() {
     return (
@@ -25,18 +27,18 @@ export default function Reunion() {
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <div style={{position: 'absolute', left: '17%', top: '27%'}}>
-                        <TipoReunion></TipoReunion>
-                    </div>
-                    <div style={{position: 'absolute', left: '55%', top: '27%'}}>
-                        <TipoReunion></TipoReunion>
-                    </div>
+                    <Link href="/ProximasReuniones" style={{position: 'absolute', left: '17%', top: '27%'}}>
+                        <TipoReunion titulo="Próximas reuniones"></TipoReunion>
+                    </Link>
+                    <Link href="/ReunionesAnteriores" style={{position: 'absolute', left: '55%', top: '27%'}}>
+                        <TipoReunion titulo="Reuniones anteriores"></TipoReunion>
+                    </Link>
                 </div>
 
-                <div className={style.add}>
+                <Link href="/CrearReunion" className={style.add}>
                     <img src="./images/add.png" alt="add" className={style.add_image}/>
                     <h1 className={style.add_text}>Crear nueva reunión</h1>
-                </div>
+                </Link>
             </main>
         </>
 
