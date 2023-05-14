@@ -22,9 +22,9 @@ function Navbar():JSX.Element{
             <nav className={style.NavBar}>
 
                 <div className='w-auto'>
-                    <Image src="/public/images/universelogo.png"
-                        width={159}
-                        height={80}
+                    <Image src="/images/universelogo.png"
+                        width={150}
+                        height={50}
                         alt="logo"
                         priority
                     />
@@ -51,14 +51,14 @@ function Navbar():JSX.Element{
                     {/* se verifica si es verdadedo el menu desplegable, y si asi es se ejecuta el html en el return*/}
                     {/*si es falso va a null y no muestra nada*/}
                     {menuDesplegable ? (
-                        <div className='desplegableOptions divide-y'>
-                            <div className='hover:bg-light_blue_hover object-fill p-1'>
+                        <div className='desplegableOptions '>
+                            <div>
 
                                 <Link href="/Perfil">
                                     <h5>Mi Perfil</h5>
                                 </Link>
                             </div>
-                            <div className='hover:bg-light_blue_hover object-fill p-1 '>
+                            <div >
 
                                 <Link href="/Perfil"> {/*agregar un onClick*/}
                                     <h5>Cerrar Sesion</h5>
