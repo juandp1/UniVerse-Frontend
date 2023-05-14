@@ -4,6 +4,7 @@ import Navbar from '../Component/NavBar'
 import PreguntaForo from '../Component/PreguntaForo'
 import Head from 'next/head';
 import style from "/styles/ForoStyles.module.css";
+import Link from 'next/link';
 
 export default function ForoPreguntas() {
     return (
@@ -33,10 +34,10 @@ export default function ForoPreguntas() {
 
                 </div>
 
-                <div className={style.add}>
+                <Link href='/CrearPregunta' className={style.add}>
                     <img src="./images/add.png" alt="add" className={style.add_image}/>
                     <h1 className={style.add_text}>Crear nueva duda</h1>
-                </div>
+                </Link>
             </main>
 
         </>
