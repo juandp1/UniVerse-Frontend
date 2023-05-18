@@ -23,10 +23,12 @@ function Navbar() {
 
 
 
+
                 <div className='w-auto px-5'>
                     <Image src="/images/universelogo.png"
                         width={130}
                         height={70}
+
                         alt="logo"
                         priority
                     />
@@ -53,8 +55,10 @@ function Navbar() {
                     {/* se verifica si es verdadedo el menu desplegable, y si asi es se ejecuta el html en el return*/}
                     {/*si es falso va a null y no muestra nada*/}
                     {menuDesplegable ? (
-                        <div className='desplegableOptions divide-y top-20'>
-                            <div >
+
+                        <div className='desplegableOptions '>
+                            <div>
+
 
                                 <Link href="/Perfil">
                                     <h5>Mi Perfil</h5>

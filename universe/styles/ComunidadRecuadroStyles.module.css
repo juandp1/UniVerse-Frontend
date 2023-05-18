@@ -1,0 +1,33 @@
+.comunidadRecuadro{
+    width: 80%;
+    height: 200px;
+    background-color: #A9E9DF;
+    border-radius: 30px;
+    margin: 20px;
+    
+}
+.encabezado{
+    display: grid;
+    position: relative;
+    grid-template-columns: 1fr 20% 3%;
+    width: 100%;
+    height: 75px;
+    background-color: #E8FFFB;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    padding: 15px;
+    padding-left: 50px;
+    align-items: center;
+    justify-content: flex-start;
+}
+.descripcion{
+    width:100%;
+    height: 12px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 15px;
+    padding-left: 50px;
+    background-color: #A9E9DF;
+    word-wrap: break-word;
+    text-align: start;
+}
