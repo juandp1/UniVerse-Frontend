@@ -1,9 +1,12 @@
+
 import LateralNavBar from '../Component/LateralNavBar'
 import Navbar from '../Component/NavBar'
+import PreguntaForo from '../Component/PreguntaForo'
 import Head from 'next/head';
 import style from "/styles/ForoStyles.module.css";
+import Link from 'next/link';
 
-export default function Foro() {
+export default function ForoPreguntas() {
     return (
         <>
             <Head>
@@ -20,10 +23,21 @@ export default function Foro() {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <img src="./images/foro.png" alt="camera" className={style.img}/>
                     <div>
-                        <h1 className={style.title}>Foro</h1>
-                        <h2 className={style.subtitle}>Selecciona un tema para acceder a su foro.</h2>
+                        <h1 className={style.title_tema}>Nombre del tema</h1>
                     </div>
                 </div>
+                <div className={style.scroll_container}>
+                    <PreguntaForo></PreguntaForo>
+                    <PreguntaForo></PreguntaForo>
+                    <PreguntaForo></PreguntaForo>
+                    <PreguntaForo></PreguntaForo>
+
+                </div>
+
+                <Link href='/CrearPregunta' className={style.add}>
+                    <img src="./images/add.png" alt="add" className={style.add_image}/>
+                    <h1 className={style.add_text}>Crear nueva duda</h1>
+                </Link>
             </main>
 
         </>

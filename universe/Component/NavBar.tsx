@@ -21,6 +21,8 @@ function Navbar() {
         <>
             <nav className={style.NavBar}>
 
+
+
                 <div className='w-auto px-5'>
                     <Image src="/images/universelogo.png"
                         width={130}
