@@ -12,19 +12,23 @@ import { Stint_Ultra_Expanded } from 'next/font/google';
 
 
 
-function Navbar():JSX.Element{
-    const [menuDesplegable, setMenuDesplegable] = useState(false) 
+function Navbar() {
+    const [menuDesplegable, setMenuDesplegable] = useState(false)
     const stateMenuDesplegable = () => setMenuDesplegable(!menuDesplegable)
-    {/*con este useState se controla para que aparezca las opciones de perfil y de cerrar sesion*/}
-    
+    {/*con este useState se controla para que aparezca las opciones de perfil y de cerrar sesion*/ }
+
     return (
         <>
             <nav className={style.NavBar}>
 
-                <div className='w-auto'>
+
+
+
+                <div className='w-auto px-5'>
                     <Image src="/images/universelogo.png"
-                        width={150}
-                        height={50}
+                        width={130}
+                        height={70}
+
                         alt="logo"
                         priority
                     />
@@ -43,16 +47,18 @@ function Navbar():JSX.Element{
 
                 <div className="w-auto flex space-x-3 content-center">
                     <h4>Nombre de usuario</h4>
-                    <FaIcon.FaUserCircle size={"25px"}/>
-                    <button onClick={stateMenuDesplegable}>
-                        <RxIcon.RxTriangleDown />
-                    </button>
-                    
+                    <FaIcon.FaUserCircle size={"25px"} />
+
+                    <RxIcon.RxTriangleDown size={"20px"} onClick={stateMenuDesplegable} />
+
+
                     {/* se verifica si es verdadedo el menu desplegable, y si asi es se ejecuta el html en el return*/}
                     {/*si es falso va a null y no muestra nada*/}
                     {menuDesplegable ? (
+
                         <div className='desplegableOptions '>
                             <div>
+
 
                                 <Link href="/Perfil">
                                     <h5>Mi Perfil</h5>
