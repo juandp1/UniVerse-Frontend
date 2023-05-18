@@ -9,21 +9,20 @@ export default function Foro() {
             <Head>
                 <title>Universe</title>
             </Head>
-            <header>
+            <main>
                 <Navbar></Navbar>
                 <LateralNavBar></LateralNavBar>
-                {/*Agrego los componentes dentro del header*/}
-
-            </header>
-
-            <main>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <img src="./images/foro.png" alt="camera" className={style.img}/>
-                    <div>
-                        <h1 className={style.title}>Foro</h1>
-                        <h2 className={style.subtitle}>Selecciona un tema para acceder a su foro.</h2>
+                <div className="principal_Content">
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img src="./images/foro.png" alt="camera" className={style.img} />
+                        <div>
+                            <h1 className={style.title}>Foro</h1>
+                            <h2 className={style.subtitle}>Selecciona un tema para acceder a su foro.</h2>
+                        </div>
                     </div>
+
                 </div>
+
             </main>
 
         </>

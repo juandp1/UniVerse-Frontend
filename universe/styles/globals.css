@@ -167,15 +167,7 @@ button:hover{
 
 
 /* Css creados para toda las las paginas*/
-.principal_Content{
-  position: relative;
-  height: 80%;
-  width:100%;
-  padding-top: 100px;
-  padding-left: 80px;
-  
-  
-}
+
 
 main{
   width: 100%;
@@ -211,8 +203,9 @@ button:hover{
   position: relative;
   height: 80%;
   width:100%;
-  padding-top: 100px;
-  padding-left: 80px;
+  padding-top: 120px;
+  padding-left: 100px;
+
 }
 .principal_Content_withoutLateralNavbar{
   position: relative;

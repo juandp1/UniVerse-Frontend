@@ -44,8 +44,6 @@ export default function Enciclopedia() {
                 <title>Universe</title>
 
             </Head>
-
-
             <main id="main">
                 <Navbar></Navbar>
                 <LateralNavBar></LateralNavBar>

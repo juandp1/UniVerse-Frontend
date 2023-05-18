@@ -95,7 +95,7 @@
 
 .scroll_container {
     overflow-y: scroll; /* Habilita el desplazamiento vertical */
-    position: absolute;
+    position: relative;
     width: 80%;
     height: 58vh; /* Utiliza el 60% del alto de la ventana */
     left: 50%; /* Centra horizontalmente */
