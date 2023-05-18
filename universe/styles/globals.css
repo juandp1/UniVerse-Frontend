@@ -20,6 +20,8 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+
+/* Css para etiquetas de html*/
 h1{  /*Titulo principal*/
   color: #000000;
   font-weight: 700;
@@ -53,21 +55,227 @@ h5{ /*Texto normal*/
   
 
 }
-body {
+label{
+  color: #000000;
+  font-weight: 400;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+}
+
+
+main{
+  width: 100%;
+  height: 100%;
   
 }
+
+main#main.active{
+  filter: blur(3px);
+  filter: brightness(50%);
+  background-color: white;
+  user-select: none;
+  
+}
+
+form{
+  position: absolute;
+  width: 800px;
+  min-height: 400px;
+  max-height: auto;
+  background-color: #E8FFFB;
+  border-radius: 20px;
+  top: 25%;
+  left: 20%;
+  z-index: 10;
+  transition: 850ms;
+}
+form #close{
+  position:absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 20px;
+}
+form #close:hover{
+  background-color: #ABC7C2;
+  cursor: pointer;
+}
+form div#encabezado{
+  display: grid;
+  grid-template-columns: 70% 30%;
+  padding: 30px;
+  width: 100%;
+  height: 100px;
+  background-color: #A9E9DF;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: flex-start;
+}
+form div#encabezado div{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+form div#inputs{
+  display: flex;
+  padding: 30px;
+  width: 100%;
+  min-height: 300px;
+  max-height: auto;
+  background-color: #E8FFFB;
+  border-radius: 20px;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+}
+
+form div#inputs div{
+  max-width: auto;
+  min-width: 50%;
+}
+
+
+input[type=text],input[type=number], input[type=date], input[type=time], input[type=month]{
+  width: 350px;
+  height: 45px;
+  padding: 12px 20px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 2.72246px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  cursor:pointer;
+  
+}
+button[type=submit]{
+  display: flex;
+  border-radius: 50px;
+  background-color: #285F76;
+  width: 150px;
+  height: 35px;
+  justify-content: center;
+  align-items: center;
+  
+}
+button h3{
+  color: white;
+}
+button:hover{
+  background-color: #1D3752;
+}
+
+
+/* Css creados para toda las las paginas*/
+.principal_Content{
+  position: relative;
+  height: 80%;
+  width:100%;
+  padding-top: 100px;
+  padding-left: 80px;
+  
+  
+}
+
+main{
+  width: 100%;
+  height: 100%;
+  
+}
+
+main#main.active{
+  filter: blur(3px);
+  filter: brightness(50%);
+  background-color: white;
+  user-select: none;
+  
+}
+
+button {
+  display: flex;
+  border-radius: 50px;
+  background-color: #285F76;
+  width: 150px;
+  height: 35px;
+  justify-content: center;
+  align-items: center;
+  
+}
+button h3{
+  color: white;
+}
+button:hover{
+  background-color: #1D3752;
+}
+.principal_Content{
+  position: relative;
+  height: 80%;
+  width:100%;
+  padding-top: 100px;
+  padding-left: 80px;
+}
+.principal_Content_withoutLateralNavbar{
+  position: relative;
+  height: 80%;
+  width:100%;
+  padding-top: 100px;
+  align-items: center;
+  justify-content: center;
+
+}
+
 .desplegableOptions{
   width: 200px;
   height: auto;
-  top:80px;
   background-color: #CAFBF2;
   box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   position: absolute;
   transition: 1000ms;
+  z-index: 10;
+
+  padding: 5px;
+  
+
+}
+.desplegableOptions div{
+  display: flex;
+  padding: 2px;
+  height: 32px;
+
+  width: 100%;
+  border-bottom: 1px solid #285F76;
   
 }
-main{
-  padding: 100px;
-  padding-left: 80px;
+
+
+.desplegableOptions div:hover{
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: #ABC7C2;
+  cursor: pointer;
+  
 }
+
+.button_crear{
+  display: flex;
+  position: fixed;
+  background-color: #CAFBF2;
+  border-radius: 100%;
+  bottom: 30px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  transition: 850ms;
+}
+.button_crear:hover{
+  background-color: #cee9e4;
+  cursor: pointer;
+  width: 90px;
+  height: 90px;
+
+}
+

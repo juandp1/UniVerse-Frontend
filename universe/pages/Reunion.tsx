@@ -9,6 +9,7 @@ import TipoReunion from 'universe/Component/TipoReunion';
 export default function Reunion() {
     return (
         <>
+
             <Head>
                 <title>Universe</title>
             </Head>
@@ -39,7 +40,9 @@ export default function Reunion() {
                     <h1 className={style.add_text}>Crear nueva reunión</h1>
                 </Link>
             </main>
+
         </>
+        
 
     )
 }
