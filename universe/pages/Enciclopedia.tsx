@@ -21,19 +21,28 @@ interface Tema {
 export default function Enciclopedia() {
     const [showFormCrearTema, setShowFormCrearTema] = useState(false)
     const statusShowFormCrearTema = () => setShowFormCrearTema(!showFormCrearTema)
-
+    const [Temas, setTemas] = useState([{
+        nombreTema: ''
+    }])
+    const [Materias, setMaterias] = useState([{
+        Materia_id: '',
+        Materia_nombre: '',
+    }])
     const toggle = () => {
         var blurMain = document.getElementById("main")
         blurMain?.classList.toggle("active")
         statusShowFormCrearTema()
     }
-    const crearTema = async (values: Tema) => { 
+    const crearTema = async (values: Tema) => {
+        console.log(values)
         toggle()
     }
+
     return (
         <>
             <Head>
                 <title>Universe</title>
+
             </Head>
 
 
@@ -47,6 +56,12 @@ export default function Enciclopedia() {
                         <h1>Temas</h1>
                     </div>
                     <div className="flex flex-wrap ">
+                        {/*Temas.map((item,index)=>{
+                            return(
+                                <TarjetaTemas name={item.nombreTema} ruta={"/DocumentosTema"}></TarjetaTemas>
+                            )
+                        })
+                        */}
                         <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
                         <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
                         <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
@@ -72,7 +87,10 @@ export default function Enciclopedia() {
 
                     <Formik
                         initialValues={{
-                            nombre_Tema: ""
+                            nombre_Tema: "",
+                            dato_reunion: "",
+                            materias: "",
+
                         }}
                         onSubmit={async (values) => {
 
@@ -82,10 +100,10 @@ export default function Enciclopedia() {
 
                     >
                         {({ handleSubmit, values, handleChange }) => (
-                            <form onSubmit={handleSubmit}>
+                            <form id="login" onSubmit={handleSubmit}>
                                 <div id="encabezado">
-                                    <IoIcon.IoMdClose size={"25px"} onClick={toggle} id="close"/>
-                                    
+                                    <IoIcon.IoMdClose size={"25px"} onClick={toggle} id="close" />
+
                                     <div>
                                         <HiIcon.HiFolderAdd size={"60px"} color={"#1D3752"} />
                                         <h2>Nuevo Tema</h2>
@@ -97,12 +115,24 @@ export default function Enciclopedia() {
                                     </div>
                                 </div>
                                 <div id="inputs">
+                                    <div>
+                                        <h5>Nombre del tema:</h5>
+                                        <input name="nombre_Tema" type="text" placeholder="nombre tema"
+                                            value={values.nombre_Tema}
+                                            onChange={handleChange}
+                                        />
 
-                                    <label className="">Nombre del tema:</label>
-                                    <input name="nombre_Tema" type="text" placeholder=""
-                                        value={values.nombre_Tema}
-                                        onChange={handleChange}
-                                    />
+                                    </div>
+
+                                    {/**segunda columna del formulario esi es necesario */}
+                                    <div>
+                                        <h5>Nombre del tema:</h5>
+                                        <input name="nombre_Tema" type="text" placeholder="nombre tema"
+                                            value={values.nombre_Tema}
+                                            onChange={handleChange}
+                                        />
+
+                                    </div>
                                 </div>
                             </form>
                         )}
