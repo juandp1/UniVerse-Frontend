@@ -62,17 +62,17 @@
 
 .add {
     position: fixed;
-    width: 396px;
-    height: 100px;
-    left: 71%;
+    width: 340px;
+    height: 80px;
+    right: 10%;
     top: 87%;
     cursor: pointer;
 }
 
 .add_image {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 85px;
 }
 
 .add_text {
@@ -83,8 +83,8 @@
     font-size: 28px;
     line-height: 22px;
     /* identical to box height, or 79% */
-    left: 120px;
-    top: 33px;
+    left: 100px;
+    top: 30px;
     
     display: flex;
     align-items: center;
