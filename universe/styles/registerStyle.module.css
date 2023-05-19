@@ -1,0 +1,122 @@
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .leftContainer {
+    width: 50%;
+    background-color: #a9e9df;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .rectangle {
+    width: 100%;
+    height: 25vh;
+  }
+  
+  .logoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;
+  }
+  
+  .logoImage {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .registerHeading {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1d3752;
+    margin-top: 2rem;
+  }
+  
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 65vh;
+  }
+  
+  .formRegistro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+  }
+  
+  .inputGroup {
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .inputUsername.inputError,
+  .inputEmail.inputError,
+  .inputPassword.inputError {
+    border-color: red;
+  }
+  
+  .errorMessage {
+    color: red;
+    margin-top: 0.5rem;
+  }
+  
+  .registerButton {
+    border-radius: 4px;
+    background-color: #285f76;
+    color: #ffffff;
+    width: 150px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  
+  .rightContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  
+  .searchContainer {
+    margin-bottom: 1rem;
+  }
+  
+  .inputSearch {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .subjectResults {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .selectedSubjectsContainer {
+    height: 65%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem;
+    overflow-y: auto;
+  }
+  

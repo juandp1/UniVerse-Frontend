@@ -1,0 +1,199 @@
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .leftContainer {
+    background-color: #ffffff;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: -1rem;
+    position: relative;
+  }
+  
+  .rightContainer {
+    background-color: #a9e9df;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .logoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: -2rem;
+  }
+  
+  .logoImage {
+    max-width: 800px;
+    height: auto;
+  }
+  
+  .welcomeText {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-top: -5rem;
+    text-align: center;
+  }
+  
+  .formContainer {
+    background-color: #ffffff;
+    width: 100%;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .formLogin {
+    background-color: #ffffff;
+    width: 60%;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  
+  .inputUsername[type=text] {
+    width: 100%;
+    height: 45px;
+    padding: 12px 20px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 2.72246px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .inputPassword {
+    width: 100%;
+    height: 45px;
+    padding: 12px 20px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 2.72246px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .formContainer > .inputGroup > input {
+    margin-top: 0.5rem;
+  }
+  
+  .forgotPasswordGroup {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .forgotPasswordLink {
+    color: #3e3e3e;
+    text-decoration: underline;
+  }
+  
+  .loginButtonGroup {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .loginButton {
+    background-color: #285f76;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .registerContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .iconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .iconImage {
+    max-width: 100%;
+    height: 130px;
+    margin-top: 1rem;
+  }
+  
+  .registerHeading {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #1d3752;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .registerText {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #1d3752;
+  }
+  
+  .registerButtonGroup {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .registerButton {
+    display: flex;
+    border-radius: 50px;
+    background-color: #285f76;
+    color: #ffffff;
+    width: 150px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6.55rem;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
