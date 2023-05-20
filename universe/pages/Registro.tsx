@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import styles from './registerStyle.module.css';
+import styles from 'styles/registerStyle.module.css';
 
 interface FormValues {
   username: string;
@@ -49,26 +49,28 @@ const Registro = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftContainer}>
-        <div className={styles.rectangle}></div>
-        <div className={styles.logoContainer}>
-          <img
-            className={styles.logoImage}
-            src="/images/UniVerseLogo.svg"
-            alt="Logo Universe"
+        <div className={styles.rectangle}>
+        <Image
+            src="/images/UniVerseLogo.png"
+            width={300}
+            height={50}
+            alt="logo"
+            priority
           />
         </div>
         <h1 className={styles.registerHeading}>Registro</h1>
-        <div className={styles.formContainer}>
+
+
           <form className={styles.formRegistro} onSubmit={formik.handleSubmit}>
             <div className={styles.inputGroup}>
+              <label htmlFor="username">Usuario:</label>
               <input
                 type="text"
                 id="username"
                 placeholder="Nombre de usuario"
                 className={`${styles.inputUsername} ${
-                  formik.touched.username && formik.errors.username
-                    ? styles.inputError
-                    : ""
+                  formik.touched.username && formik.errors.username ? styles.inputError : ""
+                    
                 }`}
                 {...formik.getFieldProps("username")}
               />
@@ -77,6 +79,7 @@ const Registro = () => {
               )}
             </div>
             <div className={styles.inputGroup}>
+              <label htmlFor="email">Email:</label>
               <input
                 type="email"
                 id="email"
@@ -91,6 +94,7 @@ const Registro = () => {
               )}
             </div>
             <div className={styles.inputGroup}>
+            <label htmlFor="password">Contraseña:</label>
               <input
                 type="password"
                 id="password"
@@ -107,6 +111,7 @@ const Registro = () => {
               )}
             </div>
             <div className={styles.inputGroup}>
+              <label htmlFor="password">Confirme su contraseña:</label>
               <input
                 type="password"
                 id="confirmPassword"
@@ -128,7 +133,7 @@ const Registro = () => {
               Registrarse
             </button>
           </form>
-        </div>
+
       </div>
       <div className={styles.rightContainer}>
         <div className={styles.searchContainer}>
