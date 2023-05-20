@@ -85,7 +85,7 @@ export default function PestaniaComunidad() {
                                         </button>
                                     </div>
                                 </div>
-                                <div id="input">
+                                <div id="inputs">
 
                                     <div>
                                         <h5>Nombre de la comunidad:</h5>
