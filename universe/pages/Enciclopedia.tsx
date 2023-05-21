@@ -21,17 +21,49 @@ export default function Enciclopedia() {
     const [Temas, setTemas] = useState([{
         nombreTema: ''
     }])
-    const [Materias, setMaterias] = useState([{
-        Materia_id: '',
-        Materia_nombre: '',
-    }])
+    
     const toggle = () => {
         var blurMain = document.getElementById("main")
         blurMain?.classList.toggle("active")
         statusShowFormCrearTema()
     }
+    const GetInfoTemas = async (values: Tema) => { // se trae la informacion de los temas que existen apenas se entra a la pagina
+        //setIsLoading(true)
+        let url: string = 'https://decorisaserver.azurewebsites.net/api/cita/key/'//+ nombreComunidad 
+        fetch(url, {
+
+        })
+            .then(response => response.json()).then(data => {
+                console.log(data)
+
+                setTemas(data)
+                //setIsLoading(false)
+                //setShowDetallesCita(true)
+            })
+
+    }
     const crearTema = async (values: Tema) => {
-        console.log(values)
+        /**funcion para la creacion de un tema en el backend */
+        fetch('https://decorisaserver.azurewebsites.net/api/pedido', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify(values)
+
+        })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response))
+            .then(() => {
+
+
+                //setShowFormCrearPedido(false)
+                //setIsLoading(false)
+            })
+
+
         toggle()
     }
 
