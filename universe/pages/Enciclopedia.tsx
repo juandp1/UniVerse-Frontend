@@ -1,22 +1,19 @@
 import Head from "next/head";
 import * as Faicon from 'react-icons/fa';
 import * as IoIcon from 'react-icons/io';
-
 import * as HiIcon from 'react-icons/hi';
 import LateralNavBar from "universe/Component/LateralNavBar";
 import Navbar from "universe/Component/NavBar";
 import TarjetaTemas from "universe/Component/TarjetaTemas";
-
-
 import { useState } from "react";
 import { Formik } from 'formik'
+
+
 
 const colorIcon = "#61EB8D"
 interface Tema {
     nombre_Tema: String;
 }
-
-
 
 export default function Enciclopedia() {
     const [showFormCrearTema, setShowFormCrearTema] = useState(false)
@@ -44,8 +41,6 @@ export default function Enciclopedia() {
                 <title>Universe</title>
 
             </Head>
-
-
             <main id="main">
                 <Navbar></Navbar>
                 <LateralNavBar></LateralNavBar>
@@ -136,7 +131,6 @@ export default function Enciclopedia() {
                                 </div>
                             </form>
                         )}
-
                     </Formik>
                 </div>
             ) : null}

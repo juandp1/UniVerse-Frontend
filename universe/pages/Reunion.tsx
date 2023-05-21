@@ -17,7 +17,7 @@ interface Reunion {
     hora_reunion: String,
     lugar_reunion: String;
 }
-
+const colorIcon = "#61EB8D"
 
 export default function Reunion() {
     const [showFormCrearReunion, setShowFormCrearReunion] = useState(false)
@@ -49,25 +49,30 @@ export default function Reunion() {
             <main id="main">
                 <Navbar></Navbar>
                 <LateralNavBar></LateralNavBar>
+
+                <div className='principal_Content'>
+                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                        <img src="./images/camera-meetings.png" alt="camera" style={{ marginRight: '10px' }} />
+                        <h1>Reuniones</h1>
+                    </div>
+                    <div className='flex flex wrap space-x-10'>
+                        <Link href="/ProximasReuniones" style={{}}>
+                            <TipoReunion titulo="Próximas reuniones"></TipoReunion>
+                        </Link>
+                        <Link href="/ReunionesAnteriores" style={{}}>
+                            <TipoReunion titulo="Reuniones anteriores"></TipoReunion>
+                        </Link>
+
+
+                        <div className="button_crear" onClick={toggle}>
+                            <IoIcon.IoMdAdd size={'80px'} color={colorIcon} />
+                            
+                        </div>
+                    </div>
+
+                </div>
                 {/*Agrego los componentes dentro del header*/}
-                <div style={{ position: 'absolute', display: 'flex', alignItems: 'center', top: '100px', left: '100px' }}>
-                    <img src="./images/camera-meetings.png" alt="camera" style={{ marginRight: '10px' }}/>
-                    <h1>Reuniones</h1>
-                </div>
 
-                <div style={{position: 'absolute', display: 'flex', justifyContent: 'center', left: '17%', top: '27%'}}>
-                    <Link href="/ProximasReuniones" style={{position: 'absolute'}}>
-                        <TipoReunion titulo="Próximas reuniones"></TipoReunion>
-                    </Link>
-                    <Link href="/ReunionesAnteriores" style={{position: 'absolute', left: '650px'}}>
-                        <TipoReunion titulo="Reuniones anteriores"></TipoReunion>
-                    </Link>
-                </div>
-
-                <div className={style.add} onClick={toggle}>
-                    <img src="./images/add.png" alt="add" className={style.add_image}/>
-                    <h1 className={style.add_text}>Crear nueva reunión</h1>
-                </div>
             </main>
 
 
@@ -91,7 +96,7 @@ export default function Reunion() {
 
                     >
                         {({ handleSubmit, values, handleChange }) => (
-                            <form id="login" onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit}>
                                 <div id="encabezado">
                                     <IoIcon.IoMdClose size={"25px"} onClick={toggle} id="close" />
 
@@ -108,56 +113,53 @@ export default function Reunion() {
 
                                 <div id="inputs">
                                     <div>
-                                        <h5>Nombre de la reunión:</h5>
-                                        <input name="nombreReunion" type="text" placeholder="nombre Reunion"
+                                        <h5 >Nombre de la reunión:</h5>
+                                        <input name="nombreReunion" type="text" placeholder="Nombre Reunion"
                                             value={values.nombreReunion}
                                             onChange={handleChange}
                                         />
 
-                                    </div>
-                                </div>
-
-                                <div id="inputs">                  
-
-                                    <div>
                                         <h5>Descripción de la reunión:</h5>
                                         <input name="Descripcion_reunion" type="text" placeholder="Descripcion reunion"
                                             value={values.Descripcion_reunion}
                                             onChange={handleChange}
                                         />
+                                        <h4 className='my-5'>Detalles del encuentro</h4>
 
+
+                                        <div className={style.Detalles_Reunion}>
+                                            <div>
+                                                
+                                                <input id='Detalles_Encuentro' name="fecha_reunion" type="date" placeholder="Fecha reunion"
+                                                    value={values.fecha_reunion}
+                                                    onChange={handleChange}
+                                                />
+                                                <label >Fecha de la reunión:</label>
+                                            </div>
+                                            <div >
+
+
+                                                <input  name="hora_reunion" type="time" placeholder="Hora reunion"
+                                                    value={values.hora_reunion}
+                                                    onChange={handleChange}
+                                                />
+                                                <label>Hora de la reunión:</label>
+                                                
+
+                                            </div>
+
+                                            <div>
+                                                <input  name="lugar_reunion" type="text" placeholder="Lugar reunion"
+                                                    value={values.lugar_reunion}
+                                                    onChange={handleChange}
+                                                />
+                                                <label>Lugar de la reunión:</label>
+                                                
+                                            </div>
+
+
+                                        </div>
                                     </div>
-
-                                </div>
-
-
-
-                                <div id="inputs">
-
-                                    <div>
-                                        <h5>Fecha de la reunión:</h5>
-                                        <input name="fecha_reunion" type="text" placeholder="fecha reunion"
-                                            value={values.fecha_reunion}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <h5>Hora de la reunión:</h5>
-                                        <input name="hora_reunion" type="text" placeholder="hora reunion"
-                                            value={values.hora_reunion}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <h5>Lugar de la reunión:</h5>
-                                        <input name="lugar_reunion" type="text" placeholder="lugar reunion"
-                                            value={values.lugar_reunion}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-
                                 </div>
                             </form>
                         )}
@@ -166,7 +168,7 @@ export default function Reunion() {
                 </div>
             ) : null}
         </>
-        
+
 
     )
 }
