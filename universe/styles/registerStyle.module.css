@@ -1,16 +1,12 @@
 .container {
-  display: flex;
-  height: 100vh;
-}
-
-.leftContainer {
   background-color: #ffffff;
-  width: 50%;
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 2rem;
+  padding: 3rem;
   position: relative;
   
 }
@@ -19,7 +15,7 @@
   display: flex;
   background-color: #a9e9df;
   width: 100vw;
-  height: 25vh;
+  height: 21vh;
   position: absolute;
   top: 0;
   left: 0;
@@ -33,35 +29,37 @@
   max-height: 100%;
 }
 
+.welcomeText {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 9.5rem;
+  text-align: center;
+}
+
 .registerContainer {
   width: 100%;
   margin-top: 2rem;
 }
 
-.registerHeading {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #1d3752;
-  margin-bottom: 1rem;
-}
 
 
 .formRegistro {
   background-color: #ffffff;
-  width: 90%;
+  width: 55%;
   position: absolute;
-  top: 450px;
+  top: 500px;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   min-height: 200px;
+
 }
 
 .inputGroup {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 0.3rem;
 }
 
 .inputUsername[type=text],
@@ -69,8 +67,8 @@
 .inputPassword {
   width: 100%;
   height: 45px;
-  padding: 12px 20px;
-  margin-top: 5px;
+  padding: 12px 10px;
+  margin-top: 3px;
   box-sizing: border-box;
   background: #ffffff;
   border: 2px solid rgba(0, 0, 0, 0.1);
@@ -94,71 +92,18 @@
   margin-top: 0.5rem;
 }
 
-.registerButton {
+.registerButton{
   background-color: #285f76;
   color: #ffffff;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1.5rem;
   border-radius: 4px;
   border: none;
   cursor: pointer;
   margin-top: 1rem;
+  align-self: center;
 }
 
-.rightContainer {
-  background-color: #ffffff;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
 
-.materiasContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2rem;
-}
 
-.inputSearch {
-  width: 100%;
-  height: 45px;
-  padding: 12px 20px;
-  margin-bottom: 1rem;
-  box-sizing: border-box;
-  background: #ffffff;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-}
-
-.subjectResults {
-  max-height: 200px;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-}
-
-.selectedSubjectsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 2rem;
-}
-
-.selectedSubjectButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #285f76;
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  border: none;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  cursor: pointer;
-}
 
   

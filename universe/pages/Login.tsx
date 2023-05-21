@@ -1,6 +1,8 @@
 import Image from 'next/image';
-import { Formik, Form, Field } from 'formik';
+import React from "react";
+import { useFormik } from "formik";
 import { useRouter } from 'next/router';
+import * as Yup from "yup";
 import styles from '/styles/loginStyle.module.css';
 
 interface LoginFormValues {
@@ -8,24 +10,57 @@ interface LoginFormValues {
   password: string;
 }
 
-export default function Login(): JSX.Element {
-  const router = useRouter();
+const Login = () => {
 
-  const handleSubmit = (values: LoginFormValues) => {
-    // Perform authentication logic or send data to the server
-    console.log('Username:', values.username);
-    console.log('Password:', values.password);
-    // Simulating an incorrect username/password
-    const error: unknown = 'El usuario/email y/o contraseña son incorrectos, intentelo de nuevo';
-    if (typeof error === 'string') {
-      alert(error);
-    }
-    
-    router.push('/PestaniaComunidad'); // Redirect to PestaniaComunidad.tsx
+  const initialValues: LoginFormValues = {
+    username: "",
+    password: "",
   };
 
+  const router = useRouter();
+
+  const validationSchema = Yup.object({
+    username: Yup.string()
+      .required("Campo requerido"),
+    password: Yup.string()
+      .required("Campo requerido"),
+  });
+
+  const onSubmit = async (values: LoginFormValues) => {
+    // Perform authentication logic or send data to the server
+    console.log(values);
+  
+    try {
+      const res = await fetch('https://decorisaserver.azurewebsites.net/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+      });
+  
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("token", data["access_token"]);
+        router.push('/PestaniaComunidad'); // Redirect to PestaniaComunidad.tsx
+      } else {
+        throw new Error('El usuario/email y/o contraseña son incorrectos, intentelo de nuevo');
+      }
+    } catch (error: any) {
+      console.error('Error:', error);
+      alert(error.message);
+    }
+  };
+  
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit,
+  });
+
   const handleRegisterClick = () => {
-    router.push('/registro');
+    router.push('/Registro');
   };
 
   return (
@@ -44,53 +79,37 @@ export default function Login(): JSX.Element {
 
         <h2 className={styles.welcomeText}>¡Bienvenido de nuevo!</h2>
 
-        <div className={styles.formContainer}>
-          <Formik
-            initialValues={{
-              username: '',
-              password: ''
-            }}
-            onSubmit={handleSubmit}
-          >
-            <Form className={styles.formLogin}>
-              <div className={styles.inputGroup}>
-                <label htmlFor="username">Usuario:</label>
-                <Field
-                  type="text"
-                  id="username"
-                  className={styles.inputUsername}
-                  name="username"
-                  placeholder="Usuario"
-                  required
-                />
-              </div>
-
-              <div className={styles.inputGroup}>
-                <label htmlFor="password">Contraseña:</label>
-                <Field
-                  type="password"
-                  id="password"
-                  className={styles.inputPassword}
-                  name="password"
-                  placeholder="Contraseña"
-                  required
-                />
-              </div>
-
-              <div className={styles.forgotPasswordGroup}>
-                <a href="#!" className={styles.forgotPasswordLink}>
-                  ¿Olvidaste tu contraseña?
-                </a>
-              </div>
-
-              <div className={styles.loginButtonGroup}>
-                <button type="submit" className={styles.loginButton}>
-                  INICIAR SESIÓN
-                </button>
-              </div>
-            </Form>
-          </Formik>
-        </div>
+        <form className={styles.formLogin} onSubmit={formik.handleSubmit}>
+          <div className={styles.inputGroup}>
+            <label htmlFor="username">Usuario o email registrado:</label>
+            <input
+              type="text"
+              id="username"
+              placeholder="Usuario o email registrado"
+              className={`${styles.inputUsername} ${formik.touched.username && formik.errors.username ? styles.inputError : ""}`}
+              {...formik.getFieldProps("username")}
+            />
+            {formik.touched.username && formik.errors.username && (
+              <div className={styles.errorMessage}>{formik.errors.username}</div>
+            )}
+          </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="password">Contraseña:</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Contraseña"
+              className={`${styles.inputPassword} ${formik.touched.password && formik.errors.password ? styles.inputError : ""}`}
+              {...formik.getFieldProps("password")}
+            />
+            {formik.touched.password && formik.errors.password && (
+              <div className={styles.errorMessage}>{formik.errors.password}</div>
+            )}
+          </div>
+          <button type="submit" className={styles.loginButton}>
+            INICIAR SESION
+          </button>
+        </form>
       </div>
 
       <div className={styles.rightContainer}>
@@ -122,8 +141,7 @@ export default function Login(): JSX.Element {
   );
 }
 
-
-
+export default Login;
 
 
 

@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import React from "react";
 import { useFormik } from "formik";
+import { useRouter } from 'next/router';
+import { useState } from "react";
 import * as Yup from "yup";
 import styles from 'styles/registerStyle.module.css';
 
@@ -18,6 +20,10 @@ const Registro = () => {
     password: "",
     confirmPassword: "",
   };
+  
+  const router = useRouter();
+  const [RecuadroError, setRecuadroError] = useState(false)
+  const statusShowRecuadroError = () => setRecuadroError(!RecuadroError)
 
   const validationSchema = Yup.object({
     username: Yup.string()
@@ -35,9 +41,32 @@ const Registro = () => {
       .required("Campo requerido"),
   });
 
-  const onSubmit = (values: FormValues) => {
-    // Handle form submission here
+  const onSubmit = async (values: FormValues) => {
+    // Perform authentication logic or send data to the server
     console.log(values);
+  
+    try {
+      const res = await fetch('https://decorisaserver.azurewebsites.net/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+      });
+  
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("token", data["access_token"]);
+        router.push('/Login'); // Redirect to PestaniaComunidad.tsx
+      } else if(res.status == 201) { //codigo de usuario ya existente 
+        throw new Error('El usuario ingresado ya existe, intentelo de nuevo');
+      } else if(res.status == 201) { //codigo error de email ya existente 
+        throw new Error('El email ingresado ya existe, intentelo de nuevo');
+      }
+    } catch (error: any) {
+      console.error('Error:', error);
+      alert(error.message);
+    }
   };
 
   const formik = useFormik({
@@ -46,19 +75,33 @@ const Registro = () => {
     onSubmit,
   });
 
+  const toggle = () => {
+    var blurMain = document.getElementById("main")
+    blurMain?.classList.toggle("active")
+    statusShowRecuadroError
+
+  }
+
+  const handleRegisterClick = () => {
+    router.push('/Login');
+  };
   return (
-    <div className={styles.container}>
-      <div className={styles.leftContainer}>
-        <div className={styles.rectangle}>
-        <Image
-            src="/images/UniVerseLogo.png"
-            width={300}
-            height={50}
-            alt="logo"
-            priority
-          />
-        </div>
-        <h1 className={styles.registerHeading}>Registro</h1>
+    <>
+      <main id='main'>
+
+        <div className={styles.container}>
+          <div className={styles.rectangle}>
+            <Image
+              src="/images/UniVerseLogo.png"
+              width={300}
+              height={35}
+              alt="logo"
+              priority
+            />
+          </div>
+
+
+          <h2 className={styles.welcomeText}>¡Haz parte de nuestra gran comunidad!</h2>
 
 
           <form className={styles.formRegistro} onSubmit={formik.handleSubmit}>
@@ -68,10 +111,9 @@ const Registro = () => {
                 type="text"
                 id="username"
                 placeholder="Nombre de usuario"
-                className={`${styles.inputUsername} ${
-                  formik.touched.username && formik.errors.username ? styles.inputError : ""
-                    
-                }`}
+                className={`${styles.inputUsername} ${formik.touched.username && formik.errors.username ? styles.inputError : ""
+
+                  }`}
                 {...formik.getFieldProps("username")}
               />
               {formik.touched.username && formik.errors.username && (
@@ -84,9 +126,8 @@ const Registro = () => {
                 type="email"
                 id="email"
                 placeholder="Email"
-                className={`${styles.inputEmail} ${
-                  formik.touched.email && formik.errors.email ? styles.inputError : ""
-                }`}
+                className={`${styles.inputEmail} ${formik.touched.email && formik.errors.email ? styles.inputError : ""
+                  }`}
                 {...formik.getFieldProps("email")}
               />
               {formik.touched.email && formik.errors.email && (
@@ -94,16 +135,15 @@ const Registro = () => {
               )}
             </div>
             <div className={styles.inputGroup}>
-            <label htmlFor="password">Contraseña:</label>
+              <label htmlFor="password">Contraseña:</label>
               <input
                 type="password"
                 id="password"
                 placeholder="Contraseña"
-                className={`${styles.inputPassword} ${
-                  formik.touched.password && formik.errors.password
-                    ? styles.inputError
-                    : ""
-                }`}
+                className={`${styles.inputPassword} ${formik.touched.password && formik.errors.password
+                  ? styles.inputError
+                  : ""
+                  }`}
                 {...formik.getFieldProps("password")}
               />
               {formik.touched.password && formik.errors.password && (
@@ -116,11 +156,10 @@ const Registro = () => {
                 type="password"
                 id="confirmPassword"
                 placeholder="Confirmar contraseña"
-                className={`${styles.inputPassword} ${
-                  formik.touched.confirmPassword && formik.errors.confirmPassword
-                    ? styles.inputError
-                    : ""
-                }`}
+                className={`${styles.inputPassword} ${formik.touched.confirmPassword && formik.errors.confirmPassword
+                  ? styles.inputError
+                  : ""
+                  }`}
                 {...formik.getFieldProps("confirmPassword")}
               />
               {formik.touched.confirmPassword && formik.errors.confirmPassword && (
@@ -129,30 +168,27 @@ const Registro = () => {
                 </div>
               )}
             </div>
-            <button type="submit" className={styles.registerButton}>
-              Registrarse
+            <button type="submit" className={styles.registerButton} onClick={handleRegisterClick}>
+              REGISTRATE
             </button>
           </form>
 
-      </div>
-      <div className={styles.rightContainer}>
-        <div className={styles.searchContainer}>
-          <input
-            type="text"
-            id="searchSubjects"
-            name="searchSubjects"
-            placeholder="Selecciona las materias de tu preferencia:"
-            className={styles.inputSearch}
-          />
-          <div className={styles.subjectResults}>
-            {/* Display search results here */}
-          </div>
         </div>
-        <div className={styles.selectedSubjectsContainer}>
-          {/* Display selected subjects here */}
+
+      </main>
+
+      {RecuadroError ? (
+        <div>
+          <button onClick={toggle}>
+            OKAY
+          </button>
+
         </div>
-      </div>
-    </div>
+      ) : null}
+
+    </>
+
+
   );
 };
 

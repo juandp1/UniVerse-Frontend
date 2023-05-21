@@ -39,7 +39,7 @@
   .welcomeText {
     font-size: 1.7rem;
     font-weight: 800;
-    margin-top: -5rem;
+    margin-top: -4rem;
     text-align: center;
   }
   
@@ -56,7 +56,7 @@
     background-color: #ffffff;
     width: 60%;
     position: absolute;
-    top: 50px;
+    top: 510px;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -70,33 +70,33 @@
     margin-bottom: 1rem;
   }
   
-  .inputUsername[type=text] {
-    width: 100%;
-    height: 45px;
-    padding: 12px 20px;
-    margin-top: 5px;
-    box-sizing: border-box;
-    background: #ffffff;
-    border: 2.72246px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
+  .inputUsername[type=text],
+  .inputEmail,
   .inputPassword {
     width: 100%;
     height: 45px;
-    padding: 12px 20px;
-    margin-top: 5px;
+    padding: 12px 10px;
+    margin-top: 3px;
     box-sizing: border-box;
     background: #ffffff;
-    border: 2.72246px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     cursor: pointer;
   }
+  .inputUsername.inputError[type=text] {
+    border-color: red;
+    background-color: #ffebee;
+  }
   
-  .formContainer > .inputGroup > input {
+  .inputError {
+    border-color: red;
+    background-color: #ffebee;
+  }
+  
+  .errorMessage {
+    color: red;
+    font-size: 0.8rem;
     margin-top: 0.5rem;
   }
   
@@ -112,19 +112,16 @@
     text-decoration: underline;
   }
   
-  .loginButtonGroup {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-  }
   
   .loginButton {
+    display: flex;
+    border-radius: 50px;
     background-color: #285f76;
     color: #ffffff;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
+    width: 160px;
+    height: 40px;
+    align-self: center;
+    margin-top: 1.5rem;
   }
   
   .registerContent {
@@ -149,7 +146,7 @@
     font-size: 1.7rem;
     font-weight: 800;
     color: #1d3752;
-    margin-top: 3rem;
+    margin-top: 2.7rem;
     margin-bottom: 1rem;
   }
   
@@ -175,7 +172,7 @@
     height: 35px;
     justify-content: center;
     align-items: center;
-    margin-top: 6.55rem;
+    margin-top: 7rem;
   }
   
   
