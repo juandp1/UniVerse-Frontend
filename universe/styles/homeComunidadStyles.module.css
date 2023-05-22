@@ -1,50 +1,64 @@
 .container {
     display: flex;
     justify-content: space-between;
-  }
-  
-  .rectangle {
+}
+
+.leftContainer {
+    background-color: #ffffff;
+    width: 50%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.rightContainer {
+    background-color: #ffffff;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.rectangle {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 10px;
     margin-right: 20px;
     min-width: 600px;
     min-height: 150px;
+    height: auto;
     background-color: #A9E9DF;
     border-radius: 30px;
-    margin: 50px;
-    width: 599px;
-    height: 146px;
-    left: 130px;
+    margin: 10px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
-  }
-  
-  .logo {
-    width: 30px;
-    height: 30px;
-    background-color: gray;
-    margin-right: 10px;
-  }
-  
-  
-  .rectangleButton {
+}
+
+.rectangleButton {
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50px;
     background-color: #285f76;
     color: #ffffff;
-    width: 120px;
+    min-width: 100px;
     min-height: 40px;
+    height: auto;
     align-self: flex-end;
     margin-top: auto;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 0 10px;
-  }
+    margin-bottom: auto;
+}
+
+
+
+
   
   
   /* Additional styles for the rest of the elements */

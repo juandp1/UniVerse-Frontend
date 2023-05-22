@@ -1,5 +1,7 @@
 import Head from "next/head";
 import * as Fiicon from 'react-icons/fi';
+import * as Bsicon from "react-icons/bs";
+import * as Faicon from 'react-icons/fa';
 import LateralNavBar from "universe/Component/LateralNavBar";
 import Navbar from "universe/Component/NavBar";
 import style from "/styles/homeComunidadStyles.module.css";
@@ -49,24 +51,46 @@ export default function HomeComunidad() {
                     </h2>
 
                     <div className={style.container}>
-                        <h3>Proximas reuniones</h3>
-                        <div className={style.rectangle}>
-                            <div className={style.logo}></div>
-                            <button onClick={Reuniones}>Apuntarse</button>
-                        </div>
-                        <h3>Ultimo tema añadido por el administrador de la comunidad</h3>
-                        <div className={style.rectangle}>
-                            <div className={style.logo}></div>
-                        
-                            <button onClick={Enciclopedia}>Ver tema y documentos añadidos</button>
-                        </div>
-                    </div>
+                        <div className={style.leftContainer}>
 
-                    <div className={style.container}>
-                    <h3>Ultima duda añadida</h3>
-                        <div className={style.rectangle}>
-                            <div className={style.logo}></div>
-                            <button onClick={Foro}>Ver</button>
+                            <div className="flex items-center justify-start space-x-3">
+                                <Bsicon.BsFillCameraVideoFill size={"60px"} color={colorIcon} />
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <h3 style={{ alignSelf: 'flex-start' }}>Proximas reuniones</h3>
+                                </div>
+                            </div>
+                            <div className={style.rectangle}>
+                                <button className={style.rectangleButton} onClick={Reuniones}>Apuntarse</button>
+                            </div>
+
+
+
+                            <div className="flex items-center justify-start space-x-3">
+                                <Bsicon.BsFillQuestionCircleFill size={"60px"} color={colorIcon} />
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <h3 style={{ alignSelf: 'flex-start' }}>Ultima duda añadida</h3>
+                                </div>
+                            </div>
+                            <div className={style.rectangle}>
+
+                                <button className={style.rectangleButton} onClick={Foro}>Ver</button>
+                            </div>
+                        </div>
+
+
+
+                        <div className={style.rightContainer}>
+
+                        <div className="flex items-center justify-start space-x-3">
+                                <Faicon.FaBookOpen size={"60px"} color={colorIcon} />
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <h3 style={{ alignSelf: 'flex-start' }}>Ultimo tema añadido por el administrador de la comunidad</h3>
+                                </div>
+                            </div>
+
+                            <div className={style.rectangle}>
+                                <button className={style.rectangleButton} onClick={Enciclopedia}>Ver tema y documentos añadidos</button>
+                            </div>
                         </div>
                     </div>
                 </div>
