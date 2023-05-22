@@ -6,15 +6,19 @@ import * as IoIcon from 'react-icons/io';
 import { useState } from "react";
 import { Formik, Form, Field } from 'formik';
 
-interface Comunidad{
-    nameComunidad:string
-    materia:string
-    descripcion:string 
+interface Comunidad {
+    nameComunidad: string
+    materia: string
+    descripcion: string
 }
 const colorIcon = "#61EB8D";
 
 export default function PestaniaComunidad() {
     const [showFormCrearComunidad, setShowFormCrearComunidad] = useState(false)
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState<Comunidad[]>([]);
+
+
     const statusShowFormCrearComunidad = () => setShowFormCrearComunidad(!showFormCrearComunidad)
 
     const toggle = () => {
@@ -22,6 +26,26 @@ export default function PestaniaComunidad() {
         blurMain?.classList.toggle("active")
         statusShowFormCrearComunidad()
     }
+
+    const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            //  API para buscar materias
+            const response = await fetch(`/api/search?query=${searchQuery}`);
+            const data = await response.json();
+
+            // Actualizar los resultados de materias
+            setSearchResults(data.results);
+        } catch (error) {
+            console.error("Error searching for subjects:", error);
+        }
+    };
+
     const crearComunidad = async (values: Comunidad) => {
         toggle()
     }
@@ -53,8 +77,8 @@ export default function PestaniaComunidad() {
                 </div>
 
             </main>
-            
-            {showFormCrearComunidad?(
+
+            {showFormCrearComunidad ? (
                 <div>
                     <Formik
                         initialValues={{
@@ -89,22 +113,36 @@ export default function PestaniaComunidad() {
 
                                     <div>
                                         <h5>Nombre de la comunidad:</h5>
-                                        <input name="NombreComunidad" type="text" placeholder="Nombre de la comunidad"
+                                        <input
+                                            name="nameComunidad"
+                                            type="text"
+                                            placeholder="Nombre de la comunidad"
                                             value={values.nameComunidad}
                                             onChange={handleChange}
                                         />
 
                                         <h5>Descripcion de la comunidad</h5>
-                                        <input name="descripcion" type="text" placeholder="Descripcion de la comunidad"
+                                        <input
+                                            name="descripcion"
+                                            type="text"
+                                            placeholder="Descripcion de la comunidad"
                                             value={values.descripcion}
                                             onChange={handleChange}
                                         />
-
-                                        <h5>Categoria o materia a la que se refiere la comunidad:</h5>
-                                        <input name="materia" type="text" placeholder="Buscar"
-                                            value={values.descripcion}
-                                            onChange={handleChange}
-                                        />
+                                            <h5>Categoria o materia a la que se refiere la comunidad:</h5>
+                                            <div className="searchInputWrapper">
+                                                <input
+                                                    name="materia"
+                                                    type="text"
+                                                    placeholder="Buscar"
+                                                    value={searchQuery}
+                                                    onChange={handleSearchQueryChange}
+                                                />
+                                                <button type="submit" className="searchButton">
+                                                    <IoIcon.IoIosSearch size={20} color="#fff" />
+                                                </button>
+                                                
+                                            </div>
 
 
                                     </div>
@@ -116,8 +154,6 @@ export default function PestaniaComunidad() {
                     </Formik>
                 </div>
             ) : null}
-            
         </>
-
-    )
+    );
 }
