@@ -4,26 +4,78 @@ import * as SlIcon from 'react-icons/sl';
 import * as BiIcon from 'react-icons/bi';
 import * as AiIcon from 'react-icons/ai';
 import * as RiIcon from 'react-icons/ri';
+import * as IoIcon from 'react-icons/io';
 import { useState } from "react";
 
 
-const unirseComunidad = () => {
+import { Formik } from "formik";
+import { useRouter } from 'next/router';
 
+
+interface Props {
+    idComunidad: number
+    comunityName: string;
+    descripcion: string;
+    editar: (id:number,nameComunidad: string, descripcion: string) => void;
 }
-function ComunidadRecuadro(props: { comunityName: string, descripcion: string }) {
+
+
+
+
+
+function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar }: Props) {
+
+    const router = useRouter();
     const [optionsComunity, setOptionsComunity] = useState(false)
     const stateOptionsComunity = () => setOptionsComunity(!optionsComunity)
+
+    const unirseComunidad = async () => {
+        try {
+            const res = await fetch('/api/enter_community', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({ id_Comunidad: idComunidad, id_user: localStorage.getItem('user_ID') })
+            });
+            if (res.ok) {
+                localStorage.setItem('comunidad', comunityName)
+                console.log(localStorage.getItem('comunidad'))
+                router.push('/HomeComunidad');
+            } else {
+                throw new Error('ha sucedido un error al entrar a la comunidad');
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+
+    }
+    const entrarComunidad = () => {
+        localStorage.setItem('comunidad', comunityName)
+        console.log(localStorage.getItem('comunidad'))
+        router.push('/HomeComunidad');
+    }
+
     return (
         <>
             <div className={style.comunidadRecuadro}>
                 <div className={style.encabezado}>
                     <div className="flex space-x-3 ">
                         <TbIcon.TbMathFunction size={"40px"} />
-                        <h2>{props.comunityName}</h2>
+                        <h2>{comunityName}</h2>
                     </div>
-                    <button onClick={unirseComunidad}>
-                        <h3>Unirse</h3>
-                    </button>
+                    <div className="flex space-x-3">
+                        <button onClick={entrarComunidad}>
+                            <h3>Entrar</h3>
+                        </button>
+                        <button onClick={unirseComunidad}>
+                            <h3>Unirse</h3>
+                        </button>
+
+                    </div>
+
 
                     <div className="space-y-4">
                         <div>
@@ -34,20 +86,20 @@ function ComunidadRecuadro(props: { comunityName: string, descripcion: string })
                             {optionsComunity ? (
                                 <div className="desplegableOptions right-4">
                                     <div className="flex space-x-3 items-center">
-                                        <BiIcon.BiInfoCircle size={"20px"} color="#34b83b"/>
+                                        <BiIcon.BiInfoCircle size={"20px"} color="#34b83b" />
                                         <h5>Informacion</h5>
                                     </div>
-                                    <div className="flex space-x-3 items-center">
-                                        <AiIcon.AiOutlineEdit size={"20px"} color="#e5964b"/>
+                                    <div className="flex space-x-3 items-center" onClick={() => editar(idComunidad,comunityName, descripcion)}>
+                                        <AiIcon.AiOutlineEdit size={"20px"} color="#e5964b" />
                                         <h5>Editar</h5>
                                     </div>
                                     <div className="flex space-x-3 items-center">
-                                        <BiIcon.BiExit size={"20px"} color="#cd3d49"/>
+                                        <BiIcon.BiExit size={"20px"} color="#cd3d49" />
                                         <h5>Abandonar</h5>
                                     </div>
-                                    
+
                                     <div className="flex space-x-3 items-center">
-                                        <RiIcon.RiDeleteBinLine size={"20px"} color="#cd3d49"/>
+                                        <RiIcon.RiDeleteBinLine size={"20px"} color="#cd3d49" />
                                         <h5>Eliminar</h5>
                                     </div>
 
@@ -63,9 +115,10 @@ function ComunidadRecuadro(props: { comunityName: string, descripcion: string })
 
                 </div>
                 <div className={style.descripcion}>
-                    <h5>{props.descripcion}</h5>
+                    <h5>{descripcion}</h5>
                 </div>
             </div>
+
         </>
     )
 }
