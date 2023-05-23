@@ -32,16 +32,16 @@ export default function Foro() {
                             )
                         })
                         */}
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
+                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/ForoPreguntas"}></TarjetaTemas>
+                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/ForoPreguntas"}></TarjetaTemas>
+                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/ForoPreguntas"}></TarjetaTemas>
+                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/ForoPreguntas"}></TarjetaTemas>
+                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/ForoPreguntas"}></TarjetaTemas>
+                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/ForoPreguntas"}></TarjetaTemas>
+                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/ForoPreguntas"}></TarjetaTemas>
+                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/ForoPreguntas"}></TarjetaTemas>
+                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/ForoPreguntas"}></TarjetaTemas>
+                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/ForoPreguntas"}></TarjetaTemas>
                     </div>
             </main>
 
