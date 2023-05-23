@@ -61,6 +61,14 @@ h5{ /*Texto normal*/
   font-size: 16px;
   
 }
+
+h6{ /*Texto normal negrilla blanco*/
+  color: #ffffff;
+  font-weight: 600;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  
+}
 label{
   color: #000000;
   font-weight: 400;

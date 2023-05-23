@@ -1,6 +1,6 @@
 
 import { Inter } from 'next/font/google'
-import Navbar from '../Component/NavBar'
+import NavbarHome from '../Component/NavBarHome'
 import Head from 'next/head';
 import style from "/styles/homeStyle.module.css";
 import LateralNavBar from 'universe/Component/LateralNavBar';
@@ -16,7 +16,7 @@ export default function Home() {
                 <title>Universe</title>
               </Head>
               <header>
-                <Navbar></Navbar>
+                <NavbarHome></NavbarHome>
                 {/*Agrego los componentes dentro del header*/}
               </header>
 
