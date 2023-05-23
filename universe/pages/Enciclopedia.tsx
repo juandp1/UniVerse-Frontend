@@ -152,14 +152,7 @@ export default function Enciclopedia() {
                                     </div>
 
                                     {/**segunda columna del formulario esi es necesario */}
-                                    <div>
-                                        <h5>Nombre del tema:</h5>
-                                        <input name="nombre_Tema" type="text" placeholder="nombre tema"
-                                            value={values.nombre_Tema}
-                                            onChange={handleChange}
-                                        />
-
-                                    </div>
+                                    
                                 </div>
                             </form>
                         )}

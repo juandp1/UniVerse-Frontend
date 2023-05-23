@@ -196,18 +196,18 @@ export default function PestaniaComunidad() {
                     </div>
 
                     <div className="flex flex-wrap justify-center">
-                        {Comunidades.map((item, index)=>{
+                        {/*Comunidades.map((item, index)=>{
                             return(
                                 <ComunidadRecuadro key={item.nameComunidad} idComunidad={item.id} comunityName={item.nameComunidad} descripcion={item.descripcion} editar={editar}></ComunidadRecuadro>
                             )
-                        })
+                        })*/
 
                         }
 
-                        <ComunidadRecuadro idComunidad={1} comunityName="FEM" descripcion="bueno esto es una prueba a ve como queda" editar={editar}></ComunidadRecuadro>
-                        <ComunidadRecuadro idComunidad={2} comunityName="Calculo Integral" descripcion="bueno esto es una prueba a ver como queda" editar={editar}></ComunidadRecuadro>
-                        <ComunidadRecuadro idComunidad={3} comunityName="Calculo Diferencial" descripcion="bueno esto es una prueba a ver como queda" editar={editar}></ComunidadRecuadro>
-                        <ComunidadRecuadro idComunidad={4} comunityName="Bases de Datos" descripcion="bueno esto es una prueba a ver como queda" editar={editar}></ComunidadRecuadro>
+                        <ComunidadRecuadro idComunidad={1} comunityName="FEM" descripcion="Descripcion de la comunidad Fem" editar={editar}></ComunidadRecuadro>
+                        <ComunidadRecuadro idComunidad={2} comunityName="Calculo Integral" descripcion="Descripcion de la comunidad Calculo integral" editar={editar}></ComunidadRecuadro>
+                        <ComunidadRecuadro idComunidad={3} comunityName="Calculo Diferencial" descripcion="Descripcion de la comunidad Calculo Diferencial " editar={editar}></ComunidadRecuadro>
+                        <ComunidadRecuadro idComunidad={4} comunityName="Bases de Datos" descripcion="Descripcion de la comunidad Base de datos" editar={editar}></ComunidadRecuadro>
                     </div>
 
                 </div>
