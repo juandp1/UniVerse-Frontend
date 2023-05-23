@@ -42,6 +42,8 @@ const Login = () => {
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem("token", data["access_token"]);
+        localStorage.setItem("user_ID", data["ID"]);
+
         router.push('/PestaniaComunidad'); // Redirect to PestaniaComunidad.tsx
       } else {
         throw new Error('El usuario/email y/o contraseña son incorrectos, intentelo de nuevo');

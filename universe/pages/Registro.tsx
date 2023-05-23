@@ -20,7 +20,7 @@ const Registro = () => {
     password: "",
     confirmPassword: "",
   };
-  
+
   const router = useRouter();
   const [RecuadroError, setRecuadroError] = useState(false)
   const statusShowRecuadroError = () => setRecuadroError(!RecuadroError)
@@ -41,10 +41,13 @@ const Registro = () => {
       .required("Campo requerido"),
   });
 
+  const handleRegisterClick = () => {
+  };
+
   const onSubmit = async (values: FormValues) => {
     // Perform authentication logic or send data to the server
     console.log(values);
-  
+
     try {
       const res = await fetch('https://decorisaserver.azurewebsites.net/api/login', {
         method: 'POST',
@@ -53,14 +56,14 @@ const Registro = () => {
         },
         body: JSON.stringify(values)
       });
-  
+
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem("token", data["access_token"]);
-        router.push('/Login'); // Redirect to PestaniaComunidad.tsx
-      } else if(res.status == 201) { //codigo de usuario ya existente 
+        handleRegisterClick // Redirect to PestaniaComunidad.tsx
+      } else if (res.status == 201) { //codigo de usuario ya existente 
         throw new Error('El usuario ingresado ya existe, intentelo de nuevo');
-      } else if(res.status == 201) { //codigo error de email ya existente 
+      } else if (res.status == 201) { //codigo error de email ya existente 
         throw new Error('El email ingresado ya existe, intentelo de nuevo');
       }
     } catch (error: any) {
@@ -75,16 +78,7 @@ const Registro = () => {
     onSubmit,
   });
 
-  const toggle = () => {
-    var blurMain = document.getElementById("main")
-    blurMain?.classList.toggle("active")
-    statusShowRecuadroError
 
-  }
-
-  const handleRegisterClick = () => {
-    router.push('/Login');
-  };
   return (
     <>
       <main id='main'>
@@ -176,15 +170,6 @@ const Registro = () => {
         </div>
 
       </main>
-
-      {RecuadroError ? (
-        <div>
-          <button onClick={toggle}>
-            OKAY
-          </button>
-
-        </div>
-      ) : null}
 
     </>
 
