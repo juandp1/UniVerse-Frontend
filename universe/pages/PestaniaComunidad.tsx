@@ -8,10 +8,13 @@ import { useState } from "react";
 import { Formik, Form, Field } from 'formik';
 
 interface Comunidad {
+
     id:number
     nameComunidad: string
     descripcion: string
     materia: string
+
+
 }
 const colorIcon = "#61EB8D";
 var comunityName: string
@@ -20,12 +23,39 @@ var id_community:number
 export default function PestaniaComunidad() {
 
 
+
     //VARIABLES USE STATE
     const [showFormCrearComunidad, setShowFormCrearComunidad] = useState(false)
     const statusShowFormCrearComunidad = () => {
         setShowFormCrearComunidad(!showFormCrearComunidad)
         toggle()
     }
+
+    
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState<Comunidad[]>([]);
+
+
+    const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            //  API para buscar materias
+            const response = await fetch(`/api/search?query=${searchQuery}`);
+            const data = await response.json();
+
+            // Actualizar los resultados de materias
+            setSearchResults(data.results);
+        } catch (error) {
+            console.error("Error searching for subjects:", error);
+        }
+    };
+
+
 
     const [formEditar, setformEditar] = useState(false)
     const stateformEditar = () => setformEditar(!formEditar)
@@ -223,22 +253,36 @@ export default function PestaniaComunidad() {
 
                                     <div>
                                         <h5>Nombre de la comunidad:</h5>
-                                        <input name="NombreComunidad" type="text" placeholder="Nombre de la comunidad"
+                                        <input
+                                            name="nameComunidad"
+                                            type="text"
+                                            placeholder="Nombre de la comunidad"
                                             value={values.nameComunidad}
                                             onChange={handleChange}
                                         />
 
                                         <h5>Descripcion de la comunidad</h5>
-                                        <input name="descripcion" type="text" placeholder="Descripcion de la comunidad"
+                                        <input
+                                            name="descripcion"
+                                            type="text"
+                                            placeholder="Descripcion de la comunidad"
                                             value={values.descripcion}
                                             onChange={handleChange}
                                         />
-
-                                        <h5>Categoria o materia a la que se refiere la comunidad:</h5>
-                                        <input name="materia" type="text" placeholder="Buscar"
-                                            value={values.descripcion}
-                                            onChange={handleChange}
-                                        />
+                                            <h5>Categoria o materia a la que se refiere la comunidad:</h5>
+                                            <div className="searchInputWrapper">
+                                                <input
+                                                    name="materia"
+                                                    type="text"
+                                                    placeholder="Buscar"
+                                                    value={searchQuery}
+                                                    onChange={handleSearchQueryChange}
+                                                />
+                                                <button type="submit" className="searchButton">
+                                                    <IoIcon.IoIosSearch size={20} color="#fff" />
+                                                </button>
+                                                
+                                            </div>
 
 
                                     </div>
@@ -316,6 +360,5 @@ export default function PestaniaComunidad() {
 
             }
         </>
-
-    )
+    );
 }
