@@ -1,5 +1,5 @@
 .square {
-    position: absolute;
+    position: relative;
     width: 524px;
     height: 358px;
 }
@@ -10,7 +10,6 @@
     right: 0%;
     top: 0%;
     bottom: 34.92%;
-    
     background: #A9E9DF;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px 30px 0px 0px;
@@ -22,7 +21,6 @@
     right: 0%;
     top: 65.08%;
     bottom: 0%;
-    
     background: #E8FFFB;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 0px 0px 30px 30px;
@@ -52,7 +50,6 @@
     font-size: 36px;
     line-height: 22px;
     /* or 61% */
-    
     display: flex;
     align-items: center;
     
@@ -92,3 +89,9 @@
     color: #000000;
     
 }
+.Detalles_Reunion{
+    display: grid;
+    grid-template-columns: 33% 33% 1fr;
+    max-width: 100%;
+}
+

@@ -22,6 +22,13 @@
 }
 
 /* Css para etiquetas de html*/
+
+html, body{
+  height:100%;
+  margin:0;
+  display: flex;
+  flex-direction: column;
+}
 h1{  /*Titulo principal*/
   color: #000000;
   font-weight: 700;
@@ -53,7 +60,14 @@ h5{ /*Texto normal*/
   font-family: 'Mulish', sans-serif;
   font-size: 16px;
   
+}
 
+h6{ /*Texto normal negrilla blanco*/
+  color: #ffffff;
+  font-weight: 600;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  
 }
 label{
   color: #000000;
@@ -65,7 +79,7 @@ label{
 
 main{
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   
 }
 
@@ -74,6 +88,8 @@ main#main.active{
   filter: brightness(50%);
   background-color: white;
   user-select: none;
+  width: 100%;
+  min-height: 100vh;
   
 }
 
@@ -119,7 +135,7 @@ form div#encabezado div{
 form div#inputs{
   display: flex;
   padding: 30px;
-  width: 100%;
+  min-width: 100%;
   min-height: 300px;
   max-height: auto;
   background-color: #E8FFFB;
@@ -130,15 +146,17 @@ form div#inputs{
 }
 
 form div#inputs div{
-  max-width: auto;
+  width: 100%;
   min-width: 50%;
+  
 }
 
 
 input[type=text],input[type=number], input[type=date], input[type=time], input[type=month]{
-  width: 350px;
+  min-width: 100px;
+  width: 95%;
   height: 45px;
-  padding: 12px 20px;
+  padding:12px;
   margin-top: 5px;
   box-sizing: border-box;
   background: #FFFFFF;
@@ -148,6 +166,8 @@ input[type=text],input[type=number], input[type=date], input[type=time], input[t
   cursor:pointer;
   
 }
+
+
 button[type=submit]{
   display: flex;
   border-radius: 50px;
@@ -165,31 +185,7 @@ button:hover{
   background-color: #1D3752;
 }
 
-
 /* Css creados para toda las las paginas*/
-.principal_Content{
-  position: relative;
-  height: 80%;
-  width:100%;
-  padding-top: 100px;
-  padding-left: 80px;
-  
-  
-}
-
-main{
-  width: 100%;
-  height: 100%;
-  
-}
-
-main#main.active{
-  filter: blur(3px);
-  filter: brightness(50%);
-  background-color: white;
-  user-select: none;
-  
-}
 
 button {
   display: flex;
@@ -201,19 +197,20 @@ button {
   align-items: center;
   
 }
-button h3{
-  color: white;
-}
-button:hover{
-  background-color: #1D3752;
-}
+
+
+
+/* Css creados para toda las las paginas*/
 .principal_Content{
   position: relative;
   height: 80%;
   width:100%;
-  padding-top: 100px;
-  padding-left: 80px;
+  padding-top: 120px;
+  padding-left: 100px;
+
+
 }
+
 .principal_Content_withoutLateralNavbar{
   position: relative;
   height: 80%;
@@ -278,4 +275,43 @@ button:hover{
   height: 90px;
 
 }
+
+
+.searchInputContainer {
+  margin-top: 10px;
+}
+
+.searchInputWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.searchInputWrapper input {
+  width: 350px;
+  height: 45px;
+  padding: 12px 20px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 2.72246px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  cursor:pointer;
+}
+
+.searchButton[type=submit] {
+  width: 50px;
+  height: 35px; 
+  align-items: center;
+  justify-content: center;
+  background-color: #285F76;
+  color: #fff;
+  border: 2.72246px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
+  margin-top: 5px;
+  margin-left: 8px; 
+  padding: 4px 8px; 
+  cursor: pointer;
+}
+
 

@@ -1,0 +1,66 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import * as TiIcon from 'react-icons/ti';
+import style from "/styles/NavBarsStyles.module.css";
+import Image from 'next/image';
+
+
+function NavbarHome() {
+
+    const router = useRouter();
+
+    const handleRegisterClick = () => {
+    router.push('/Registro');
+    };
+
+    const handleLoginClick = () => {
+    router.push('/Login');
+    };
+
+
+    return (
+        <>
+            <nav className={style.NavBar}>
+
+
+
+
+                <div className='w-auto px-5'>
+                    <Image src="/images/universelogo.png"
+                        width={130}
+                        height={70}
+
+                        alt="logo"
+                        priority
+                    />
+                </div>
+                <div className="flex grow space-x-3 ">
+                    <div className={style.button_NavBar}>
+
+                        <Link href="/PestaniaComunidad" className='flex space-x-3 '>
+                            <TiIcon.TiGroup size={"25px"} />
+                            <h4>Comunidades</h4>
+                        </Link>
+
+                    </div>
+
+                </div>
+
+                <div className="w-auto flex space-x-3 content-center">
+                        <button onClick={handleRegisterClick}>
+                            <h6 style={{ color: '#fffff'}}>REGISTRARSE</h6>
+                        </button>
+
+                        <button onClick={handleLoginClick}>
+                            <h6 style={{ color: '#fffff' }}>INICIAR SESIÓN</h6>
+                        </button>
+                
+
+                </div>
+            </nav>
+
+        </>
+    )
+}
+
+export default NavbarHome

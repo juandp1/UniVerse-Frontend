@@ -49,14 +49,14 @@ function Navbar() {
                     <h4>Nombre de usuario</h4>
                     <FaIcon.FaUserCircle size={"25px"} />
 
-                    <RxIcon.RxTriangleDown size={"20px"} onClick={stateMenuDesplegable} />
+                    <RxIcon.RxTriangleDown size={"20px"} onClick={stateMenuDesplegable} className='cursor-pointer hover:bg-light_blue_hover'/>
 
 
                     {/* se verifica si es verdadedo el menu desplegable, y si asi es se ejecuta el html en el return*/}
                     {/*si es falso va a null y no muestra nada*/}
                     {menuDesplegable ? (
 
-                        <div className='desplegableOptions '>
+                        <div className='desplegableOptions absolute top-16 '>
                             <div>
 
 

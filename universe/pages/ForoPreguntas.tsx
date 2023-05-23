@@ -39,28 +39,42 @@ export default function ForoPreguntas() {
                 <title>Universe</title>
             </Head>
 
-            <main id='main'>
+
+            <main>
                 <Navbar></Navbar>
                 <LateralNavBar></LateralNavBar>
-                {/*Agrego los componentes dentro del header*/}
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <img src="./images/foro.png" alt="camera" className={style.img}/>
-                    <div>
-                        <h1 className={style.title_tema}>Nombre del tema</h1>
+                <div className='principal_Content'>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img src="./images/foro.png" alt="camera" className={style.img} />
+                        <div>
+                            <h1 className={style.title_tema}>Nombre del tema</h1>
+                        </div>
+
                     </div>
-                </div>
-                <div className={style.scroll_container}>
-                    <PreguntaForo></PreguntaForo>
-                    <PreguntaForo></PreguntaForo>
-                    <PreguntaForo></PreguntaForo>
-                    <PreguntaForo></PreguntaForo>
+                    <div className={style.scroll_container}>
+                        <PreguntaForo></PreguntaForo>
+                        <PreguntaForo></PreguntaForo>
+                        <PreguntaForo></PreguntaForo>
+                        <PreguntaForo></PreguntaForo>
+
+                    </div>
+
+                    <Link href='/CrearPregunta' className={style.add}>
+                        <img src="./images/add.png" alt="add" className={style.add_image} />
+                        <h1 className={style.add_text}>Crear nueva duda</h1>
+                    </Link>
+
 
                 </div>
+
 
                 <div className={style.add} onClick={toggle}>
                     <img src="./images/add.png" alt="add" className={style.add_image}/>
                     <h1 className={style.add_text}>Crear nueva duda</h1>
                 </div>
+
+
+
             </main>
 
             {showFormCrearPregunta ? (
