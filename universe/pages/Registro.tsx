@@ -22,8 +22,6 @@ const Registro = () => {
   };
 
   const router = useRouter();
-  const [RecuadroError, setRecuadroError] = useState(false)
-  const statusShowRecuadroError = () => setRecuadroError(!RecuadroError)
 
   const validationSchema = Yup.object({
     username: Yup.string()
