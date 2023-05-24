@@ -94,13 +94,11 @@
 }
 
 .scroll_container {
-    overflow-y: scroll; /* Habilita el desplazamiento vertical */
     position: relative;
-    width: 80%;
+    overflow-y: scroll; /* Habilita el desplazamiento vertical */
+    width: 95%;
+    top:100px;
     height: 58vh; /* Utiliza el 60% del alto de la ventana */
-    left: 50%; /* Centra horizontalmente */
-    top: 55%; /* Centra verticalmente */
-    transform: translate(-50%, -50%); /* Ajusta la posición al centro */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 30px;
     background-color: aliceblue;

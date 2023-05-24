@@ -15,6 +15,8 @@ interface Pregunta {
     descripcion_pregunta: String;
 }
 
+const colorIcon = "#61EB8D"
+
 export default function ForoPreguntas() {
 
     const [showFormCrearPregunta, setShowFormCrearPregunta] = useState(false)
@@ -44,13 +46,13 @@ export default function ForoPreguntas() {
                 <Navbar></Navbar>
                 <LateralNavBar></LateralNavBar>
                 <div className='principal_Content'>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div className="flex space-x-3">
                         <img src="./images/foro.png" alt="camera" className={style.img} />
-                        <div>
-                            <h1 className={style.title_tema}>Nombre del tema</h1>
-                        </div>
-
+                        <h1 className={style.title_tema}>Nombre del tema</h1>
+                        
                     </div>
+
+
                     <div className={style.scroll_container}>
                         <PreguntaForo></PreguntaForo>
                         <PreguntaForo></PreguntaForo>
@@ -59,19 +61,13 @@ export default function ForoPreguntas() {
 
                     </div>
 
-                    <Link href='/CrearPregunta' className={style.add}>
-                        <img src="./images/add.png" alt="add" className={style.add_image} />
-                        <h1 className={style.add_text}>Crear nueva duda</h1>
-                    </Link>
-
 
                 </div>
 
 
-                <div className={style.add} onClick={toggle}>
-                    <img src="./images/add.png" alt="add" className={style.add_image}/>
-                    <h1 className={style.add_text}>Crear nueva duda</h1>
-                </div>
+                <div className="button_crear" onClick={toggle}>
+                        <IoIcon.IoMdAdd size={'80px'} color={colorIcon} />
+                    </div>
 
 
 
@@ -120,7 +116,7 @@ export default function ForoPreguntas() {
                                     </div>
                                 </div>
 
-                                <div id="inputs">                  
+                                <div id="inputs">
 
                                     <div>
                                         <h5>Descripción detallada de la pregunta:</h5>
