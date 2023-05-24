@@ -1,5 +1,5 @@
 import Head from "next/head";
-import * as Fiicon from 'react-icons/fi';
+import * as Fcicon from 'react-icons/fc';
 import * as Bsicon from "react-icons/bs";
 import * as Faicon from 'react-icons/fa';
 import LateralNavBar from "universe/Component/LateralNavBar";
@@ -35,65 +35,66 @@ export default function HomeComunidad() {
                 <LateralNavBar></LateralNavBar>
                 <div className="principal_Content">
                     <div className="flex items-center justify-start space-x-3">
-                        <Fiicon.FiDatabase size={"100px"} color={colorIcon} />
+                        <Bsicon.BsFillLightningFill size={"100px"} color={colorIcon} />
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <h2 style={{ alignSelf: 'flex-start' }}>Bases de datos</h2>
+                            <h2 style={{ alignSelf: 'flex-start' }}>Fundamentos de electricidad y magnetismo</h2>
                             <h4 style={{ alignSelf: 'flex-start' }}>Categoría/materia: (Categoría de la comunidad)</h4>
                         </div>
                     </div>
 
-                    <h6 style={{ alignSelf: 'flex-start', marginTop: '15px', marginLeft: '10px' }}>
+                    <h3 style={{ alignSelf: 'flex-start', marginTop: '15px', marginLeft: '10px' }}>
                         Descripción: (Descripción de la comunidad)
-                    </h6>
+                    </h3>
+
 
                     <h2 style={{ alignSelf: 'flex-start', marginTop: '20px', marginLeft: '10px' }}>
                         Novedades
                     </h2>
+                </div>
+                <div className={style.container}>
+                    <div className={style.leftContainer}>
 
-                    <div className={style.container}>
-                        <div className={style.leftContainer}>
-
-                            <div className="flex items-center justify-start space-x-3">
-                                <Bsicon.BsFillCameraVideoFill size={"60px"} color={colorIcon} />
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <h3 style={{ alignSelf: 'flex-start' }}>Proximas reuniones</h3>
-                                </div>
+                        <div className="flex items-center justify-start space-x-3">
+                            <Bsicon.BsFillCameraVideoFill size={"60px"} color={colorIcon} />
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <h3 style={{  textAlign: 'center' }}>Proximas reuniones</h3>
                             </div>
-                            <div className={style.rectangle}>
-                                <button className={style.rectangleButton} onClick={Reuniones}>Apuntarse</button>
-                            </div>
-
-
-
-                            <div className="flex items-center justify-start space-x-3">
-                                <Bsicon.BsFillQuestionCircleFill size={"60px"} color={colorIcon} />
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <h3 style={{ alignSelf: 'flex-start' }}>Ultima duda añadida</h3>
-                                </div>
-                            </div>
-                            <div className={style.rectangle}>
-
-                                <button className={style.rectangleButton} onClick={Foro}>Ver</button>
-                            </div>
+                        </div>
+                        <div className={style.rectangle}>
+                            <button className={style.rectangleButton} onClick={Reuniones}>Apuntarse</button>
                         </div>
 
 
 
-                        <div className={style.rightContainer}>
+                        <div className="flex items-center justify-start space-x-3">
+                            <Bsicon.BsFillQuestionCircleFill size={"60px"} color={colorIcon} />
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <h3 style={{ textAlign: 'center' }}>Ultima duda añadida</h3>
+                            </div>
+                        </div>
+                        <div className={style.rectangle}>
+
+                            <button className={style.rectangleButton} onClick={Foro}>Ver</button>
+                        </div>
+                    </div>
+
+
+
+                    <div className={style.rightContainer}>
 
                         <div className="flex items-center justify-start space-x-3">
-                                <Faicon.FaBookOpen size={"60px"} color={colorIcon} />
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <h3 style={{ alignSelf: 'flex-start' }}>Ultimo tema añadido por el administrador de la comunidad</h3>
-                                </div>
+                            <Faicon.FaBookOpen size={"70px"} color={colorIcon} />
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <h3 style={{ textAlign: 'center' }}>Ultimo tema añadido por el administrador de la comunidad</h3>
                             </div>
+                        </div>
 
-                            <div className={style.rectangle}>
-                                <button className={style.rectangleButton} onClick={Enciclopedia}>Ver tema y documentos añadidos</button>
-                            </div>
+                        <div className={style.rectangle}>
+                            <button className={style.rectangleButton} onClick={Enciclopedia}>Ver tema y documentos añadidos</button>
                         </div>
                     </div>
                 </div>
+
             </main>
         </>
     )

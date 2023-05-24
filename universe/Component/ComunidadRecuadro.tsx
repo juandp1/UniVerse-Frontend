@@ -4,11 +4,8 @@ import * as SlIcon from 'react-icons/sl';
 import * as BiIcon from 'react-icons/bi';
 import * as AiIcon from 'react-icons/ai';
 import * as RiIcon from 'react-icons/ri';
-import * as IoIcon from 'react-icons/io';
+import * as Bsicon from "react-icons/bs";
 import { useState } from "react";
-
-
-import { Formik } from "formik";
 import { useRouter } from 'next/router';
 
 
@@ -63,7 +60,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar }: P
             <div className={style.comunidadRecuadro}>
                 <div className={style.encabezado}>
                     <div className="flex space-x-3 ">
-                        <TbIcon.TbMathFunction size={"40px"} />
+                        <Bsicon.BsFillLightningFill size={"40px"} />
                         <h2>{comunityName}</h2>
                     </div>
                     <div className="flex space-x-3">

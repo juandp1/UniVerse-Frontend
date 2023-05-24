@@ -35,14 +35,6 @@ function NavbarHome() {
                     />
                 </div>
                 <div className="flex grow space-x-3 ">
-                    <div className={style.button_NavBar}>
-
-                        <Link href="/PestaniaComunidad" className='flex space-x-3 '>
-                            <TiIcon.TiGroup size={"25px"} />
-                            <h4>Comunidades</h4>
-                        </Link>
-
-                    </div>
 
                 </div>
 

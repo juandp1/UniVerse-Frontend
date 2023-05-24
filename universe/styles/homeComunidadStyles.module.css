@@ -12,6 +12,7 @@
     align-items: center;
     padding: 2rem;
     position: relative;
+    margin-left: 45px;
 }
 
 .rightContainer {
@@ -21,7 +22,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 7rem;
     position: relative;
 }
 
@@ -30,13 +31,12 @@
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    margin-right: 20px;
     min-width: 600px;
     min-height: 150px;
     height: auto;
     background-color: #A9E9DF;
     border-radius: 30px;
-    margin: 10px;
+    margin: 20px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
 }
@@ -54,6 +54,7 @@
     align-self: flex-end;
     margin-top: auto;
     margin-bottom: auto;
+    
 }
 
 
