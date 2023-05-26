@@ -287,7 +287,7 @@ button {
 }
 
 .searchInputWrapper input {
-  width: 350px;
+  width: 640px;
   height: 45px;
   padding: 12px 20px;
   margin-top: 5px;
@@ -308,6 +308,7 @@ button {
   color: #fff;
   border: 2.72246px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
   margin-top: 5px;
   margin-left: 8px; 
   padding: 4px 8px; 
