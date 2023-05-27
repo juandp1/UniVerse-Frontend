@@ -316,3 +316,25 @@ button {
 }
 
 
+
+@media (max-width: 767px) {
+
+  .principal_Content{
+    position: relative;
+    height: 80%;
+    width:100%;
+    padding-top: 120px;
+    padding-left: 65px;
+    align-items: center;
+
+
+  }
+
+  .mobile.Only{
+
+
+    
+  }
+}
+
+
