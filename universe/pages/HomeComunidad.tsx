@@ -6,10 +6,30 @@ import LateralNavBar from "universe/Component/LateralNavBar";
 import Navbar from "universe/Component/NavBar";
 import style from "/styles/homeComunidadStyles.module.css";
 import { useRouter } from 'next/router';
+import { useEffect, useState } from "react";
 
 const colorIcon = "#61EB8D"
 
 export default function HomeComunidad() {
+
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth < 768); // Adjust the breakpoint as needed
+      };
+  
+      handleResize(); // Initial check
+  
+      window.addEventListener('resize', handleResize);
+  
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+
+    
     const router = useRouter();
 
     const Reuniones = () => {
@@ -34,8 +54,8 @@ export default function HomeComunidad() {
                 <Navbar></Navbar>
                 <LateralNavBar></LateralNavBar>
                 <div className="principal_Content">
-                    <div className="flex items-center justify-start space-x-3">
-                        <Bsicon.BsFillLightningFill size={"100px"} color={colorIcon} />
+                    <div className={`flex items-center ${isMobile ? 'justify-center' : 'justify-start'} space-x-3`}>
+                        <Bsicon.BsFillLightningFill size={"100px"} color={colorIcon}/>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <h2 style={{ alignSelf: 'flex-start' }}>Fundamentos de electricidad y magnetismo</h2>
                             <h4 style={{ alignSelf: 'flex-start' }}>Categoría/materia: (Categoría de la comunidad)</h4>
@@ -50,7 +70,7 @@ export default function HomeComunidad() {
                     <h2 style={{ alignSelf: 'flex-start', marginTop: '20px', marginLeft: '10px' }}>
                         Novedades
                     </h2>
-                </div>
+                
                 <div className={style.container}>
                     <div className={style.leftContainer}>
 
@@ -74,7 +94,7 @@ export default function HomeComunidad() {
                         </div>
                         <div className={style.rectangle}>
 
-                            <button className={style.rectangleButton} onClick={Foro}>Ver</button>
+                            <button className={style.rectangleButton} onClick={Foro}>Ver duda</button>
                         </div>
                     </div>
 
@@ -85,12 +105,13 @@ export default function HomeComunidad() {
                         <div className="flex items-center justify-start space-x-3">
                             <Faicon.FaBookOpen size={"70px"} color={colorIcon} />
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <h3 style={{ textAlign: 'center' }}>Ultimo tema añadido por el administrador de la comunidad</h3>
+                                <h3 style={{ textAlign: 'center' }}>Ultimo tema añadido</h3>
                             </div>
                         </div>
 
                         <div className={style.rectangle}>
-                            <button className={style.rectangleButton} onClick={Enciclopedia}>Ver tema y documentos añadidos</button>
+                                <button className={style.rectangleButton} onClick={Enciclopedia}>Ver tema</button>
+                            </div>
                         </div>
                     </div>
                 </div>
