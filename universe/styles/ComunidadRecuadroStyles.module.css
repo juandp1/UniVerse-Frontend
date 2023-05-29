@@ -31,3 +31,48 @@
     word-wrap: break-word;
     text-align: start;
 }
+
+
+
+.comunidadPerfil{
+    width: 97%;
+    height: 170px;
+    background-color: #A9E9DF;
+    border-radius: 30px;
+    margin: 20px;
+    margin-left: 0px;
+    
+}
+
+
+.encabezadoPerfil{
+    display: grid;
+    position: relative;
+    grid-template-columns: 60% 37% 6%;
+    width: 100%;
+    height: 60px;
+    background-color: #E8FFFB;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    padding: 15px;
+    padding-left: 30px;
+    padding-right: 10px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.rectangleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    background-color: #285f76;
+    color: #ffffff;
+    width: 300px;
+    min-height: 30px;
+    height: auto;
+    align-self: flex-end;
+    margin-top: auto;
+    margin-bottom: auto;
+    
+}
