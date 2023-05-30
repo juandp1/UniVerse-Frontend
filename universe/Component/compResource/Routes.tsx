@@ -29,7 +29,7 @@ export const Routes =[
     },
     {
         title:'Inicio',
-        path:'/',
+        path:'/HomeComunidad',
         icon: <Aiicon.AiFillHome size={sizeIcon} color={colorIcon}/>,
         cName:className
     },
