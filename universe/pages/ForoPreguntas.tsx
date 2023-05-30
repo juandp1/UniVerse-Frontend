@@ -9,10 +9,11 @@ import * as IoIcon from 'react-icons/io';
 import * as HiIcon from 'react-icons/hi';
 import { useState } from "react";
 import { Formik } from 'formik'
+import * as Yup from "yup";
 
 interface Pregunta {
-    titulo_pregunta: String,
-    descripcion_pregunta: String;
+    tituloPregunta: String,
+    descripcionPregunta: String;
 }
 
 const colorIcon = "#61EB8D"
@@ -32,9 +33,39 @@ export default function ForoPreguntas() {
         statusShowFormCrearPregunta()
     }
     const CrearPregunta = async (values: Pregunta) => {
-        console.log(values)
+        /**funcion para la creacion de una pregunta en el backend */
+        fetch('https://decorisaserver.azurewebsites.net/api/pedido', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify(values)
+
+        })
+            .then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response))
+            .then(() => {
+
+
+                //setShowFormCrearPedido(false)
+                //setIsLoading(false)
+            })
+
+
         toggle()
     }
+
+    const validationSchema = Yup.object({
+        tituloPregunta: Yup.string()
+          .max(40, "El título de la pregunta no debe sobrepasar los 30 caracteres")
+          .required("Campo requerido"),
+        descripcionPregunta: Yup.string()
+          .max(100, "La descripción de la pregunta no debe sobrepasar los 100 caracteres")
+          .required("Campo requerido"),
+      });
+
     return (
         <>
             <Head>
@@ -78,8 +109,8 @@ export default function ForoPreguntas() {
 
                     <Formik
                         initialValues={{
-                            titulo_pregunta: '',
-                            descripcion_pregunta: ''
+                            tituloPregunta: '',
+                            descripcionPregunta: ''
 
                         }}
                         onSubmit={async (values) => {
@@ -108,8 +139,8 @@ export default function ForoPreguntas() {
                                 <div id="inputs">
                                     <div>
                                         <h5>Título de la pregunta:</h5>
-                                        <input name="titulo_pregunta" type="text" placeholder="titulo Pregunta"
-                                            value={values.titulo_pregunta}
+                                        <input name="tituloPregunta" type="text" placeholder="titulo Pregunta"
+                                            value={values.tituloPregunta}
                                             onChange={handleChange}
                                         />
 
@@ -120,8 +151,8 @@ export default function ForoPreguntas() {
 
                                     <div>
                                         <h5>Descripción detallada de la pregunta:</h5>
-                                        <input name="descripcion_pregunta" type="text" placeholder="descripcion Pregunta"
-                                            value={values.descripcion_pregunta}
+                                        <input name="descripcionPregunta" type="text" placeholder="descripcion Pregunta"
+                                            value={values.descripcionPregunta}
                                             onChange={handleChange}
                                         />
 
