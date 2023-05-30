@@ -59,30 +59,35 @@ export default function DocumentosTema() {
                 <div className="principal_Content">
 
                     <div className="flex items-center justify-start space-x-3">
-                        <HiIcon.HiDocument size={"100px"} color={colorIcon} />
+                        <HiIcon.HiDocumentText size={"100px"} color={colorIcon} />
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <h2 style={{ alignSelf: 'flex-start' }}>Documentos</h2>
                             <h5 style={{ alignSelf: 'flex-start' }}>Selecciona los documentos que quieras ver del tema que seleccionaste</h5>
                         </div>
                     </div>
-                    <div className="flex flex-wrap "  style={{marginTop: '15px'}}>
+                    <div className="flex flex-wrap " style={{ marginTop: '15px' }}>
                         {/*Temas.map((item,index)=>{
                             return(
                                 <TarjetaTemas name={item.nombreTema} ruta={"/DocumentosTema"}></TarjetaTemas>
                             )
                         })
                         */}
-                        <TarjetaDocumento idDocument={1} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
-                        <TarjetaDocumento idDocument={2} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
-                        <TarjetaDocumento idDocument={3} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
-                        <TarjetaDocumento idDocument={4} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
-                        <TarjetaDocumento idDocument={5} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
-                        <TarjetaDocumento idDocument={6} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
-                        <TarjetaDocumento idDocument={7} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={1} DocumentName="Libro 1" descripcion="Descripcion del documento" docType={"libro"}></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={2} DocumentName="Ejercicio 1.2" descripcion="Descripcion del documento" docType={"ejercicio"}></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={3} DocumentName="Parcial 1" descripcion="Descripcion del documento" docType={"examen"}></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={4} DocumentName="Ejercicio 2.1" descripcion="Descripcion del documento" docType={"ejercicio"}></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={5} DocumentName="Parcial 2" descripcion="Descripcion del documento" docType={"examen"}></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={6} DocumentName="Libro 2" descripcion="Descripcion del documento" docType={"libro"}></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={7} DocumentName="Ejercicio pre-parcial" descripcion="Descripcion del documento" docType={"ejercicio"}></TarjetaDocumento>
                     </div>
-
-                    <div className="button_crear" onClick={toggle}>
-                        <HiIcon.HiDocument size={'80px'} color={colorIcon} />
+                    <div className="corner_Content">
+                    <div className="flex items-center justify-end space-x-3">
+                        
+                        <h3>Añadir nuevo documento</h3>
+                        <div className="button_crear" onClick={toggle}>
+                            <HiIcon.HiOutlineDocumentAdd size={'60px'} color={colorIcon} />
+                        </div>
+                        </div>
                     </div>
                 </div>
                 {/**aqui empieza el formulario que aparecera sobre todo el contenido de la pagina en ese momento */}
