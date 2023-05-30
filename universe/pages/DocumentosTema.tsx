@@ -4,9 +4,8 @@ import * as IoIcon from 'react-icons/io';
 import * as HiIcon from 'react-icons/hi';
 import LateralNavBar from "universe/Component/LateralNavBar";
 import Navbar from "universe/Component/NavBar";
-import TarjetaTemas from "universe/Component/TarjetaTemas";
 import { useState } from "react";
-import { Formik } from 'formik'
+import { Formik } from 'formik';
 import TarjetaDocumento from "universe/Component/TarjetaDocumento";
 
 
@@ -22,7 +21,7 @@ export default function DocumentosTema() {
     const [Documentos, setDocumentos] = useState([{
         nombreDocumentos: ''
     }])
-    
+
     const toggle = () => {
         var blurMain = document.getElementById("main")
         blurMain?.classList.toggle("active")
@@ -59,24 +58,27 @@ export default function DocumentosTema() {
                 <LateralNavBar></LateralNavBar>
                 <div className="principal_Content">
 
-                    <div className="flex space-x-3">
-                        <HiIcon.HiDocument size={"60px"} color={colorIcon} />
-                        <h1>Documentos</h1>
+                    <div className="flex items-center justify-start space-x-3">
+                        <HiIcon.HiDocument size={"100px"} color={colorIcon} />
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <h2 style={{ alignSelf: 'flex-start' }}>Documentos</h2>
+                            <h5 style={{ alignSelf: 'flex-start' }}>Selecciona los documentos que quieras ver del tema que seleccionaste</h5>
+                        </div>
                     </div>
-                    <div className="flex flex-wrap ">
+                    <div className="flex flex-wrap "  style={{marginTop: '15px'}}>
                         {/*Temas.map((item,index)=>{
                             return(
                                 <TarjetaTemas name={item.nombreTema} ruta={"/DocumentosTema"}></TarjetaTemas>
                             )
                         })
                         */}
-                        <TarjetaDocumento name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaDocumento>
-                        <TarjetaDocumento name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaDocumento>
-                        <TarjetaDocumento name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaDocumento>
-                        <TarjetaDocumento name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaDocumento>
-                        <TarjetaDocumento name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaDocumento>
-                        <TarjetaDocumento name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaDocumento>
-                        <TarjetaDocumento name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={1} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={2} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={3} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={4} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={5} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={6} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
+                        <TarjetaDocumento idDocument={7} DocumentName="Libro serway" descripcion="Descripcion del documento"></TarjetaDocumento>
                     </div>
 
                     <div className="button_crear" onClick={toggle}>

@@ -22,13 +22,13 @@
 .tarjeta_icono{
     position:relative;
     width: 60%;
-    top:-80%;
+    top:-47%;
     
     
 }
 .tarjeta_Temas:hover{
-    width: 265px;
-    height:285px;
+    width: 255px;
+    height:193px;
     
 
 }
@@ -36,7 +36,7 @@
     position: relative;
     background-color: #A9E9DF;
     width: 100%;
-    height:55%;
+    height:25%;
     border-radius: 5px;
     padding: 15px;
     word-wrap: break-word;
@@ -45,7 +45,19 @@
 }
 .tarjeta_select:hover{
     
-    background-color: #cee9e4;
+    background-color: #a9e9dfcb;
     cursor: pointer;
     
+}
+
+.descripcion{
+    width:100%;
+    height: 12px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 15px;
+    padding-left: 50px;
+    background-color: #A9E9DF;
+    word-wrap: break-word;
+    text-align: start;
 }
