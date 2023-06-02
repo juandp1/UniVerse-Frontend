@@ -20,7 +20,7 @@ interface Reunion {
 }
 const colorIcon = "#61EB8D";
 
-export default function Reunion() {
+export default function Reuniones() {
     const [showFormCrearReunion, setShowFormCrearReunion] = useState(false)
     const statusShowFormCrearReunion = () => setShowFormCrearReunion(!showFormCrearReunion)
     const [Reuniones, setReuniones] = useState([{
@@ -115,17 +115,16 @@ export default function Reunion() {
             />
             <h1>Reuniones</h1>
           </div>
-          <div className="flex flex wrap space-x-10">
-            <Link href="/ProximasReuniones" style={{}}>
+          <div className="flex justify-center space-x-10" style={{ gap:'130px'}}>
+            <Link href="/ProximasReuniones">
               <TipoReunion titulo="Próximas reuniones"></TipoReunion>
             </Link>
-            <Link href="/ReunionesAnteriores" style={{}}>
+            <Link href="/ReunionesAnteriores">
               <TipoReunion titulo="Reuniones anteriores"></TipoReunion>
             </Link>
-
-            <div className="button_crear" onClick={toggle}>
-              <IoIcon.IoMdAdd size={"80px"} color={colorIcon} />
-            </div>
+          </div>
+          <div className="button_crear" onClick={toggle}>
+            <IoIcon.IoMdAdd size={"80px"} color={colorIcon} />
           </div>
         </div>
         {/*Agrego los componentes dentro del header*/}
