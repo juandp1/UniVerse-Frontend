@@ -73,7 +73,7 @@ export default function ForoPreguntas() {
             </Head>
 
 
-            <main>
+            <main id='main'>
                 <Navbar></Navbar>
                 <LateralNavBar></LateralNavBar>
                 <div className='principal_Content'>

@@ -16,6 +16,18 @@ function PreguntaForo():JSX.Element{
 total a través de cualquier superficie cerrada es proporcional a la carga neta encerrada dentro de esa superficie. Matemáticamente, la ley de Gauss
 se expresa como: S E·dA = Q/ε0 donde ∮S representa la integral de superficie cerrada, E es el campo eléctrico en la superficie S, dA es un elemento de
 área en la superficie S, Q es la carga neta encerrada dentro de la superficie S y ε0 es la constante dieléctrica del vacío. ... Leer más</p>
+                    
+                    <div className={style.votos}>
+                        <div className={style.upvote}>
+                            <img src="./images/upvote.png" alt="upvote" className={style.img_votos} />
+                            <h1 className={style.count_text}>10</h1>
+                        </div>
+                        <div className={style.downvote}>
+                            <img src="./images/downvote.png" alt="downvote" className={style.img_votos} />
+                            <h1 className={style.count_text}>02</h1>
+                        </div>
+                    </div>
+
 
                 </div>
                 <div className={style.respuesta}>
@@ -25,6 +37,16 @@ se expresa como: S E·dA = Q/ε0 donde ∮S representa la integral de superficie
 total a través de cualquier superficie cerrada es proporcional a la carga neta encerrada dentro de esa superficie. Matemáticamente, la ley de Gauss
 se expresa como: S E·dA = Q/ε0 donde ∮S representa la integral de superficie cerrada, E es el campo eléctrico en la superficie S, dA es un elemento de
 área en la superficie S, Q es la carga neta encerrada dentro de la superficie S y ε0 es la constante dieléctrica del vacío. ... Leer más</p>
+                    <div className={style.votos}>
+                        <div className={style.upvote}>
+                            <img src="./images/upvote.png" alt="upvote" className={style.img_votos} />
+                            <h1 className={style.count_text}>06</h1>
+                        </div>
+                        <div className={style.downvote}>
+                            <img src="./images/downvote.png" alt="downvote" className={style.img_votos} />
+                            <h1 className={style.count_text}>01</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
 
