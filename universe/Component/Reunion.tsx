@@ -14,7 +14,7 @@ function Reunion():JSX.Element{
                 </div>
                 <div className={style.minisquare_pregunta}>
                     <div style={{position: "absolute", top: "30px", left: "50%", transform: "translateX(-50%)", width: "628px"}}>
-                        <h1>Nombre o identificador de la reunión</h1>
+                        <h1 style={{marginBottom: '35px', marginTop: '20px'}}>Nombre o identificador de la reunión</h1>
                         <h3>Tema y descripción de la reunión</h3>
                         <h3>Lugar: ubicación o link de la reunión</h3>
                     </div>
