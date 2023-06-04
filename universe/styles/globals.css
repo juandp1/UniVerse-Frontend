@@ -99,7 +99,7 @@ form{
   min-height: 400px;
   max-height: auto;
   background-color: #E8FFFB;
-  border-radius: 20px;
+  border-radius: 10px;
   top: 25%;
   left: 20%;
   z-index: 10;
@@ -122,7 +122,7 @@ form div#encabezado{
   width: 100%;
   height: 100px;
   background-color: #A9E9DF;
-  border-radius: 20px;
+  border-radius: 10px;
   align-items: center;
   justify-content: flex-start;
 }
@@ -166,6 +166,42 @@ input[type=text],input[type=number], input[type=date], input[type=time], input[t
   cursor:pointer;
   
 }
+input[type="file"]{
+  height: 45px;
+  margin-top: 5px;
+  cursor:pointer;
+}
+input[type=file]::file-selector-button {
+  
+  height: 35px;
+  width: 125px;
+  background: #285F76;
+  padding: 5px;
+  border-radius: 20px;
+  border:none;
+  color: #fff;
+  font-weight: 700;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #1D3752;
+}
+select{
+  width: 200px;
+  height:45px;
+  margin-top: 5px;
+  border: 2.72246px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  color: rgb(2, 2, 2);
+  cursor:pointer;
+  
+}
+
 
 
 button[type=submit]{
