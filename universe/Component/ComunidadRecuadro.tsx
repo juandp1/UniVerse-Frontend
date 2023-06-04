@@ -37,8 +37,8 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar }: P
                 body: JSON.stringify({ id_Comunidad: idComunidad, id_user: localStorage.getItem('user_ID') })
             });
             if (res.ok) {
-                localStorage.setItem('comunidad', comunityName)
-                console.log(localStorage.getItem('comunidad'))
+                localStorage.setItem('comunidad', idComunidad.toString())
+                console.log(localStorage.getItem('comunidad_ID'))
                 router.push('/HomeComunidad');
             } else {
                 throw new Error('ha sucedido un error al entrar a la comunidad');
