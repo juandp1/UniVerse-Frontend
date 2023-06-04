@@ -114,9 +114,8 @@ export default function Enciclopedia() {
 
                     <Formik
                         initialValues={{
-                            nombre_Tema: "",
-                            dato_reunion: "",
-                            materias: "",
+                            nombre_Tema: ""
+                            
 
                         }}
                         onSubmit={async (values) => {
