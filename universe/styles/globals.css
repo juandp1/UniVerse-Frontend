@@ -80,12 +80,12 @@ label{
 main{
   width: 100%;
   min-height: 100%;
-  
+  transition: 850ms;
 }
 
 main#main.active{
   filter: blur(3px);
-  filter: brightness(50%);
+  filter: brightness(60%);
   background-color: white;
   user-select: none;
   width: 100%;
@@ -362,6 +362,7 @@ button {
   justify-content: right;
   align-items: center;
 }
+
 
 
 
