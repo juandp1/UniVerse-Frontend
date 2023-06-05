@@ -10,6 +10,9 @@ import { Formik } from 'formik';
 import TarjetaDocumento from "universe/Component/TarjetaDocumento";
 import { ReactSVG } from 'react-svg';
 import Select from 'react-select';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 
 
 
@@ -63,7 +66,7 @@ export default function DocumentosTema() {
     }
     // FUNCION PARA SABER SI ES ADMIN( PUEDE QUE LO MEJOR SEA MOVERLA A HOME COMUNIDAD)
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUser = async () => {
             try {
                 const res = await fetch('/api/is_admin', {
                     method: 'GET',
@@ -84,23 +87,32 @@ export default function DocumentosTema() {
                 alert(error.message);
             }
         }
+        fetchUser();
+    }, []);
+    //FUNCION PARA TRAER TODOS LOS DOCUMENTOS APENAS CARGA LA PAGINA
+    useEffect(() => {
+        const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
+            //setIsLoading(true)
+            try {
+                const res = await fetch('/api/document', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setDocumentos(data)
+                }
+            } catch (error: any) {
+                console.error('Error:', error);
+                alert(error.message);
+            }
+
+        }
         fetchData();
     }, []);
-    const GetInfoTemas = async (values: Documento) => { // se trae la informacion de los documentos que existen al entrar a la pagina
-        //setIsLoading(true)
-        let url: string = 'https://decorisaserver.azurewebsites.net/api/cita/key/'//+ nombreComunidad 
-        fetch(url, {
 
-        })
-            .then(response => response.json()).then(data => {
-                console.log(data)
-
-                setDocumentos(data)
-                //setIsLoading(false)
-                //setShowDetallesCita(true)
-            })
-
-    }
     const crearDocumento = async (values: Documento) => {
         /**funcion para añadir un documento y llevarlo al backend */
         
@@ -115,9 +127,24 @@ export default function DocumentosTema() {
                     },
                     body: JSON.stringify({ "name": values.name, "description": values.description, "file": file, "type": optionType })
                 })
-                    .then(res => res.json())
-                    .catch(error => console.error('Error:', error))
-                    .then(response => console.log('Success:', response))
+                if (res.ok) {
+                    statusShowFormAñadirDocumento()
+                    toast.success('El documento ha sido añadido correctamente', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        className:style.toast_success_doc
+            
+                    });
+                    toggle()
+                    
+                    
+                }
             } catch (error: any) {
                 console.error('Error:', error);
                 alert(error.message);
@@ -132,7 +159,6 @@ export default function DocumentosTema() {
     }
     const proponerDocumento = async (values: Documento) => {
         
-
         if (file != null) {
 
             try {
@@ -143,9 +169,22 @@ export default function DocumentosTema() {
                     },
                     body: JSON.stringify({ "name": values.name, "description": values.description, "file": file, "type": optionType })
                 })
-                    .then(res => res.json())
-                    .catch(error => console.error('Error:', error))
-                    .then(response => console.log('Success:', response))
+                if(res.ok){
+                    statusShowFormAñadirDocumento()
+                    toast.success(' Tu propuesta de documento ha sido enviada al administrador para ser revisada', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        className:style.toast_success_doc
+            
+                    });
+                    toggle()
+                }
             } catch (error: any) {
                 console.error('Error:', error);
                 alert(error.message);
@@ -215,7 +254,9 @@ export default function DocumentosTema() {
 
 
             </main>
-
+            <ToastContainer 
+            position="top-right"
+            className={style.success_notification}/>
             {showFormAñadirDocumento ? (
                 <div>
                     <Formik
@@ -227,8 +268,8 @@ export default function DocumentosTema() {
                         }}
                         onSubmit={async (values) => {
 
-                            isAdmin?(crearDocumento(values)):(proponerDocumento(values))
-                            
+                            isAdmin ? (crearDocumento(values)) : (proponerDocumento(values))
+
                             //alert(JSON.stringify(values));
                         }}
                     >
@@ -319,6 +360,8 @@ export default function DocumentosTema() {
                     </Formik>
                 </div>
             ) : null}
+
+
         </>
 
     )
