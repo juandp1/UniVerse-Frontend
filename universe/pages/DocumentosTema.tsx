@@ -75,7 +75,7 @@ export default function DocumentosTema() {
                     },
                     body: JSON.stringify({
                         "community_id": localStorage.getItem("comunidad_ID"),
-                        "used_id": localStorage.getItem("used_ID")
+                        "user_id": localStorage.getItem("used_ID")
                     })
                 });
 
@@ -112,7 +112,7 @@ export default function DocumentosTema() {
         }
         fetchData();
     }, []);
-
+    
     const crearDocumento = async (values: Documento) => {
         /**funcion para añadir un documento y llevarlo al backend */
         
