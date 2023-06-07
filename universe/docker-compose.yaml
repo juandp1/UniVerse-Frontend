@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: carlossandoval03/universe_frontend:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/universe_frontend
+      - ./node_modules:/home/universe_frontend/node_modules

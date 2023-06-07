@@ -36,3 +36,71 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+---
+
+## Getting Started - Docker
+
+### Pre-requisites
+
+Before to start, you need to install the following tools:
+
+1. [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+2. [Docker Compose](https://docs.docker.com/compose/install/)
+
+---
+
+#### Clone the repository
+
+First, clone the repository:
+
+```bash
+git clone https://github.com/El-Clan-Del-Bug/UniVerse-Frontend && cd UniVerse-Frontend/universe
+```
+
+If you can get the last version of the repository, you can use the following command:
+
+```bash
+git pull origin dev
+```
+
+---
+
+#### Run Docker Compose
+
+Then, run the following command:
+
+```bash
+docker-compose up
+```
+
+You can see the status of your containers from `Docker Desktop`, if something fails, just restart the containers. To restart the containers, run the following command:
+
+```bash
+docker-compose restart
+```
+
+Look at the `api` container logs, when you see something like:
+
+```text
+universe-web-1  |
+universe-web-1  | > universe@0.1.0 dev
+universe-web-1  | > next dev
+universe-web-1  |
+universe-web-1  | ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+universe-web-1  | event - compiled client and server successfully in 1916 ms (167 modules)
+universe-web-1  | wait  - compiling...
+universe-web-1  | event - compiled successfully in 155 ms (134 modules)
+```
+
+the project will be running at `127.0.0.1:3000`
+
+---
+
+#### Stop Docker Compose
+
+To stop the containers, run the following command:
+
+```bash
+docker-compose down
+```
