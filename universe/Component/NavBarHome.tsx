@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import * as TiIcon from 'react-icons/ti';
 import style from "/styles/NavBarsStyles.module.css";
 import Image from 'next/image';
 
@@ -17,14 +16,9 @@ function NavbarHome() {
     router.push('/Login');
     };
 
-
     return (
         <>
             <nav className={style.NavBar}>
-
-
-
-
                 <div className='w-auto px-5'>
                     <Image src="/images/universelogo.png"
                         width={130}
