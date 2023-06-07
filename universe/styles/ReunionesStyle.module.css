@@ -2,6 +2,7 @@
     position: relative;
     width: 524px;
     height: 358px;
+    margin-top: 40px;
 }
 
 .head_rectangle {
@@ -95,3 +96,34 @@
     max-width: 100%;
 }
 
+.square_pregunta {
+    position: relative;
+    width: 1223px;
+    height: 270px;
+    left: 49%;
+    transform: translateX(-50%);
+    background: #A9E9DF;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    margin-bottom: 50px;
+}
+
+.minisquare_pregunta {
+    position: absolute;
+    width: 791px;
+    height: 199px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 22px;
+
+    background: #E8FFFB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+}

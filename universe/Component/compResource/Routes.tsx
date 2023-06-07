@@ -8,7 +8,13 @@ const colorIcon="#1D3752"
 const className=style.button_Lateral_NavBar
 
 export const Routes =[
-    
+
+    {
+        title:'Inicio',
+        path:'/HomeComunidad',
+        icon: <Aiicon.AiFillHome size={"45px"} color={colorIcon}/>,
+        cName:className
+    },
     {
         title:'Enciclopedia',
         path:'/Enciclopedia',
@@ -22,15 +28,9 @@ export const Routes =[
         cName:className
     },
     {
-        title:'Reunion',
-        path:'/Reunion',
+        title:'Reuniones',
+        path:'/Reuniones',
         icon: <Aiicon.AiFillSchedule size={sizeIcon} color={colorIcon}/>,
-        cName:className
-    },
-    {
-        title:'Inicio',
-        path:'/HomeComunidad',
-        icon: <Aiicon.AiFillHome size={sizeIcon} color={colorIcon}/>,
         cName:className
     },
 ]
