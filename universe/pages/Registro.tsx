@@ -47,18 +47,19 @@ const Registro = () => {
     console.log(values);
 
     try {
-      const res = await fetch('https://decorisaserver.azurewebsites.net/api/login', {
+      const res = await fetch('http://localhost:3333/api/register', {
         method: 'POST',
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify({"name": values.username, "email": values.email, "password": values.password})
       });
 
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem("token", data["access_token"]);
-        handleRegisterClick // Redirect to PestaniaComunidad.tsx
+        router.push('/Login'); // Redirect to Login.tsx
       } else if (res.status == 201) { //codigo de usuario ya existente 
         throw new Error('El usuario ingresado ya existe, intentelo de nuevo');
       } else if (res.status == 201) { //codigo error de email ya existente 
@@ -160,7 +161,7 @@ const Registro = () => {
                 </div>
               )}
             </div>
-            <button type="submit" className={styles.registerButton} onClick={handleRegisterClick}>
+            <button type="submit" className={styles.registerButton}>
               REGISTRATE
             </button>
           </form>

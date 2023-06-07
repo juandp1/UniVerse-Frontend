@@ -95,13 +95,9 @@
 
 .scroll_container {
     position: relative;
-    overflow-y: scroll; /* Habilita el desplazamiento vertical */
     width: 95%;
     top:100px;
-    height: 58vh; /* Utiliza el 60% del alto de la ventana */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 30px;
-    background-color: aliceblue;
+    left: 5%;
 }
 
 .pregunta_box {
@@ -110,7 +106,7 @@
     height: 450px;
     left: 4.5%;
     margin-top: 20px;
-    margin-bottom: 150px; /* Espacio entre cada copia del componente */
+    margin-bottom: 100px; /* Espacio entre cada copia del componente */
 }
 
 .pregunta {
@@ -172,7 +168,7 @@
 }
 
 .contenido_pregunta {
-    width: 1035px;
+    width: 950px;
     position: absolute;
     left: 130px;
     top: 105px; 
@@ -192,10 +188,10 @@
 }
 
 .contenido_respuesta {
-    width: 915px;
+    width: 830px;
     position: absolute;
     left: 130px;
-    top: 85px; 
+    top: 75px; 
     
     font-family: 'Mulish';
     font-style: normal;
@@ -209,4 +205,33 @@
     align-items: center;
     
     color: #000000;
+}
+
+.votos {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 93%;
+    top: 31%;
+}
+
+.upvote {
+    margin-bottom: 15px;
+}
+
+.img_votos {
+    cursor: pointer;
+    
+}
+
+.img_votos:active {
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    margin-bottom: 5px;
+}
+
+.count_text {
+    font-size: 15px;
+    left: 30%;
 }

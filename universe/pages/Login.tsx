@@ -6,14 +6,14 @@ import * as Yup from "yup";
 import styles from '/styles/loginStyle.module.css';
 
 interface LoginFormValues {
-  username: string;
+  email: string;
   password: string;
 }
 
 const Login = () => {
 
   const initialValues: LoginFormValues = {
-    username: "",
+    email: "",
     password: "",
   };
 
@@ -29,24 +29,28 @@ const Login = () => {
   const onSubmit = async (values: LoginFormValues) => {
     // Perform authentication logic or send data to the server
     console.log(values);
-
+  
     try {
-      const res = await fetch('https://decorisaserver.azurewebsites.net/api/login', {
+      const res = await fetch('http://localhost:3333/api/login', {
         method: 'POST',
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify({"email": values.email, "password": values.password})
       });
-
+  
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem("token", data["access_token"]);
-        localStorage.setItem("user_ID", data["ID"]);
-
+        localStorage.setItem("user_ID", data["user"]["id"]);
+        
         router.push('/PestaniaComunidad'); // Redirect to PestaniaComunidad.tsx
-      } else {
+
+      } else if (res.status === 401) {
         throw new Error('El usuario/email y/o contraseña son incorrectos, intentelo de nuevo');
+      } else {
+        throw new Error('Ha ocurrido un error en el inicio de sesión');
       }
     } catch (error: any) {
       console.error('Error:', error);
@@ -85,16 +89,16 @@ const Login = () => {
 
         <form className={styles.formLogin} onSubmit={formik.handleSubmit}>
           <div className={styles.inputGroup}>
-            <label htmlFor="username">Usuario o email registrado:</label>
+            <label htmlFor="username">Email registrado:</label>
             <input
               type="text"
               id="username"
               placeholder="Usuario o email registrado"
-              className={`${styles.inputUsername} ${formik.touched.username && formik.errors.username ? styles.inputError : ""}`}
-              {...formik.getFieldProps("username")}
+              className={`${styles.inputEmail} ${formik.touched.email && formik.errors.email ? styles.inputError : ""}`}
+              {...formik.getFieldProps("email")}
             />
-            {formik.touched.username && formik.errors.username && (
-              <div className={styles.errorMessage}>{formik.errors.username}</div>
+            {formik.touched.email && formik.errors.email && (
+              <div className={styles.errorMessage}>{formik.errors.email}</div>
             )}
           </div>
           <div className={styles.inputGroup}>
@@ -146,11 +150,3 @@ const Login = () => {
 }
 
 export default Login;
-
-
-
-
-
-
-
-
