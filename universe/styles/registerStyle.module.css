@@ -85,6 +85,25 @@
   align-self: center;
 }
 
+
+.loginLink {
+  margin-top: 1rem;
+  text-align: center;
+  color: #5b5b5b;
+  font-size: 0.9rem;
+}
+
+.loginText {
+  color: #5b5b5b;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.loginText:hover {
+  color: #555;
+}
+
+
 @media (max-width: 767px) {
 
   .formRegistro {

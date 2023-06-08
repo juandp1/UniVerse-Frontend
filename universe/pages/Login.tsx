@@ -44,6 +44,7 @@ const Login = () => {
         const data = await res.json();
         localStorage.setItem("token", data["access_token"]);
         localStorage.setItem("user_ID", data["user"]["id"]);
+        localStorage.setItem("username", data["name"]);  // Almacena el nombre de usuario en el localStorage
         
         router.push('/PestaniaComunidad'); // Redirect to PestaniaComunidad.tsx
 

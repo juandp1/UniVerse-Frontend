@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import { useState } from "react";
 import * as Yup from "yup";
 import styles from 'styles/registerStyle.module.css';
+import Link from 'next/link';
+
 
 interface FormValues {
   username: string;
@@ -40,8 +42,8 @@ const Registro = () => {
   });
 
   const handleRegisterClick = () => {
+    router.push('/Login');
   };
-
   const onSubmit = async (values: FormValues) => {
     // Perform authentication logic or send data to the server
     console.log(values);
@@ -53,7 +55,7 @@ const Registro = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({"name": values.username, "email": values.email, "password": values.password})
+        body: JSON.stringify({ "name": values.username, "email": values.email, "password": values.password })
       });
 
       if (res.ok) {
@@ -62,7 +64,7 @@ const Registro = () => {
         router.push('/Login'); // Redirect to Login.tsx
       } else if (res.status == 201) { //codigo de usuario ya existente 
         throw new Error('El usuario ingresado ya existe, intentelo de nuevo');
-      } else if (res.status == 201) { //codigo error de email ya existente 
+      } else if (res.status == 400) { //codigo error de email ya existente 
         throw new Error('El email ingresado ya existe, intentelo de nuevo');
       }
     } catch (error: any) {
@@ -164,7 +166,19 @@ const Registro = () => {
             <button type="submit" className={styles.registerButton}>
               REGISTRATE
             </button>
+            <div className={styles.loginLink}>
+              ¿Ya tienes una cuenta?{" "}
+              <span
+                className={styles.loginText}
+                onClick={handleRegisterClick}
+                role="button"
+              >
+                Inicia sesión
+              </span>
+            </div>
           </form>
+
+
 
         </div>
 
