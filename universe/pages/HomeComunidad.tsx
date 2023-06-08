@@ -33,7 +33,7 @@ export default function HomeComunidad() {
     const router = useRouter();
 
     const Reuniones = () => {
-        router.push('/Reunion');
+        router.push('/Reuniones');
     };
 
     const Foro = () => {
