@@ -7,14 +7,14 @@ import LateralNavBar from "universe/Component/LateralNavBar";
 import Navbar from "universe/Component/NavBar";
 import style from "/styles/homeComunidadStyles.module.css";
 import { useRouter } from 'next/router';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik, Form, Field } from 'formik';
 
 
 
 interface Comunidad {
 
-    id:number
+    id: number
     nameComunidad: string
     descripcion: string
     materia: string
@@ -24,14 +24,27 @@ interface Comunidad {
 const colorIcon = "#61EB8D";
 var comunityName: string
 var description: string
-var id_community:number
+var id_community: number
+
 export default function Perfil() {
+
+
+    const [name, setName] = useState<string | null>(null);
+    useEffect(() => {
+        setName(localStorage.getItem("name"));
+    }, []);
+
+    const [email, setEmail] = useState<string | null>(null);
+    useEffect(() => {
+        setEmail(localStorage.getItem("email"));
+    }, []);
+
 
     const router = useRouter();
 
     //VARIABLES USE STATE
 
-    
+
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState<Comunidad[]>([]);
 
@@ -61,7 +74,7 @@ export default function Perfil() {
     const stateformEditar = () => setformEditar(!formEditar)
 
     const [Comunidades, setComunidades] = useState([{
-        id:0,
+        id: 0,
         nameComunidad: "",
         descripcion: "",
         materia: "",
@@ -69,14 +82,14 @@ export default function Perfil() {
     // OBTENCION DE TODAS LAS COMUNIDADES 
     const getInfoComunidades = async () => {
         try {
-            const res = await fetch('/api/community/' , {
+            const res = await fetch('/api/community/', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
 
             if (res.ok) {
-                const data= await res.json()
+                const data = await res.json()
                 setComunidades(data)
 
             } else {
@@ -86,12 +99,12 @@ export default function Perfil() {
             console.error('Error:', error);
             alert(error.message);
         }
-        
+
     }
-    
+
     //EDICION DE LA COMUNIDAD
-    const editar = (id:number,nameComunidad: string, descripcion: string) => {
-        id_community=id
+    const editar = (id: number, nameComunidad: string, descripcion: string) => {
+        id_community = id
         comunityName = nameComunidad
         description = descripcion
         stateformEditar()
@@ -167,29 +180,26 @@ export default function Perfil() {
                         Información personal
                     </h3>
 
-
                     <div className={style.principalContentProfile}>
                         <div className={style.component1}>
-                            <div id="inputs">
-                                <div>
-                                    <h5>Nombre de usuario:</h5>
-                                    <input name="nombre_Usuario" type="text" placeholder="Nombre de usuario"
-                                    />
-                                </div>
+                            <h4>Nombre de usuario:</h4>
+                            <div className={style.textContainer}>
+                            <div>
+                                <h5>{name}</h5>
+                            </div>
                             </div>
                         </div>
 
                         <div className={style.component2}>
-                            <div id="inputs">
-                                <div>
-                                    <h5>Email registrado:</h5>
-                                    <input name="email_Registrado" type="text" placeholder="Email registrado"
-                                    />
-                                </div>
+                            <h4>Email registrado:</h4>
+                            <div className={style.textContainer}>
+                            <div>
+                                <h5>{email}</h5>
+                            </div>
                             </div>
                         </div>
-
                     </div>
+
 
                     <h3 style={{ alignSelf: 'flex-start', marginTop: '20px', marginLeft: '10px' }}>
                         Participante de:
@@ -210,13 +220,13 @@ export default function Perfil() {
                         <ComunidadPerfil idComunidad={2} comunityName="Calculo Integral" descripcion="Descripcion de la comunidad Calculo integral" editar={editar}></ComunidadPerfil>
                         <ComunidadPerfil idComunidad={3} comunityName="Calculo Diferencial" descripcion="Descripcion de la comunidad Calculo Diferencial " editar={editar}></ComunidadPerfil>
                         <ComunidadPerfil idComunidad={4} comunityName="Bases de Datos" descripcion="Descripcion de la comunidad Base de datos" editar={editar}></ComunidadPerfil>
-                       
-                       
-                        <button className={style.rectangleButton} style={{ marginBottom: '10px' }}onClick={editarPerfil}>
+
+
+                        <button className={style.rectangleButton} style={{ marginBottom: '10px' }} onClick={editarPerfil}>
                             <h6>EDITAR PERFIL</h6>
                         </button>
-                   
-                   
+
+
                     </div>
                 </div>
 
@@ -227,7 +237,7 @@ export default function Perfil() {
                 <div>
                     <Formik
                         initialValues={{
-                            id:id_community,
+                            id: id_community,
                             nameComunidad: comunityName,
                             descripcion: description,
                             materia: "",
@@ -290,7 +300,7 @@ export default function Perfil() {
             }
 
 
-            
+
         </>
     )
 }

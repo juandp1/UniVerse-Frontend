@@ -41,22 +41,19 @@ export default function EditarPerfil() {
 
                     <div className={style.principalContentProfile}>
                         <div className={style.component1}>
-                            <div id="inputs">
+                            <h4>Nuevo nombre de usuario:</h4>
+                            <div className={style.textContainer}>
                                 <div>
-                                    <h5>Cambiar nombre de usuario:</h5>
-                                    <input name="nombre_Usuario" type="text" placeholder="Nuevo nombre de usuario"
-                                    />
+                                    <h5>aaaaaa</h5>
                                 </div>
                             </div>
                         </div>
 
-
                         <div className={style.component2}>
-                            <div id="inputs">
+                            <h4>Nueva contraseña:</h4>
+                            <div className={style.textContainer}>
                                 <div>
-                                    <h5>Actualizar contraseña:</h5>
-                                    <input name="email_Registrado" type="password" placeholder="Nueva contraseña"
-                                    />
+                                    <h5>aaaaaaa</h5>
                                 </div>
                             </div>
                         </div>
@@ -64,10 +61,10 @@ export default function EditarPerfil() {
                     </div>
 
                     <div className="flex flex-wrap justify-center" >
-                        
-                    <button className={style.rectangleButton}>
-                        <h6>CONFIRMAR CAMBIOS</h6>
-                    </button>
+
+                        <button className={style.rectangleButton}>
+                            <h6>CONFIRMAR CAMBIOS</h6>
+                        </button>
                     </div>
                 </div>
 

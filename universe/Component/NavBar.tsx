@@ -16,100 +16,115 @@ function Navbar() {
     const router = useRouter();
     const [menuDesplegable, setMenuDesplegable] = useState(false)
     const stateMenuDesplegable = () => setMenuDesplegable(!menuDesplegable)
-    const [name, setName] = useState(localStorage.getItem("name")) 
+    const [name, setName] = useState<string | null>(null);
+    useEffect(() => {
+        setName(localStorage.getItem("name"));
+    }, []);
+
     {/*con este useState se controla para que aparezca las opciones de perfil y de cerrar sesion*/ }
 
     const handleLogoutClick = async () => {
         try {
+            // Obtener el token del almacenamiento local
+            const token = localStorage.getItem('token');
+
             // Realizar la petición al backend para cerrar la sesión
             const res = await fetch('http://127.0.0.1:3333/api/logout', {
                 method: 'DELETE',
                 mode: 'cors',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
             });
 
+            if (res.ok) {
+                const data = await res.json();
+
+
+                // Borrar el token del almacenamiento local
+                localStorage.removeItem('token');
+                localStorage.removeItem('user_ID');
+                localStorage.removeItem('name');
+
+                // Redirigir al usuario a la página de inicio 
+                router.push('/');
+            }            
             if (!res.ok) {
                 throw new Error('No se pudo cerrar la sesión');
             }
 
-            // Borrar el token del almacenamiento local
-            localStorage.removeItem('token');
-            localStorage.removeItem('user_ID');
-
-            // Redirigir al usuario a la página de inicio 
-            router.push('/index'); 
         } catch (error) {
             console.error('Error:', error);
         }
     };
 
-return (
-    <>
-        <nav className={style.NavBar}>
+
+    return (
+        <>
+            <nav className={style.NavBar}>
 
 
 
 
-            <div className='w-auto px-5'>
-                <Image src="/images/universelogo.png"
-                    width={130}
-                    height={70}
+                <div className='w-auto px-5'>
+                    <Image src="/images/universelogo.png"
+                        width={130}
+                        height={70}
 
-                    alt="logo"
-                    priority
-                />
-            </div>
-            <div className="flex grow space-x-3 ">
-                <div className={style.button_NavBar}>
+                        alt="logo"
+                        priority
+                    />
+                </div>
+                <div className="flex grow space-x-3 ">
+                    <div className={style.button_NavBar}>
 
-                    <Link href="/PestaniaComunidad" className='flex space-x-3 '>
-                        <TiIcon.TiGroup size={"25px"} />
-                        <h4>Comunidades</h4>
-                    </Link>
+                        <Link href="/PestaniaComunidad" className='flex space-x-3 '>
+                            <TiIcon.TiGroup size={"25px"} />
+                            <h4>Comunidades</h4>
+                        </Link>
+
+                    </div>
 
                 </div>
 
-            </div>
+                <div className="w-auto flex space-x-3 content-center">
+                    <h4>{name}</h4>
+                    <FaIcon.FaUserCircle size={"25px"} />
 
-            <div className="w-auto flex space-x-3 content-center">
-                <h4>{name}</h4>
-                <FaIcon.FaUserCircle size={"25px"} />
-
-                <RxIcon.RxTriangleDown size={"20px"} onClick={stateMenuDesplegable} className='cursor-pointer hover:bg-light_blue_hover' />
+                    <RxIcon.RxTriangleDown size={"20px"} onClick={stateMenuDesplegable} className='cursor-pointer hover:bg-light_blue_hover' />
 
 
-                {/* se verifica si es verdadedo el menu desplegable, y si asi es se ejecuta el html en el return*/}
-                {/*si es falso va a null y no muestra nada*/}
-                {menuDesplegable ? (
+                    {/* se verifica si es verdadedo el menu desplegable, y si asi es se ejecuta el html en el return*/}
+                    {/*si es falso va a null y no muestra nada*/}
+                    {menuDesplegable ? (
 
-                    <div className='desplegableOptions absolute top-16 '>
-                        <div>
+                        <div className='desplegableOptions absolute top-16 '>
+                            <div>
 
 
-                            <Link href="/Perfil">
-                                <h5>Mi Perfil</h5>
-                            </Link>
-                        </div>
-                        <div >
+                                <Link href="/Perfil">
+                                    <h5>Mi Perfil</h5>
+                                </Link>
+                            </div>
+                            <div >
 
-                            <Link href="">
+
                                 <a onClick={handleLogoutClick}><h5>Cerrar Sesion</h5></a>
-                            </Link>
+
+                            </div>
+
+
                         </div>
+                    ) : null
 
+                    }
+                </div>
+            </nav>
 
-                    </div>
-                ) : null
+        </>
+    )
 
-                }
-            </div>
-        </nav>
-
-    </>
-)
-            
-            }
+}
 
 export default Navbar
