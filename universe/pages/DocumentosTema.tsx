@@ -64,31 +64,8 @@ export default function DocumentosTema() {
         blurMain?.classList.toggle("active")
         statusShowFormAñadirDocumento()
     }
-    // FUNCION PARA SABER SI ES ADMIN( PUEDE QUE LO MEJOR SEA MOVERLA A HOME COMUNIDAD)
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const res = await fetch('/api/is_admin', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "community_id": localStorage.getItem("comunidad_ID"),
-                        "user_id": localStorage.getItem("used_ID")
-                    })
-                });
-
-                if (res.status == 200) {
-                    setIsAdmin(true)
-                }
-            } catch (error: any) {
-                console.error('Error:', error);
-                alert(error.message);
-            }
-        }
-        fetchUser();
-    }, []);
+    
+    
     //FUNCION PARA TRAER TODOS LOS DOCUMENTOS APENAS CARGA LA PAGINA
     useEffect(() => {
         const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
