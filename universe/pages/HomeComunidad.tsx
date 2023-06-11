@@ -11,25 +11,52 @@ import { useEffect, useState } from "react";
 const colorIcon = "#61EB8D"
 
 export default function HomeComunidad() {
-
-
     const [isMobile, setIsMobile] = useState(false);
-
+    const [isAdmin, setIsAdmin] = useState(false);
+    // Funcion para determinar si es el usuario que ingresa es admin
     useEffect(() => {
-      const handleResize = () => {
-        setIsMobile(window.innerWidth < 768); // Adjust the breakpoint as needed
-      };
-  
-      handleResize(); // Initial check
-  
-      window.addEventListener('resize', handleResize);
-  
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
+        const fetchUser = async () => {
+            try {
+                const res = await fetch('/api/is_admin', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "community_id": localStorage.getItem("comunidad_ID"),
+                        "user_id": localStorage.getItem("used_ID")
+                    })
+                });
+
+                if (res.status == 200) {
+                    setIsAdmin(true)
+                    localStorage.setItem("is_Admin","1")
+                }else{
+                    localStorage.setItem("is_Admin","0")
+                }
+            } catch (error: any) {
+                console.error('Error:', error);
+                alert(error.message);
+            }
+        }
+        fetchUser();
     }, []);
 
-    
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768); // Adjust the breakpoint as needed
+        };
+
+        handleResize(); // Initial check
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+
     const router = useRouter();
 
     const Reuniones = () => {
@@ -55,7 +82,7 @@ export default function HomeComunidad() {
                 <LateralNavBar></LateralNavBar>
                 <div className="principal_Content">
                     <div className={`flex items-center ${isMobile ? 'justify-center' : 'justify-start'} space-x-3`}>
-                        <Bsicon.BsFillLightningFill size={"100px"} color={colorIcon}/>
+                        <Bsicon.BsFillLightningFill size={"100px"} color={colorIcon} />
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <h2 style={{ alignSelf: 'flex-start' }}>Fundamentos de electricidad y magnetismo</h2>
                             <h4 style={{ alignSelf: 'flex-start' }}>Categoría/materia: (Categoría de la comunidad)</h4>
@@ -70,46 +97,46 @@ export default function HomeComunidad() {
                     <h2 style={{ alignSelf: 'flex-start', marginTop: '20px', marginLeft: '10px' }}>
                         Novedades
                     </h2>
-                
-                <div className={style.container}>
-                    <div className={style.leftContainer}>
 
-                        <div className="flex items-center justify-start space-x-3">
-                            <Bsicon.BsFillCameraVideoFill size={"60px"} color={colorIcon} />
-                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <h3 style={{  textAlign: 'center' }}>Proximas reuniones</h3>
+                    <div className={style.container}>
+                        <div className={style.leftContainer}>
+
+                            <div className="flex items-center justify-start space-x-3">
+                                <Bsicon.BsFillCameraVideoFill size={"60px"} color={colorIcon} />
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <h3 style={{ textAlign: 'center' }}>Proximas reuniones</h3>
+                                </div>
                             </div>
-                        </div>
-                        <div className={style.rectangle}>
-                            <button className={style.rectangleButton} onClick={Reuniones}>Apuntarse</button>
-                        </div>
-
-
-
-                        <div className="flex items-center justify-start space-x-3">
-                            <Bsicon.BsFillQuestionCircleFill size={"60px"} color={colorIcon} />
-                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <h3 style={{ textAlign: 'center' }}>Ultima duda añadida</h3>
+                            <div className={style.rectangle}>
+                                <button className={style.rectangleButton} onClick={Reuniones}>Apuntarse</button>
                             </div>
-                        </div>
-                        <div className={style.rectangle}>
-
-                            <button className={style.rectangleButton} onClick={Foro}>Ver duda</button>
-                        </div>
-                    </div>
 
 
 
-                    <div className={style.rightContainer}>
+                            <div className="flex items-center justify-start space-x-3">
+                                <Bsicon.BsFillQuestionCircleFill size={"60px"} color={colorIcon} />
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <h3 style={{ textAlign: 'center' }}>Ultima duda añadida</h3>
+                                </div>
+                            </div>
+                            <div className={style.rectangle}>
 
-                        <div className="flex items-center justify-start space-x-3">
-                            <Faicon.FaBookOpen size={"70px"} color={colorIcon} />
-                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <h3 style={{ textAlign: 'center' }}>Ultimo tema añadido</h3>
+                                <button className={style.rectangleButton} onClick={Foro}>Ver duda</button>
                             </div>
                         </div>
 
-                        <div className={style.rectangle}>
+
+
+                        <div className={style.rightContainer}>
+
+                            <div className="flex items-center justify-start space-x-3">
+                                <Faicon.FaBookOpen size={"70px"} color={colorIcon} />
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <h3 style={{ textAlign: 'center' }}>Ultimo tema añadido</h3>
+                                </div>
+                            </div>
+
+                            <div className={style.rectangle}>
                                 <button className={style.rectangleButton} onClick={Enciclopedia}>Ver tema</button>
                             </div>
                         </div>
