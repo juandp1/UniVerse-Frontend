@@ -5,66 +5,141 @@ import * as HiIcon from 'react-icons/hi';
 import LateralNavBar from "universe/Component/LateralNavBar";
 import Navbar from "universe/Component/NavBar";
 import TarjetaTemas from "universe/Component/TarjetaTemas";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik } from 'formik'
+import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
 
 
 
 const colorIcon = "#61EB8D"
 interface Tema {
-    nombre_Tema: String;
+    name: String;
 }
+
+
+var topicID: number
+var topicName: string
+
+
+
 
 export default function Enciclopedia() {
     const [showFormCrearTema, setShowFormCrearTema] = useState(false)
-    const statusShowFormCrearTema = () => setShowFormCrearTema(!showFormCrearTema)
+    const statusShowFormCrearTema = () => {
+        setShowFormCrearTema(!showFormCrearTema)
+        toggle()
+    }
     const [Temas, setTemas] = useState([{
-        nombreTema: ''
+        ID_Tema: 0,
+        nombre_Tema: "",
+        ID_administrador: 0
+
     }])
-    
+    const [confirmacion, setConfirmacion] = useState(false)
+    const stateConfirmacion = () => {
+        setConfirmacion(!confirmacion)
+        toggle()
+    }
+    const [actualizacion, setActualizacion] = useState(0)
+    const newActualizacion = () => {
+        setActualizacion(actualizacion + 1)
+
+    }
+
     const toggle = () => {
         var blurMain = document.getElementById("main")
         blurMain?.classList.toggle("active")
-        statusShowFormCrearTema()
     }
-    const GetInfoTemas = async (values: Tema) => { // se trae la informacion de los temas que existen apenas se entra a la pagina
-        //setIsLoading(true)
-        let url: string = 'https://decorisaserver.azurewebsites.net/api/cita/key/'//+ nombreComunidad 
-        fetch(url, {
+    //FUNCION PARA TRAER TODOS LOS TEMAS DE LA ENCICLOPEDIA DE LA COMUNIDAD
+    useEffect(() => {
+        const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
+            //setIsLoading(true)
+            try {
+                const res = await fetch("http://localhost:3333/api/topics/community/" + localStorage.getItem("comunidad_ID"), {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setTemas(data)
+                }
+            } catch (error: any) {
+                console.error('Error:', error);
+                alert(error.message);
+            }
 
-        })
-            .then(response => response.json()).then(data => {
-                console.log(data)
+        }
+        fetchData();
+    }, [actualizacion]);
 
-                setTemas(data)
-                //setIsLoading(false)
-                //setShowDetallesCita(true)
-            })
-
-    }
     const crearTema = async (values: Tema) => {
         /**funcion para la creacion de un tema en el backend */
-        fetch('https://decorisaserver.azurewebsites.net/api/pedido', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify(values)
+        // se trae la informacion de los documentos que existen al entrar a la pagina
+        //setIsLoading(true)
+        try {
+            const res = await fetch("http://localhost:3333/api/topic", {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify(values)
+            });
+            if (res.ok) {
+                console.log('success:', "Creado con exito");
+                alert("Creado con exito");
+                statusShowFormCrearTema()
+                newActualizacion()
+            } else {
 
-        })
-            .then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(response => console.log('Success:', response))
-            .then(() => {
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
 
 
-                //setShowFormCrearPedido(false)
-                //setIsLoading(false)
-            })
 
+    }
+    const eliminar = (topic_ID: number, topic_Name: string) => {
+        topicID = topic_ID
+        topicName = topic_Name
+        stateConfirmacion()
 
-        toggle()
+    }
+
+    const eliminarTema = async () => {
+        /**funcion para la creacion de un tema en el backend */
+
+        try {
+            const res = await fetch("http://localhost:3333/api/topic", {
+                method: 'DELETE',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({ "topicID": topicID, "comunidad_ID": localStorage.getItem("comunidad_iD") })
+            });
+            if (res.ok) {
+                console.log('Error:', "Se ha eliminado el documento de forma correcta ");
+                alert("Se ha eliminado el documento de forma correcta");
+            } else {
+                console.error('Error:', "sucedio un error al eliminar un tema, vuelva a intentarlo");
+                alert("sucedio un error al eliminar un tema, vuelva a intentarlo");
+
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+
+        stateConfirmacion()
     }
 
     return (
@@ -83,23 +158,17 @@ export default function Enciclopedia() {
                         <h1>Temas</h1>
                     </div>
                     <div className="flex flex-wrap ">
-                        {/*Temas.map((item,index)=>{
-                            return(
-                                <TarjetaTemas name={item.nombreTema} ruta={"/DocumentosTema"}></TarjetaTemas>
+                        {Temas.map((item, index) => {
+                            return (
+                                <TarjetaTemas key={item.ID_Tema} id_Topic={item.ID_Tema} name={item.nombre_Tema} ruta={"/DocumentosTema"} eliminar={eliminar}></TarjetaTemas>
                             )
                         })
-                        */}
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
-                        <TarjetaTemas name={"Ley de Gauss"} ruta={"/DocumentosTema"}></TarjetaTemas>
+                        }
+                        <TarjetaTemas id_Topic={1} name={"Ley de Gauss"} ruta={"/DocumentosTema"} eliminar={eliminar}></TarjetaTemas>
+                        <TarjetaTemas id_Topic={1} name={"Ley de Gauss"} ruta={"/DocumentosTema"} eliminar={eliminar}></TarjetaTemas>
                     </div>
 
-                    <div className="button_crear" onClick={toggle}>
+                    <div className="button_crear" onClick={statusShowFormCrearTema}>
                         <IoIcon.IoMdAdd size={'80px'} color={colorIcon} />
                     </div>
                 </div>
@@ -108,14 +177,19 @@ export default function Enciclopedia() {
 
 
             </main>
+            {confirmacion ? (
 
+                <ConfirmacionRecuadro name={topicName} eliminar={eliminarTema} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
+
+            ) : null
+            }
             {showFormCrearTema ? (
                 <div>
 
                     <Formik
                         initialValues={{
-                            nombre_Tema: ""
-                            
+                            name: ""
+
 
                         }}
                         onSubmit={async (values) => {
@@ -126,9 +200,9 @@ export default function Enciclopedia() {
 
                     >
                         {({ handleSubmit, values, handleChange }) => (
-                            <form id="login" onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit}>
                                 <div id="encabezado">
-                                    <IoIcon.IoMdClose size={"25px"} onClick={toggle} id="close" />
+                                    <IoIcon.IoMdClose size={"25px"} onClick={statusShowFormCrearTema} id="close" />
 
                                     <div>
                                         <HiIcon.HiFolderAdd size={"60px"} color={"#1D3752"} />
@@ -144,14 +218,14 @@ export default function Enciclopedia() {
                                     <div>
                                         <h5>Nombre del tema:</h5>
                                         <input name="nombre_Tema" type="text" placeholder="nombre tema"
-                                            value={values.nombre_Tema}
+                                            value={values.name}
                                             onChange={handleChange}
                                         />
 
                                     </div>
 
                                     {/**segunda columna del formulario esi es necesario */}
-                                    
+
                                 </div>
                             </form>
                         )}
