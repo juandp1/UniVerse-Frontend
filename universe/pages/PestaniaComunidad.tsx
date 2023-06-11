@@ -4,22 +4,22 @@ import Navbar from "universe/Component/NavBar";
 import * as TiIcon from 'react-icons/ti';
 import * as IoIcon from 'react-icons/io';
 import * as AiIcon from 'react-icons/ai';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik, Form, Field } from 'formik';
+import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
 
 interface Comunidad {
 
-    id:number
+    id: number
     nameComunidad: string
     descripcion: string
     materia: string
-
-
 }
+
 const colorIcon = "#61EB8D";
 var comunityName: string
 var description: string
-var id_community:number
+var id_community: number
 export default function PestaniaComunidad() {
 
 
@@ -31,9 +31,14 @@ export default function PestaniaComunidad() {
         toggle()
     }
 
-    
+
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState<Comunidad[]>([]);
+    const [confirmacion, setConfirmacion] = useState(false)
+    const stateConfirmacion = () => {
+        setConfirmacion(!confirmacion)
+        toggle()
+    }
 
 
     const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,37 +66,42 @@ export default function PestaniaComunidad() {
     const stateformEditar = () => setformEditar(!formEditar)
 
     const [Comunidades, setComunidades] = useState([{
-        id:0,
-        nameComunidad: "",
-        descripcion: "",
-        materia: "",
+        id: 0,
+        name: "",
+        description: "",
     }])
     // OBTENCION DE TODAS LAS COMUNIDADES 
-    const getInfoComunidades = async () => {
-        try {
-            const res = await fetch('/api/community/' , {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (res.ok) {
-                const data= await res.json()
-                setComunidades(data)
-
-            } else {
-                throw new Error('Error al traer la informacion');
+    useEffect(() => {
+        const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
+            //setIsLoading(true)
+            try {
+                const res = await fetch("http://localhost:3333/api/community/", {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setComunidades(data)
+                }
+            } catch (error: any) {
+                console.error('Error:', error);
+                alert(error.message);
             }
-        } catch (error: any) {
-            console.error('Error:', error);
-            alert(error.message);
+
         }
-        
-    }
-    
+        fetchData();
+    }, []);
+
+
+
+
     //EDICION DE LA COMUNIDAD
-    const editar = (id:number,nameComunidad: string, descripcion: string) => {
-        id_community=id
+    const editar = (id: number, nameComunidad: string, descripcion: string) => {
+        id_community = id
         comunityName = nameComunidad
         description = descripcion
         stateformEditar()
@@ -107,13 +117,13 @@ export default function PestaniaComunidad() {
 
     const crearComunidad = async (values: Comunidad) => {
         try {
-            const res = await fetch('/api/community/name/', {
+            const res = await fetch('http://localhost:3333/api/community', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 },
-                body: JSON.stringify(values)
+                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion })
             });
 
             if (res.ok) {
@@ -138,7 +148,7 @@ export default function PestaniaComunidad() {
             if (res.ok) {
 
             } else {
-                throw new Error('ha sucedido un error al crear la comunidad 2');
+                throw new Error('ha sucedido un error al crear la comunidad');
             }
         } catch (error: any) {
             console.error('Error:', error);
@@ -157,7 +167,7 @@ export default function PestaniaComunidad() {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 },
-                body: JSON.stringify(values)
+                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion })
             });
 
             if (res.ok) {
@@ -172,6 +182,36 @@ export default function PestaniaComunidad() {
         stateformEditar()
         toggle()
     }
+    const eliminar = (comunnuty_ID: number, name:string) => {
+        id_community = comunnuty_ID
+        comunityName=name
+        stateConfirmacion()
+    }
+    const deleteComunidad = async () => {
+        try {
+            const res = await fetch('/api/community/name/' + comunityName, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+
+            });
+
+            if (res.ok) {
+                console.log('Error:', "Se ha eliminado la comunidad de forma correcta");
+                alert("Se ha eliminado la comunidad de forma correcta");
+            } else {
+                throw new Error('ha sucedido un error al elimianr la comunidad');
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+        stateformEditar()
+        toggle()
+    }
+
 
     // FUNCION TOGGLE  se encarga de desvanecer el fondo cuando se despliega un formulario
     const toggle = () => {
@@ -196,18 +236,15 @@ export default function PestaniaComunidad() {
                     </div>
 
                     <div className="flex flex-wrap justify-center">
-                        {/*Comunidades.map((item, index)=>{
-                            return(
-                                <ComunidadRecuadro key={item.nameComunidad} idComunidad={item.id} comunityName={item.nameComunidad} descripcion={item.descripcion} editar={editar}></ComunidadRecuadro>
+                        {Comunidades.map((item, index) => {
+                            return (
+                                <ComunidadRecuadro key={item.id} idComunidad={item.id} comunityName={item.name} descripcion={item.description} editar={editar} eliminar={eliminar}></ComunidadRecuadro>
                             )
-                        })*/
-
+                        })
                         }
+                        <ComunidadRecuadro idComunidad={1} comunityName="FEM" descripcion="Descripcion de la comunidad Fem" editar={editar} eliminar={eliminar}></ComunidadRecuadro>
+                        <ComunidadRecuadro idComunidad={2} comunityName="Calculo Integral" descripcion="Descripcion de la comunidad Calculo integral" editar={editar} eliminar={eliminar}></ComunidadRecuadro>
 
-                        <ComunidadRecuadro idComunidad={1} comunityName="FEM" descripcion="Descripcion de la comunidad Fem" editar={editar}></ComunidadRecuadro>
-                        <ComunidadRecuadro idComunidad={2} comunityName="Calculo Integral" descripcion="Descripcion de la comunidad Calculo integral" editar={editar}></ComunidadRecuadro>
-                        <ComunidadRecuadro idComunidad={3} comunityName="Calculo Diferencial" descripcion="Descripcion de la comunidad Calculo Diferencial " editar={editar}></ComunidadRecuadro>
-                        <ComunidadRecuadro idComunidad={4} comunityName="Bases de Datos" descripcion="Descripcion de la comunidad Base de datos" editar={editar}></ComunidadRecuadro>
                     </div>
 
                 </div>
@@ -216,12 +253,18 @@ export default function PestaniaComunidad() {
                 </div>
 
             </main>
+            {confirmacion ? (
+
+                <ConfirmacionRecuadro name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
+
+            ) : null
+            }
 
             {showFormCrearComunidad ? (
                 <div>
                     <Formik
                         initialValues={{
-                            id:0,
+                            id: 0,
                             nameComunidad: "",
                             descripcion: "",
                             materia: "",
@@ -269,20 +312,20 @@ export default function PestaniaComunidad() {
                                             value={values.descripcion}
                                             onChange={handleChange}
                                         />
-                                            <h5>Categoria o materia a la que se refiere la comunidad:</h5>
-                                            <div className="searchInputWrapper">
-                                                <input
-                                                    name="materia"
-                                                    type="text"
-                                                    placeholder="Buscar"
-                                                    value={searchQuery}
-                                                    onChange={handleSearchQueryChange}
-                                                />
-                                                <button type="submit" className="searchButton">
-                                                    <IoIcon.IoIosSearch size={20} color="#fff" />
-                                                </button>
-                                                
-                                            </div>
+                                        <h5>Categoria o materia a la que se refiere la comunidad:</h5>
+                                        <div className="searchInputWrapper">
+                                            <input
+                                                name="materia"
+                                                type="text"
+                                                placeholder="Buscar"
+                                                value={searchQuery}
+                                                onChange={handleSearchQueryChange}
+                                            />
+                                            <button type="submit" className="searchButton">
+                                                <IoIcon.IoIosSearch size={20} color="#fff" />
+                                            </button>
+
+                                        </div>
 
 
                                     </div>
@@ -298,7 +341,7 @@ export default function PestaniaComunidad() {
                 <div>
                     <Formik
                         initialValues={{
-                            id:id_community,
+                            id: id_community,
                             nameComunidad: comunityName,
                             descripcion: description,
                             materia: "",
