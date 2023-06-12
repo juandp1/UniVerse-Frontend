@@ -1,13 +1,16 @@
 import Link from "next/link";
 import LateralNavBar from "../Component/LateralNavBar";
 import Navbar from "../Component/NavBar";
+import { useRouter } from 'next/router';
 import Head from "next/head";
 import style from "/styles/ReunionesStyle.module.css";
 import TipoReunion from "universe/Component/TipoReunion";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 import * as IoIcon from "react-icons/io";
 import * as HiIcon from "react-icons/hi";
-import { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -23,71 +26,82 @@ const colorIcon = "#61EB8D";
 export default function Reuniones() {
     const [showFormCrearReunion, setShowFormCrearReunion] = useState(false)
     const statusShowFormCrearReunion = () => setShowFormCrearReunion(!showFormCrearReunion)
-    const [Reuniones, setReuniones] = useState([{
+    const initialValues: Reunion = {
         nombreReunion: '',
         Descripcion_reunion: '',
         fecha_reunion: '',
         hora_reunion: '',
         lugar_reunion: ''
-    }])
+    };
 
     const toggle = () => {
-        var blurMain = document.getElementById("main")
-        blurMain?.classList.toggle("active")
-        statusShowFormCrearReunion()
-    }
+      var blurMain = document.getElementById("main")
+      blurMain?.classList.toggle("active")
+      statusShowFormCrearReunion()
+  }
 
-    const CrearReunion = async (values: Reunion) => {
-        /**funcion para la creacion de una reunión en el backend */
-        fetch('https://decorisaserver.azurewebsites.net/api/pedido', {
+  const crearReunion = async (values: Reunion) => {
+    /**funcion para crear una reunión y llevarla al backend */
+    
+    try {
+        const res = await fetch('http://127.0.0.1:3333/api/Meeting', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(values)
-
+            mode: 'cors',
+            body: JSON.stringify({"name": values.nombreReunion, "description": values.Descripcion_reunion, "place": values.lugar_reunion, "date": values.fecha_reunion})
         })
-            .then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(response => console.log('Success:', response))
-            .then(() => {
-
-
-                //setShowFormCrearPedido(false)
-                //setIsLoading(false)
-            })
-
-
-        toggle()
+        if (res.ok) {
+            statusShowFormCrearReunion()
+            toast.success('La reunión ha sido creada correctamente', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                className:style.toast_success_doc
+    
+            });
+            toggle()
+        }
+    } catch (error: any) {
+        console.error('Error:', error);
+        alert(error.message);
     }
+}
 
-  const validationSchema = Yup.object({
-    nombreReunion: Yup.string()
-      .max(30, "El nombre de la reunión no debe sobrepasar los 30 caracteres")
-      .required("Campo requerido"),
-    Descripcion_reunion: Yup.string()
-      .max(
-        100,
-        "La descripción de la reunión no debe sobrepasar los 100 caracteres"
-      )
-      .required("Campo requerido"),
-    fecha_reunion: Yup.date()
-      .min(
-        new Date(),
-        "La fecha de reunión no puede ser anterior a la fecha actual"
-      )
-      .required("Campo requerido"),
-    hora_reunion: Yup.string()
-      .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Hora de reunión inválida")
-      .required("Campo requerido"),
-    lugar_reunion: Yup.string()
-      .max(
-        50,
-        "La descripción del lugar de la reunión no debe sobrepasar los 50 caracteres"
-      )
-      .required("Campo requerido"),
-  });
+    const router = useRouter();
+
+    const validationSchema = Yup.object({
+      nombreReunion: Yup.string()
+        .max(30, "El nombre de la reunión no debe sobrepasar los 30 caracteres")
+        .required("Campo requerido"),
+      Descripcion_reunion: Yup.string()
+        .max(
+          100,
+          "La descripción de la reunión no debe sobrepasar los 100 caracteres"
+        )
+        .required("Campo requerido"),
+      fecha_reunion: Yup.date()
+        .min(
+          new Date(),
+          "La fecha de reunión no puede ser anterior a la fecha actual"
+        )
+        .required("Campo requerido"),
+      hora_reunion: Yup.string()
+        .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Hora de reunión inválida")
+        .required("Campo requerido"),
+      lugar_reunion: Yup.string()
+        .max(
+          50,
+          "La descripción del lugar de la reunión no debe sobrepasar los 50 caracteres"
+        )
+        .required("Campo requerido"),
+    });
 
 
   return (
@@ -141,7 +155,7 @@ export default function Reuniones() {
               lugar_reunion: "",
             }}
             onSubmit={async (values) => {
-              CrearReunion(values);
+              crearReunion(values);
               //alert(JSON.stringify(values));
             }}
           >

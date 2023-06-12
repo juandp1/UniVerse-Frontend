@@ -1,50 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import style from "/styles/ForoStyles.module.css";
 import * as FaIcon from 'react-icons/fa';
+import { number } from 'yup';
+
+interface Props {
+    nombreCreador: String;
+    tituloPregunta: String;
+    contenidoPregunta: String;
+    fechaPregunta: String;
+    contenidoRespuesta: String;
+    upvotesPregunta: Number;
+    downvotesPregunta: Number;
+    upvotesRespuesta: Number;
+    downvotesRespuesta: Number;
+}
 
 
-function PreguntaForo():JSX.Element{
+function PreguntaForo({nombreCreador, tituloPregunta, contenidoPregunta, fechaPregunta, contenidoRespuesta, upvotesPregunta, downvotesPregunta, upvotesRespuesta, downvotesRespuesta}: Props):JSX.Element{
     
     return (
         <>
             <div className={style.pregunta_box}>
                 <div className={style.pregunta}>
                     <FaIcon.FaUserCircle size={'85px'} style={{ position: 'absolute', left: '32px', top: '20px' }}/>
-                    <h1 className={style.título_pregunta}>¿Cuál es la expresión matemática de la ley de Gauss y qué representa cada término en ella?</h1>
-                    <h2 className={style.detalles_pregunta}>UserName preguntó hace n días/ semanas/ meses/ años</h2>
-                    <p className={style.contenido_pregunta}>La Ley de Gauss es una de las leyes fundamentales de la física que se aplica en el estudio del campo eléctrico. Esta ley establece que el flujo eléctrico
-total a través de cualquier superficie cerrada es proporcional a la carga neta encerrada dentro de esa superficie. Matemáticamente, la ley de Gauss
-se expresa como: S E·dA = Q/ε0 donde ∮S representa la integral de superficie cerrada, E es el campo eléctrico en la superficie S, dA es un elemento de
-área en la superficie S, Q es la carga neta encerrada dentro de la superficie S y ε0 es la constante dieléctrica del vacío. ... Leer más</p>
+                    <h1 className={style.título_pregunta}>{tituloPregunta}</h1>
+                    <h2 className={style.detalles_pregunta}>{nombreCreador} preguntó hace {fechaPregunta}</h2>
+                    <p className={style.contenido_pregunta}>{contenidoPregunta}</p>
                     
                     <div className={style.votos}>
                         <div className={style.upvote}>
                             <img src="./images/upvote.png" alt="upvote" className={style.img_votos} />
-                            <h1 className={style.count_text}>10</h1>
+                            <h1 className={style.count_text}>{upvotesPregunta.toString()}</h1>
                         </div>
                         <div className={style.downvote}>
                             <img src="./images/downvote.png" alt="downvote" className={style.img_votos} />
-                            <h1 className={style.count_text}>02</h1>
+                            <h1 className={style.count_text}>{downvotesPregunta.toString()}</h1>
                         </div>
                     </div>
-
-
                 </div>
                 <div className={style.respuesta}>
                     <FaIcon.FaUserCircle size={'85px'} style={{ position: 'absolute', left: '32px', top: '20px' }}/>
                     <h1 className={style.título_pregunta}>Mejor Respuesta</h1>
-                    <p className={style.contenido_respuesta}>La Ley de Gauss es una de las leyes fundamentales de la física que se aplica en el estudio del campo eléctrico. Esta ley establece que el flujo eléctrico
-total a través de cualquier superficie cerrada es proporcional a la carga neta encerrada dentro de esa superficie. Matemáticamente, la ley de Gauss
-se expresa como: S E·dA = Q/ε0 donde ∮S representa la integral de superficie cerrada, E es el campo eléctrico en la superficie S, dA es un elemento de
-área en la superficie S, Q es la carga neta encerrada dentro de la superficie S y ε0 es la constante dieléctrica del vacío. ... Leer más</p>
+                    <p className={style.contenido_respuesta}>{contenidoRespuesta}</p>
                     <div className={style.votos}>
                         <div className={style.upvote}>
                             <img src="./images/upvote.png" alt="upvote" className={style.img_votos} />
-                            <h1 className={style.count_text}>06</h1>
+                            <h1 className={style.count_text}>{upvotesRespuesta.toString()}</h1>
                         </div>
                         <div className={style.downvote}>
                             <img src="./images/downvote.png" alt="downvote" className={style.img_votos} />
-                            <h1 className={style.count_text}>01</h1>
+                            <h1 className={style.count_text}>{downvotesRespuesta.toString()}</h1>
                         </div>
                     </div>
                 </div>

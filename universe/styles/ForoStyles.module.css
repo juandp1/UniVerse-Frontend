@@ -94,10 +94,10 @@
 }
 
 .scroll_container {
-    position: relative;
+    position: absolute;
     width: 95%;
-    top:100px;
-    left: 5%;
+    top:230px;
+    left: 11.5%;
 }
 
 .pregunta_box {

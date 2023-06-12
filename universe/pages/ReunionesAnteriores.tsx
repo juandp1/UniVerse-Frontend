@@ -2,11 +2,38 @@ import LateralNavBar from "../Component/LateralNavBar";
 import Navbar from "../Component/NavBar";
 import Head from "next/head";
 import Reunion from "universe/Component/Reunion";
-
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 const colorIcon = "#61EB8D";
 
 export default function ReunionesAnteriores() {
+  const [Reuniones, setReuniones] = useState([{
+    nombreReunion: ''
+  }])
+
+
+//FUNCIÓN PARA TRAER TODAS LAS PRÓXIMAS REUNIONES APENAS CARGA LA PÁGINA
+  useEffect(() => {
+    const fetchData = async () => { // se trae la información de las reuniones que existen al entrar a la página.
+        try {
+            const res = await fetch('/api/proximasReuniones', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setReuniones(data)
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+
+    }
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -34,11 +61,11 @@ export default function ReunionesAnteriores() {
             <h1>Reuniones Anteriores</h1>
           </div>
           <div>
-            <Reunion></Reunion>
-            <Reunion></Reunion>
-            <Reunion></Reunion>
-            <Reunion></Reunion>
-            <Reunion></Reunion>
+            <Reunion idReunion={1} nombreCreador={"Creador #1"} nombreReunion={"Reunion número uno"} Descripcion_reunion={"Esta es la reunión número uno"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
+            <Reunion idReunion={2} nombreCreador={"Creador #2"} nombreReunion={"Reunion número dos"} Descripcion_reunion={"Esta es la reunión número dos"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
+            <Reunion idReunion={3} nombreCreador={"Creador #3"} nombreReunion={"Reunion número tres"} Descripcion_reunion={"Esta es la reunión número tres"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
+            <Reunion idReunion={4} nombreCreador={"Creador #4"} nombreReunion={"Reunion número cuatro"} Descripcion_reunion={"Esta es la reunión número cuatro"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
+            <Reunion idReunion={5} nombreCreador={"Creador #5"} nombreReunion={"Reunion número cinco"} Descripcion_reunion={"Esta es la reunión número cinco"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
           </div>
         </div>
         {/*Agrego los componentes dentro del header*/}

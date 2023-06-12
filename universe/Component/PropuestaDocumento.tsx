@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import style from "/styles/PropuestasDocumentosStyles.module.css";
 
+interface Props {
+    //tipoDocumento: String;
+    tituloDocumento: String;
+    descripcionDocumento: String;
+    //documento: String;
+}
 
-function PropuestaDocumento():JSX.Element{
+function PropuestaDocumento({tituloDocumento, descripcionDocumento}:Props):JSX.Element{
     
     return (
         <>
@@ -13,7 +19,7 @@ function PropuestaDocumento():JSX.Element{
                         alt="ejercicioDocumento"
                         style={{width: "49px", height: "46px", marginTop: '3px' }}
                     />
-                    <h1 className={style.font}>Ejercicio 8.8</h1>
+                    <h1 className={style.font}>{tituloDocumento}</h1>
                 </div>
                 <div className={style.minisquare_documento}>
                     <div className="flex justify-center space-x-10" style={{ gap:'150px', marginTop: '33px'}}>
@@ -23,7 +29,7 @@ function PropuestaDocumento():JSX.Element{
                 </div>
                     
                 <div className={style.minisquare_descripcion}>
-                    <h3 className={style.descripcion}>Breve descripción de lo que contiene el documento.</h3>
+                    <h3 className={style.descripcion}>{descripcionDocumento}</h3>
                 </div>
             </div>
 
