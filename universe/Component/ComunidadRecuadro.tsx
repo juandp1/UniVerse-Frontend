@@ -14,13 +14,14 @@ interface Props {
     comunityName: string;
     descripcion: string;
     editar: (id:number,nameComunidad: string, descripcion: string) => void;
+    eliminar: (id:number, name:string) => void;
 }
 
 
 
 
 
-function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar }: Props) {
+function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eliminar}: Props) {
 
     const router = useRouter();
     const [optionsComunity, setOptionsComunity] = useState(false)
@@ -37,7 +38,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar }: P
                 body: JSON.stringify({ id_Comunidad: idComunidad, id_user: localStorage.getItem('user_ID') })
             });
             if (res.ok) {
-                localStorage.setItem('comunidad', idComunidad.toString())
+                localStorage.setItem('comunidad_ID', idComunidad.toString())
                 console.log(localStorage.getItem('comunidad_ID'))
                 router.push('/HomeComunidad');
             } else {
@@ -50,8 +51,8 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar }: P
 
     }
     const entrarComunidad = () => {
-        localStorage.setItem('comunidad', comunityName)
-        console.log(localStorage.getItem('comunidad'))
+        localStorage.setItem('comunidad_ID', idComunidad.toString())
+        console.log(localStorage.getItem('comunidad_ID'))
         router.push('/HomeComunidad');
     }
 
@@ -95,7 +96,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar }: P
                                         <h5>Abandonar</h5>
                                     </div>
 
-                                    <div className="flex space-x-3 items-center">
+                                    <div onClick={()=>eliminar(idComunidad,comunityName)} className="flex space-x-3 items-center">
                                         <RiIcon.RiDeleteBinLine size={"20px"} color="#cd3d49" />
                                         <h5>Eliminar</h5>
                                     </div>

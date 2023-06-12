@@ -6,16 +6,59 @@ import * as FaIcon from 'react-icons/fa';
 import style from "/styles/NavBarsStyles.module.css";
 import Image from 'next/image';
 import { Stint_Ultra_Expanded } from 'next/font/google';
-
+import { useRouter } from 'next/router';
 
 
 
 
 
 function Navbar() {
+    const router = useRouter();
     const [menuDesplegable, setMenuDesplegable] = useState(false)
     const stateMenuDesplegable = () => setMenuDesplegable(!menuDesplegable)
+    const [name, setName] = useState<string | null>(null);
+    useEffect(() => {
+        setName(localStorage.getItem("name"));
+    }, []);
+
     {/*con este useState se controla para que aparezca las opciones de perfil y de cerrar sesion*/ }
+
+    const handleLogoutClick = async () => {
+        try {
+            // Obtener el token del almacenamiento local
+            const token = localStorage.getItem('token');
+
+            // Realizar la petición al backend para cerrar la sesión
+            const res = await fetch('http://127.0.0.1:3333/api/logout', {
+                method: 'DELETE',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+
+
+                // Borrar el token del almacenamiento local
+                localStorage.removeItem('token');
+                localStorage.removeItem('user_ID');
+                localStorage.removeItem('name');
+
+                // Redirigir al usuario a la página de inicio 
+                router.push('/');
+            }            
+            if (!res.ok) {
+                throw new Error('No se pudo cerrar la sesión');
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
 
     return (
         <>
@@ -46,10 +89,10 @@ function Navbar() {
                 </div>
 
                 <div className="w-auto flex space-x-3 content-center">
-                    <h4>Nombre de usuario</h4>
+                    <h4>{name}</h4>
                     <FaIcon.FaUserCircle size={"25px"} />
 
-                    <RxIcon.RxTriangleDown size={"20px"} onClick={stateMenuDesplegable} className='cursor-pointer hover:bg-light_blue_hover'/>
+                    <RxIcon.RxTriangleDown size={"20px"} onClick={stateMenuDesplegable} className='cursor-pointer hover:bg-light_blue_hover' />
 
 
                     {/* se verifica si es verdadedo el menu desplegable, y si asi es se ejecuta el html en el return*/}
@@ -66,9 +109,9 @@ function Navbar() {
                             </div>
                             <div >
 
-                                <Link href="/Perfil"> {/*agregar un onClick*/}
-                                    <h5>Cerrar Sesion</h5>
-                                </Link>
+
+                                <a onClick={handleLogoutClick}><h5>Cerrar Sesion</h5></a>
+
                             </div>
 
 
@@ -81,6 +124,7 @@ function Navbar() {
 
         </>
     )
+
 }
 
 export default Navbar

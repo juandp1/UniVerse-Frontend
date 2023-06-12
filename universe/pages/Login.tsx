@@ -6,14 +6,14 @@ import * as Yup from "yup";
 import styles from '/styles/loginStyle.module.css';
 
 interface LoginFormValues {
-  email: string;
+  username: string;
   password: string;
 }
 
 const Login = () => {
 
   const initialValues: LoginFormValues = {
-    email: "",
+    username: "",
     password: "",
   };
 
@@ -37,13 +37,15 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({"email": values.email, "password": values.password})
+        body: JSON.stringify({"email": values.username, "password": values.password})
       });
   
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem("token", data["access_token"]);
         localStorage.setItem("user_ID", data["user"]["id"]);
+        localStorage.setItem("name", data["user"]["name"]); 
+        localStorage.setItem("email", data["user"]["email"]);// Almacena el nombre de usuario en el localStorage
         
         router.push('/PestaniaComunidad'); // Redirect to PestaniaComunidad.tsx
 
@@ -89,16 +91,16 @@ const Login = () => {
 
         <form className={styles.formLogin} onSubmit={formik.handleSubmit}>
           <div className={styles.inputGroup}>
-            <label htmlFor="username">Email registrado:</label>
+            <label htmlFor="username">Usuario o email registrado:</label>
             <input
               type="text"
               id="username"
               placeholder="Usuario o email registrado"
-              className={`${styles.inputEmail} ${formik.touched.email && formik.errors.email ? styles.inputError : ""}`}
-              {...formik.getFieldProps("email")}
+              className={`${styles.inputUsername} ${formik.touched.username && formik.errors.username ? styles.inputError : ""}`}
+              {...formik.getFieldProps("username")}
             />
-            {formik.touched.email && formik.errors.email && (
-              <div className={styles.errorMessage}>{formik.errors.email}</div>
+            {formik.touched.username && formik.errors.username && (
+              <div className={styles.errorMessage}>{formik.errors.username}</div>
             )}
           </div>
           <div className={styles.inputGroup}>
