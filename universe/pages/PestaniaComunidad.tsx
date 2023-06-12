@@ -7,6 +7,7 @@ import * as AiIcon from 'react-icons/ai';
 import { useEffect, useState } from "react";
 import { Formik, Form, Field } from 'formik';
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
+import Select from 'react-select';
 
 interface Comunidad {
 
@@ -30,8 +31,6 @@ export default function PestaniaComunidad() {
         setShowFormCrearComunidad(!showFormCrearComunidad)
         toggle()
     }
-
-
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState<Comunidad[]>([]);
     const [confirmacion, setConfirmacion] = useState(false)
@@ -39,8 +38,6 @@ export default function PestaniaComunidad() {
         setConfirmacion(!confirmacion)
         toggle()
     }
-
-
     const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
     };
@@ -161,7 +158,7 @@ export default function PestaniaComunidad() {
     //UPDATE COMUNIDAD
     const updateComunidad = async (values: Comunidad) => {
         try {
-            const res = await fetch('/api/community/name/' + comunityName, {
+            const res = await fetch('http://localhost:3333/api/community/name/' + comunityName, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -182,9 +179,9 @@ export default function PestaniaComunidad() {
         stateformEditar()
         toggle()
     }
-    const eliminar = (comunnuty_ID: number, name:string) => {
+    const eliminar = (comunnuty_ID: number, name: string) => {
         id_community = comunnuty_ID
-        comunityName=name
+        comunityName = name
         stateConfirmacion()
     }
     const deleteComunidad = async () => {
@@ -211,13 +208,13 @@ export default function PestaniaComunidad() {
         stateformEditar()
         toggle()
     }
-
-
+    
     // FUNCION TOGGLE  se encarga de desvanecer el fondo cuando se despliega un formulario
     const toggle = () => {
         var blurMain = document.getElementById("main")
         blurMain?.classList.toggle("active")
     }
+    
 
 
     //PRIMERA FUNCION EN EJECUTARSE ES TRAERSE LA IFFORMACION DE LAS COMUNIDADES
@@ -233,6 +230,9 @@ export default function PestaniaComunidad() {
                     <div className="flex space-x-3 items-center px-16">
                         <TiIcon.TiGroup size={"80px"} color={colorIcon} />
                         <h1>Comunidades</h1>
+
+                        
+                        
                     </div>
 
                     <div className="flex flex-wrap justify-center">
