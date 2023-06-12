@@ -14,27 +14,28 @@ export default function ProximasReuniones() {
 
 
 //FUNCIÓN PARA TRAER TODAS LAS PRÓXIMAS REUNIONES APENAS CARGA LA PÁGINA
-  useEffect(() => {
-    const fetchData = async () => { // se trae la información de las reuniones que existen al entrar a la página.
-        try {
-            const res = await fetch('/api/proximasReuniones', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (res.ok) {
-                const data = await res.json();
-                setReuniones(data)
-            }
-        } catch (error: any) {
-            console.error('Error:', error);
-            alert(error.message);
-        }
+useEffect(() => {
+  const fetchData = async () => { // se trae la información de las reuniones que existen al entrar a la página.
+      try {
+          const res = await fetch('http://localhost:3333/api/meetings/community/' + localStorage.getItem("comunidad_ID"), {
+              method: 'GET',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({'community_ID': localStorage.getItem("comunidad_ID"), 'initial_date': Date.now() , 'final_date': Date.now()+30})
+          });
+          if (res.ok) {
+              const data = await res.json();
+              setReuniones(data)
+          }
+      } catch (error: any) {
+          console.error('Error:', error);
+          alert(error.message);
+      }
 
-    }
-    fetchData();
-  }, []);
+  }
+  fetchData();
+}, []);
 
 
   return (

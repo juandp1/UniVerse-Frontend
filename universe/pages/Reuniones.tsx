@@ -42,15 +42,17 @@ export default function Reuniones() {
 
   const crearReunion = async (values: Reunion) => {
     /**funcion para crear una reunión y llevarla al backend */
-    
+    const dateTime = values.fecha_reunion + " " + values.hora_reunion + ':00.000000';
+    console.log(dateTime)
     try {
-        const res = await fetch('http://127.0.0.1:3333/api/Meeting', {
+        const res = await fetch('http://localhost:3333/api/community/'+ localStorage.getItem('comunidad_ID') + '/meetings', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
             },
             mode: 'cors',
-            body: JSON.stringify({"name": values.nombreReunion, "description": values.Descripcion_reunion, "place": values.lugar_reunion, "date": values.fecha_reunion})
+            body: JSON.stringify({"name": values.nombreReunion, "description": values.Descripcion_reunion, "place": values.lugar_reunion, "date": dateTime})
         })
         if (res.ok) {
             statusShowFormCrearReunion()
@@ -64,7 +66,6 @@ export default function Reuniones() {
                 progress: undefined,
                 theme: "light",
                 className:style.toast_success_doc
-    
             });
             toggle()
         }

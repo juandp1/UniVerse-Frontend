@@ -72,7 +72,7 @@ export default function PestaniaComunidad() {
         const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
             //setIsLoading(true)
             try {
-                const res = await fetch("http://localhost:3333/api/community/", {
+                const res = await fetch("http://localhost:3333/api/communities", {
                     method: 'GET',
                     mode: 'cors',
                     headers: {
@@ -132,25 +132,25 @@ export default function PestaniaComunidad() {
             console.error('Error:', error);
             alert(error.message);
         }
-        try {
-            const res = await fetch('/api/label_has_community/name/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
-                },
-                body: JSON.stringify({ nombreComunidad: values.nameComunidad, materia: values.materia })
-            });
+        // try {
+        //     const res = await fetch('/api/label_has_community/name/', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': `Bearer ${localStorage.getItem("token")}`
+        //         },
+        //         body: JSON.stringify({ nombreComunidad: values.nameComunidad, materia: values.materia })
+        //     });
 
-            if (res.ok) {
+        //     if (res.ok) {
 
-            } else {
-                throw new Error('ha sucedido un error al crear la comunidad');
-            }
-        } catch (error: any) {
-            console.error('Error:', error);
-            alert(error.message);
-        }
+        //     } else {
+        //         throw new Error('ha sucedido un error al crear la comunidad');
+        //     }
+        // } catch (error: any) {
+        //     console.error('Error:', error);
+        //     alert(error.message);
+        // }
 
 
         statusShowFormCrearComunidad()

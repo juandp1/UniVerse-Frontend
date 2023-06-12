@@ -17,22 +17,19 @@ export default function HomeComunidad() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await fetch('/api/is_admin', {
+                const res = await fetch(`http://localhost:3333/api/is_admin?community_id=${localStorage.getItem("comunidad_ID")}&user_id=${localStorage.getItem("user_ID")}`, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "community_id": localStorage.getItem("comunidad_ID"),
-                        "user_id": localStorage.getItem("used_ID")
-                    })
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem("jwt_token")
+                    }
                 });
-
-                if (res.status == 200) {
-                    setIsAdmin(true)
-                    localStorage.setItem("is_Admin","1")
-                }else{
-                    localStorage.setItem("is_Admin","0")
+    
+                if (res.status === 200) {
+                    setIsAdmin(true);
+                    localStorage.setItem("is_Admin","1");
+                } else {
+                    localStorage.setItem("is_Admin","0");
                 }
             } catch (error: any) {
                 console.error('Error:', error);

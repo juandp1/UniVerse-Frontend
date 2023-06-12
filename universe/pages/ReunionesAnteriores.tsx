@@ -3,6 +3,7 @@ import Navbar from "../Component/NavBar";
 import Head from "next/head";
 import Reunion from "universe/Component/Reunion";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { date } from "yup";
 
 const colorIcon = "#61EB8D";
 
@@ -12,15 +13,16 @@ export default function ReunionesAnteriores() {
   }])
 
 
-//FUNCIÓN PARA TRAER TODAS LAS PRÓXIMAS REUNIONES APENAS CARGA LA PÁGINA
+//FUNCIÓN PARA TRAER TODAS LAS REUNIONES ANTERIORES APENAS CARGA LA PÁGINA
   useEffect(() => {
     const fetchData = async () => { // se trae la información de las reuniones que existen al entrar a la página.
         try {
-            const res = await fetch('/api/proximasReuniones', {
+            const res = await fetch('http://localhost:3333/api/meetings/community/' + localStorage.getItem("comunidad_ID"), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                body: JSON.stringify({'community_ID': localStorage.getItem("comunidad_ID"), 'initial_date': Date.now()-30 , 'final_date': Date.now()})
             });
             if (res.ok) {
                 const data = await res.json();

@@ -38,7 +38,7 @@ export default function ForoPreguntas() {
   useEffect(() => {
     const fetchData = async () => { // se trae la información de las preguntas que existen al entrar a la página.
         try {
-            const res = await fetch('/api/foroPreguntas', {
+            const res = await fetch('http://localhost:3333/api/community/' + localStorage.getItem("comunidad_ID") + '/' + localStorage.getItem("Topic")+ '/questions', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -62,13 +62,13 @@ export default function ForoPreguntas() {
   const CrearPregunta = async (values: Pregunta) => {
     /**funcion para crear una pregunta y llevarla al backend */
     try {
-        const res = await fetch('http://127.0.0.1:3333/api/preguntas', {
+        const res = await fetch('http://localhost:3333/api/questions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             mode: 'cors',
-            body: JSON.stringify({"titulo": values.tituloPregunta, "description": values.descripcionPregunta})
+            body: JSON.stringify({"title": values.tituloPregunta, "description": values.descripcionPregunta, "topic_id": localStorage.getItem("Topic"), "community_id": localStorage.getItem("comunidad_ID")})
         })
         if (res.ok) {
             statusShowFormCrearPregunta()
