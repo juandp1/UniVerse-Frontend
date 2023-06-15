@@ -4,15 +4,10 @@ import Head from "next/head";
 import PropuestaDocumento from "universe/Component/PropuestaDocumento";
 import style from "/styles/PropuestasDocumentosStyles.module.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useAuth } from "universe/hooks/useAuth";
+
 
 export default function PropuestasDocumentos() {
-  const { isLoading } = useAuth();
 
-  if (isLoading) {
-      // Render a loading state or null if you don't want to show anything during loading
-      return null;
-  }
   const [PropuestasDocumentos, setPropuestasDocumentos] = useState([{
     tipoDocumento: '',
     tituloDocumento: '',

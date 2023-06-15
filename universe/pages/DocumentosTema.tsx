@@ -12,7 +12,6 @@ import { ReactSVG } from 'react-svg';
 import Select from 'react-select';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { useAuth } from "universe/hooks/useAuth";
 
 
 
@@ -51,13 +50,7 @@ const optionsType: Options[] = [
 
 
 export default function DocumentosTema() {
-    
-    const { isLoading } = useAuth();
 
-    if (isLoading) {
-
-        return null;
-    }
     
     const [isAdmin, setIsAdmin] = useState(false)
     const [showFormAñadirDocumento, setShowFormAñadirDocumento] = useState(false)

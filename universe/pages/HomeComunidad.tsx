@@ -7,17 +7,12 @@ import Navbar from "universe/Component/NavBar";
 import style from "/styles/homeComunidadStyles.module.css";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
-import { useAuth } from "universe/hooks/useAuth";
+
 
 const colorIcon = "#61EB8D"
 
 export default function HomeComunidad() {
-    const { isLoading } = useAuth();
 
-    if (isLoading) {
-        // Render a loading state or null if you don't want to show anything during loading
-        return null;
-    }
     const [isMobile, setIsMobile] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     // Funcion para determinar si es el usuario que ingresa es admin

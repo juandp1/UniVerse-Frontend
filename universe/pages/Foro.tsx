@@ -4,7 +4,9 @@ import Head from 'next/head';
 import style from "/styles/ForoStyles.module.css";
 import TarjetaTemas from "universe/Component/TarjetaTemas";
 
+
 export default function Foro() {
+
     return (
         <>
             <Head>

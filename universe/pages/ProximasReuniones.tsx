@@ -3,18 +3,13 @@ import Navbar from "../Component/NavBar";
 import Head from "next/head";
 import Reunion from "universe/Component/Reunion";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useAuth } from "universe/hooks/useAuth";
+
 
 
 const colorIcon = "#61EB8D";
 
 export default function ProximasReuniones() {
-  const { isLoading } = useAuth();
 
-  if (isLoading) {
-      // Render a loading state or null if you don't want to show anything during loading
-      return null;
-  }
   const [Reuniones, setReuniones] = useState([{
     nombreReunion: ''
   }])

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import ComunidadRecuadro from "universe/Component/ComunidadRecuadro";
 import Navbar from "universe/Component/NavBar";
 import * as TiIcon from 'react-icons/ti';
@@ -7,7 +8,6 @@ import * as AiIcon from 'react-icons/ai';
 import { useEffect, useState } from "react";
 import { Formik, Form, Field } from 'formik';
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
-import { useAuth } from "universe/hooks/useAuth";
 import Select from 'react-select';
 
 interface Comunidad {
@@ -25,14 +25,11 @@ var id_community: number
 
 export default function PestaniaComunidad() {
 
-    const { isLoading } = useAuth();
 
-    if (isLoading) {
-        // Render a loading state or null if you don't want to show anything during loading
-        return null;
-    }
+    //VERIFICAR SI EL USUARIO ESTA LOGEADO
 
 
+      
     //VARIABLES USE STATE
     const [showFormCrearComunidad, setShowFormCrearComunidad] = useState(false)
     const statusShowFormCrearComunidad = () => {
@@ -222,6 +219,7 @@ export default function PestaniaComunidad() {
         var blurMain = document.getElementById("main")
         blurMain?.classList.toggle("active")
     }
+
 
 
 

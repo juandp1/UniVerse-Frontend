@@ -12,7 +12,7 @@ import * as IoIcon from "react-icons/io";
 import * as HiIcon from "react-icons/hi";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useAuth } from "universe/hooks/useAuth";
+
 
 interface Reunion {
   nombreReunion: String;
@@ -24,12 +24,6 @@ interface Reunion {
 const colorIcon = "#61EB8D";
 
 export default function Reuniones() {
-  const { isLoading } = useAuth();
-
-  if (isLoading) {
-      // Render a loading state or null if you don't want to show anything during loading
-      return null;
-  }
     const [showFormCrearReunion, setShowFormCrearReunion] = useState(false)
     const statusShowFormCrearReunion = () => setShowFormCrearReunion(!showFormCrearReunion)
     const initialValues: Reunion = {

@@ -9,7 +9,7 @@ import style from "/styles/homeComunidadStyles.module.css";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import { Formik, Form, Field } from 'formik';
-import { useAuth } from "universe/hooks/useAuth";
+
 
 
 
@@ -28,12 +28,7 @@ var description: string
 var id_community: number
 
 export default function Perfil() {
-    const { isLoading } = useAuth();
 
-    if (isLoading) {
-        // Render a loading state or null if you don't want to show anything during loading
-        return null;
-    }
 
     const [name, setName] = useState<string | null>(null);
     useEffect(() => {
