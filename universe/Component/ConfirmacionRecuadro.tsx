@@ -7,31 +7,35 @@ interface Props {
     eliminar: () => void;
     cerrar: () => void;
 }
+interface Props {
+    name: string,
+    cerrar: () => void;
+}
 
-function ConfirmacionRecuadro({ name, eliminar,cerrar }: Props) {
-    
+function ConfirmacionRecuadro({ name, eliminar, cerrar }: Props) {
+
 
     return (
+
         <>
+
             <div className={style.principal_Div}>
-
-                <h2>Eliminacion de {name}</h2>
-
-
-                <h5 className='mt-6'>"{name}" sera eliminado y no podra ser restaurado</h5>
-
-
-
-                <div className='absolute flex flex-wrap bottom-3 right-2 space-x-3'>
-                    <button className={style.button_cancelar} onClick={cerrar}><h4>Cancelar</h4></button>
-                    <button className={style.button_eliminar} onClick={eliminar}><h4>Eliminar</h4></button>
+                <div className={style.first_rectangle}>
+                    <h3 style={{ textAlign: 'center' }}>Eliminacion de {name}</h3>
                 </div>
-
-
+                <div className={style.second_rectangle}>
+                    <h4 style={{ textAlign: 'center', marginTop: -50 }}>"{name}" sera eliminado y no podra ser restaurado</h4>
+                    <div className='absolute flex flex-wrap justify-center items-center bottom-3 center-2 space-x-3'>
+                        <button className={style.button_cancelar} onClick={cerrar}><h4>Cancelar</h4></button>
+                        <button className={style.button_eliminar} onClick={eliminar}><h4>Eliminar</h4></button>
+                    </div>
+                </div>
             </div>
+
 
         </>
     )
 }
+
 
 export default ConfirmacionRecuadro
