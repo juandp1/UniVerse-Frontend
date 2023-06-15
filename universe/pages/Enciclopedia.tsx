@@ -8,6 +8,7 @@ import TarjetaTemas from "universe/Component/TarjetaTemas";
 import { useEffect, useState } from "react";
 import { Formik } from 'formik'
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
+import { useAuth } from "universe/hooks/useAuth";
 
 
 
@@ -24,6 +25,12 @@ var topicName: string
 
 
 export default function Enciclopedia() {
+    const { isLoading } = useAuth();
+
+    if (isLoading) {
+        // Render a loading state or null if you don't want to show anything during loading
+        return null;
+    }
     const [showFormCrearTema, setShowFormCrearTema] = useState(false)
     const statusShowFormCrearTema = () => {
         setShowFormCrearTema(!showFormCrearTema)

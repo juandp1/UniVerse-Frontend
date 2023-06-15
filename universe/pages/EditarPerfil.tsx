@@ -9,11 +9,18 @@ import style from "/styles/homeComunidadStyles.module.css";
 import { useRouter } from 'next/router';
 import { useState } from "react";
 import { Formik, Form, Field } from 'formik';
+import { useAuth } from "universe/hooks/useAuth";
 
 
 const colorIcon = "#61EB8D";
 
 export default function EditarPerfil() {
+    const { isLoading } = useAuth();
+
+    if (isLoading) {
+        // Render a loading state or null if you don't want to show anything during loading
+        return null;
+    }
 
 
 
