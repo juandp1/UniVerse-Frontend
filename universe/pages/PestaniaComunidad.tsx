@@ -7,6 +7,7 @@ import * as AiIcon from 'react-icons/ai';
 import { useEffect, useState } from "react";
 import { Formik, Form, Field } from 'formik';
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
+import { useAuth } from "universe/hooks/useAuth";
 import Select from 'react-select';
 
 interface Comunidad {
@@ -21,8 +22,15 @@ const colorIcon = "#61EB8D";
 var comunityName: string
 var description: string
 var id_community: number
+
 export default function PestaniaComunidad() {
 
+    const { isLoading } = useAuth();
+
+    if (isLoading) {
+        // Render a loading state or null if you don't want to show anything during loading
+        return null;
+    }
 
 
     //VARIABLES USE STATE
@@ -82,13 +90,12 @@ export default function PestaniaComunidad() {
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    setComunidades(data)
+                    setComunidades(data.communities)
                 }
             } catch (error: any) {
                 console.error('Error:', error);
                 alert(error.message);
             }
-
         }
         fetchData();
     }, []);
@@ -116,6 +123,7 @@ export default function PestaniaComunidad() {
         try {
             const res = await fetch('http://localhost:3333/api/community', {
                 method: 'POST',
+                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -208,13 +216,13 @@ export default function PestaniaComunidad() {
         stateformEditar()
         toggle()
     }
-    
+
     // FUNCION TOGGLE  se encarga de desvanecer el fondo cuando se despliega un formulario
     const toggle = () => {
         var blurMain = document.getElementById("main")
         blurMain?.classList.toggle("active")
     }
-    
+
 
 
     //PRIMERA FUNCION EN EJECUTARSE ES TRAERSE LA IFFORMACION DE LAS COMUNIDADES
@@ -231,8 +239,8 @@ export default function PestaniaComunidad() {
                         <TiIcon.TiGroup size={"80px"} color={colorIcon} />
                         <h1>Comunidades</h1>
 
-                        
-                        
+
+
                     </div>
 
                     <div className="flex flex-wrap justify-center">
