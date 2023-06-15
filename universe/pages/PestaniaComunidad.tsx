@@ -9,7 +9,35 @@ import { useEffect, useState } from "react";
 import { Formik, Form, Field } from 'formik';
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
 import Select from 'react-select';
+import { GetServerSideProps } from "next/types";
+import nookies from 'nookies';
+import Cookies from "js-cookie";
 
+
+
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    // Get the user's session based on the request cookies
+    const token = nookies.get(context).token;
+    context.res.setHeader('Cache-Control', 'no-store, must-revalidate');
+  
+    if (!token) {
+     //Si no esta logeado lo redirige al home
+      return {
+        redirect: {
+          destination: '/Login',
+          permanent: false,
+        },
+      };
+    }
+  
+    //Si esta logeado le muestra la pagina 
+    return {
+      props: {}, // will be passed to the page component as props
+    };
+  };
+  
 interface Comunidad {
 
     id: number
@@ -22,6 +50,8 @@ const colorIcon = "#61EB8D";
 var comunityName: string
 var description: string
 var id_community: number
+
+
 
 export default function PestaniaComunidad() {
 
@@ -82,7 +112,7 @@ export default function PestaniaComunidad() {
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                        'Authorization': `Bearer ${Cookies.get('token')}`
                     }
                 });
                 if (res.ok) {
@@ -123,7 +153,7 @@ export default function PestaniaComunidad() {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    'Authorization': `Bearer ${Cookies.get('token')}`
                 },
                 body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion })
             });
@@ -167,7 +197,7 @@ export default function PestaniaComunidad() {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    'Authorization': `Bearer ${Cookies.get('token')}`
                 },
                 body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion })
             });
@@ -195,7 +225,7 @@ export default function PestaniaComunidad() {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    'Authorization': `Bearer ${Cookies.get('token')}`
                 }
 
             });

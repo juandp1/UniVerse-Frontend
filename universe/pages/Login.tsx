@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import { useRouter } from 'next/router';
 import * as Yup from "yup";
 import styles from '/styles/loginStyle.module.css';
+import nookies from 'nookies';
+
 
 interface LoginFormValues {
   username: string;
@@ -42,6 +44,7 @@ const Login = () => {
   
       if (res.ok) {
         const data = await res.json();
+        nookies.set(null, 'token', data["access_token"], { path: '/' });
         localStorage.setItem("token", data["access_token"]);
         localStorage.setItem("user_ID", data["user"]["id"]);
         localStorage.setItem("name", data["user"]["name"]); 

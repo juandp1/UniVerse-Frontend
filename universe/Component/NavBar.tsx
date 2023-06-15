@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Stint_Ultra_Expanded } from 'next/font/google';
 import { useRouter } from 'next/router';
 import Recuadro from "universe/Component/Recuadro";
+import Cookies from 'js-cookie';
 
 
 
@@ -49,6 +50,7 @@ function Navbar() {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user_ID');
                 localStorage.removeItem('name');
+                Cookies.remove('token');
 
                 // Redirigir al usuario a la página de inicio 
                 router.push('/');
@@ -86,7 +88,7 @@ function Navbar() {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user_ID');
                 localStorage.removeItem('name');
-
+                Cookies.remove('token');
 
             }
             if (!res.ok) {
