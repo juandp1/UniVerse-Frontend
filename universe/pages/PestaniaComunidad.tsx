@@ -18,26 +18,25 @@ import Cookies from "js-cookie";
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    // Get the user's session based on the request cookies
-    const token = nookies.get(context).token;
     context.res.setHeader('Cache-Control', 'no-store, must-revalidate');
-  
+    const token = nookies.get(context).token;
+
     if (!token) {
-     //Si no esta logeado lo redirige al home
-      return {
-        redirect: {
-          destination: '/Login',
-          permanent: false,
-        },
-      };
+        //Si no esta logeado lo redirige al Login
+        return {
+            redirect: {
+                destination: '/Login',
+                permanent: false,
+            },
+        };
     }
-  
+
     //Si esta logeado le muestra la pagina 
     return {
-      props: {}, // will be passed to the page component as props
+        props: {}, // Muestra la pagina 
     };
-  };
-  
+};
+
 interface Comunidad {
 
     id: number
@@ -59,7 +58,7 @@ export default function PestaniaComunidad() {
     //VERIFICAR SI EL USUARIO ESTA LOGEADO
 
 
-      
+
     //VARIABLES USE STATE
     const [showFormCrearComunidad, setShowFormCrearComunidad] = useState(false)
     const statusShowFormCrearComunidad = () => {
@@ -291,7 +290,9 @@ export default function PestaniaComunidad() {
             </main>
             {confirmacion ? (
 
-                <ConfirmacionRecuadro name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
+                <div className="modalOverlay">
+                    <ConfirmacionRecuadro name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
+                </div>
 
             ) : null
             }

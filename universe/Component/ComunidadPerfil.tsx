@@ -14,38 +14,16 @@ interface Props {
     comunityName: string;
     descripcion: string;
     editar: (id: number, nameComunidad: string, descripcion: string) => void;
+    eliminar: (id: number, name: string) => void;
 }
 
 
-function ComunidadPerfil({ idComunidad, comunityName, descripcion, editar }: Props) {
+function ComunidadPerfil({ idComunidad, comunityName, descripcion, editar, eliminar }: Props) {
 
     const router = useRouter();
     const [optionsComunity, setOptionsComunity] = useState(false)
     const stateOptionsComunity = () => setOptionsComunity(!optionsComunity)
 
-    const unirseComunidad = async () => {
-        try {
-            const res = await fetch('/api/enter_community', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
-                },
-                body: JSON.stringify({ id_Comunidad: idComunidad, id_user: localStorage.getItem('user_ID') })
-            });
-            if (res.ok) {
-                localStorage.setItem('comunidad', comunityName)
-                console.log(localStorage.getItem('comunidad'))
-                router.push('/HomeComunidad');
-            } else {
-                throw new Error('ha sucedido un error al entrar a la comunidad');
-            }
-        } catch (error: any) {
-            console.error('Error:', error);
-            alert(error.message);
-        }
-
-    }
     const entrarComunidad = () => {
         localStorage.setItem('comunidad', comunityName)
         console.log(localStorage.getItem('comunidad'))
@@ -86,7 +64,7 @@ function ComunidadPerfil({ idComunidad, comunityName, descripcion, editar }: Pro
                                     <h5>Abandonar</h5>
                                 </div>
 
-                                <div className="flex space-x-3 items-center">
+                                <div onClick={() => eliminar(idComunidad, comunityName)} className="flex space-x-3 items-center">
                                     <RiIcon.RiDeleteBinLine size={"20px"} color="#cd3d49" />
                                     <h5>Eliminar</h5>
                                 </div>

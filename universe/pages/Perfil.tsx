@@ -9,7 +9,34 @@ import style from "/styles/homeComunidadStyles.module.css";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import { Formik, Form, Field } from 'formik';
+import { GetServerSideProps } from "next/types";
+import nookies from 'nookies';
+import Cookies from "js-cookie";
+import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
 
+
+
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    context.res.setHeader('Cache-Control', 'no-store, must-revalidate');
+    const token = nookies.get(context).token;
+
+    if (!token) {
+        //Si no esta logeado lo redirige al Login
+        return {
+            redirect: {
+                destination: '/Login',
+                permanent: false,
+            },
+        };
+    }
+
+    //Si esta logeado le muestra la pagina 
+    return {
+        props: {}, // Muestra la pagina 
+    };
+};
 
 
 
@@ -43,13 +70,23 @@ export default function Perfil() {
 
     const router = useRouter();
 
+    //VERIFICAR SI EL USUARIO ESTA LOGEADO
+
+
+
     //VARIABLES USE STATE
-
-
+    const [showFormCrearComunidad, setShowFormCrearComunidad] = useState(false)
+    const statusShowFormCrearComunidad = () => {
+        setShowFormCrearComunidad(!showFormCrearComunidad)
+        toggle()
+    }
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState<Comunidad[]>([]);
-
-
+    const [confirmacion, setConfirmacion] = useState(false)
+    const stateConfirmacion = () => {
+        setConfirmacion(!confirmacion)
+        toggle()
+    }
     const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
     };
@@ -76,32 +113,36 @@ export default function Perfil() {
 
     const [Comunidades, setComunidades] = useState([{
         id: 0,
-        nameComunidad: "",
-        descripcion: "",
-        materia: "",
+        name: "",
+        description: "",
     }])
     // OBTENCION DE TODAS LAS COMUNIDADES 
-    const getInfoComunidades = async () => {
-        try {
-            const res = await fetch('/api/community/', {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (res.ok) {
-                const data = await res.json()
-                setComunidades(data)
-
-            } else {
-                throw new Error('Error al traer la informacion');
+    useEffect(() => {
+        const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
+            //setIsLoading(true)
+            try {
+                const res = await fetch("http://localhost:3333/api/communities", {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${Cookies.get('token')}`
+                    }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setComunidades(data.communities)
+                }
+            } catch (error: any) {
+                console.error('Error:', error);
+                alert(error.message);
             }
-        } catch (error: any) {
-            console.error('Error:', error);
-            alert(error.message);
         }
+        fetchData();
+    }, []);
 
-    }
+
+
 
     //EDICION DE LA COMUNIDAD
     const editar = (id: number, nameComunidad: string, descripcion: string) => {
@@ -117,25 +158,52 @@ export default function Perfil() {
         toggle()
     }
 
-    //CREACION COMUNIDAD
-
 
     //UPDATE COMUNIDAD
     const updateComunidad = async (values: Comunidad) => {
         try {
-            const res = await fetch('/api/community/name/' + comunityName, {
+            const res = await fetch('http://localhost:3333/api/community/name/' + comunityName, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    'Authorization': `Bearer ${Cookies.get('token')}`
                 },
-                body: JSON.stringify(values)
+                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion })
             });
 
             if (res.ok) {
 
             } else {
                 throw new Error('ha sucedido un error al crear la comunidad');
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+        stateformEditar()
+        toggle()
+    }
+    const eliminar = (comunnuty_ID: number, name: string) => {
+        id_community = comunnuty_ID
+        comunityName = name
+        stateConfirmacion()
+    }
+    const deleteComunidad = async () => {
+        try {
+            const res = await fetch('/api/community/name/' + comunityName, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${Cookies.get('token')}`
+                }
+
+            });
+
+            if (res.ok) {
+                console.log('Error:', "Se ha eliminado la comunidad de forma correcta");
+                alert("Se ha eliminado la comunidad de forma correcta");
+            } else {
+                throw new Error('ha sucedido un error al elimianr la comunidad');
             }
         } catch (error: any) {
             console.error('Error:', error);
@@ -185,18 +253,18 @@ export default function Perfil() {
                         <div className={style.component1}>
                             <h4>Nombre de usuario:</h4>
                             <div className={style.textContainer}>
-                            <div>
-                                <h5>{name}</h5>
-                            </div>
+                                <div>
+                                    <h5>{name}</h5>
+                                </div>
                             </div>
                         </div>
 
                         <div className={style.component2}>
                             <h4>Email registrado:</h4>
                             <div className={style.textContainer}>
-                            <div>
-                                <h5>{email}</h5>
-                            </div>
+                                <div>
+                                    <h5>{email}</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -217,10 +285,10 @@ export default function Perfil() {
 
                         }
 
-                        <ComunidadPerfil idComunidad={1} comunityName="FEM" descripcion="Descripcion de la comunidad Fem" editar={editar}></ComunidadPerfil>
-                        <ComunidadPerfil idComunidad={2} comunityName="Calculo Integral" descripcion="Descripcion de la comunidad Calculo integral" editar={editar}></ComunidadPerfil>
-                        <ComunidadPerfil idComunidad={3} comunityName="Calculo Diferencial" descripcion="Descripcion de la comunidad Calculo Diferencial " editar={editar}></ComunidadPerfil>
-                        <ComunidadPerfil idComunidad={4} comunityName="Bases de Datos" descripcion="Descripcion de la comunidad Base de datos" editar={editar}></ComunidadPerfil>
+                        <ComunidadPerfil idComunidad={1} comunityName="FEM" descripcion="Descripcion de la comunidad Fem" editar={editar} eliminar={eliminar}></ComunidadPerfil>
+                        <ComunidadPerfil idComunidad={2} comunityName="Calculo Integral" descripcion="Descripcion de la comunidad Calculo integral" editar={editar} eliminar={eliminar}></ComunidadPerfil>
+                        <ComunidadPerfil idComunidad={3} comunityName="Calculo Diferencial" descripcion="Descripcion de la comunidad Calculo Diferencial " editar={editar} eliminar={eliminar}></ComunidadPerfil>
+                        <ComunidadPerfil idComunidad={4} comunityName="Bases de Datos" descripcion="Descripcion de la comunidad Base de datos" editar={editar} eliminar={eliminar}></ComunidadPerfil>
 
 
                         <button className={style.rectangleButton} style={{ marginBottom: '10px' }} onClick={editarPerfil}>
@@ -233,6 +301,14 @@ export default function Perfil() {
 
 
             </main>
+
+            {confirmacion ? (
+
+                <div className="modalOverlay">
+                    <ConfirmacionRecuadro name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
+                </div>
+            ) : null
+            }
 
             {formEditar ? (
                 <div>
@@ -299,8 +375,6 @@ export default function Perfil() {
             ) : null
 
             }
-
-
 
         </>
     )
