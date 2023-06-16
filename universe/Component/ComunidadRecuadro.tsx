@@ -29,20 +29,20 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
 
     const unirseComunidad = async () => {
         try {
-            const res = await fetch('/api/enter_community', {
+            const res = await fetch('http://localhost:3333/api/enter_community', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 },
-                body: JSON.stringify({ id_Comunidad: idComunidad, id_user: localStorage.getItem('user_ID') })
+                body: JSON.stringify({ "community_id": idComunidad, "user_id": localStorage.getItem('user_ID') })
             });
             if (res.ok) {
                 localStorage.setItem('comunidad_ID', idComunidad.toString())
                 console.log(localStorage.getItem('comunidad_ID'))
                 router.push('/HomeComunidad');
             } else {
-                throw new Error('ha sucedido un error al entrar a la comunidad');
+                throw new Error('Ha sucedido un error al entrar a la comunidad');
             }
         } catch (error: any) {
             console.error('Error:', error);

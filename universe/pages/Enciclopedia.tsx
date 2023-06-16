@@ -85,12 +85,12 @@ export default function Enciclopedia() {
         try {
             const res = await fetch("http://localhost:3333/api/topic", {
                 method: 'POST',
-                mode: 'cors',
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 },
-                body: JSON.stringify(values)
+                body: JSON.stringify({"name": values.name})
             });
             if (res.ok) {
                 console.log('success:', "Creado con exito");
@@ -219,7 +219,7 @@ export default function Enciclopedia() {
                                 <div id="inputs">
                                     <div>
                                         <h5>Nombre del tema:</h5>
-                                        <input name="nombre_Tema" type="text" placeholder="nombre tema"
+                                        <input name="name" type="text" placeholder="nombre tema"
                                             value={values.name}
                                             onChange={handleChange}
                                         />

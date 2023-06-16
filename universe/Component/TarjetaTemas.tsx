@@ -17,14 +17,14 @@ interface Props {
 function TarjetaTemas({id_Topic, name, ruta,eliminar}:Props) {
     const router = useRouter();
     const [isAdmin, setIsAdmin] = useState(
-        
-        ()=>{
-        if(localStorage.getItem("is_Admin")=="1"){
-            return true
-        }else{
-            return false
-        }
-    }
+        true
+    //     ()=>{
+    //     if(localStorage.getItem("is_Admin")=="1"){
+    //         return true
+    //     }else{
+    //         return false
+    //     }
+    // }
     
     )
     const [optionsActive, setOptionsActive] = useState(false)

@@ -19,12 +19,13 @@ export default function HomeComunidad() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await fetch(`http://localhost:3333/api/is_admin?community_id=${localStorage.getItem("comunidad_ID")}&user_id=${localStorage.getItem("user_ID")}`, {
-                    method: 'GET',
+                const res = await fetch(`http://localhost:3333/api/is_admin`, {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem("jwt_token")
-                    }
+                        'Authorization': 'Bearer ' + localStorage.getItem("token")
+                    },
+                    body: JSON.stringify({ "user_id": localStorage.getItem("user_ID"), "community_id": localStorage.getItem("comunidad_ID")})
                 });
     
                 if (res.status === 200) {
