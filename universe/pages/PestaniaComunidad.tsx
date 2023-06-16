@@ -198,7 +198,7 @@ export default function PestaniaComunidad() {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${Cookies.get('token')}`
                 },
-                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion })
+                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion, "label": values.materia })
             });
 
             if (res.ok) {
@@ -220,7 +220,7 @@ export default function PestaniaComunidad() {
     }
     const deleteComunidad = async () => {
         try {
-            const res = await fetch('/api/community/name/' + comunityName, {
+            const res = await fetch('http://localhost:3333/api/community/name/' + comunityName, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -410,7 +410,7 @@ export default function PestaniaComunidad() {
 
                                     <div>
                                         <h5>Nombre de la comunidad:</h5>
-                                        <input name="NombreComunidad" type="text" placeholder="Nombre de la comunidad"
+                                        <input name="nameComunidad" type="text" placeholder="Nombre de la comunidad"
                                             value={values.nameComunidad}
                                             onChange={handleChange}
                                         />

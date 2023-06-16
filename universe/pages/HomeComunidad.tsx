@@ -21,12 +21,16 @@ export default function HomeComunidad() {
             try {
                 const res = await fetch(`http://localhost:3333/api/is_admin`, {
                     method: 'POST',
+                    mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + localStorage.getItem("token")
                     },
-                    body: JSON.stringify({ "user_id": localStorage.getItem("user_ID"), "community_id": localStorage.getItem("comunidad_ID")})
+                    body: JSON.stringify({ "user_id": parseInt(localStorage.getItem("user_ID") ?? '0', 10), "community_id": parseInt(localStorage.getItem("comunidad_ID")  ?? '0', 10)})
                 });
+
+                localStorage.removeItem("is_Admin")
+                console.log(res)
     
                 if (res.status === 200) {
                     setIsAdmin(true);
