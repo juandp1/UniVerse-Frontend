@@ -45,10 +45,16 @@ const Login = () => {
       if (res.ok) {
         const data = await res.json();
         nookies.set(null, 'token', data["access_token"], { path: '/' });
+        nookies.set(null, "user_ID", data["user"]["id"], { path: '/' });
+        nookies.set(null, "name", data["user"]["name"], { path: '/' });
+        nookies.set(null, "email", data["user"]["email"], { path: '/' });
+        nookies.set(null, "password", data["user"]["password"], { path: '/' });
+
         localStorage.setItem("token", data["access_token"]);
         localStorage.setItem("user_ID", data["user"]["id"]);
         localStorage.setItem("name", data["user"]["name"]); 
-        localStorage.setItem("email", data["user"]["email"]);// Almacena el nombre de usuario en el localStorage
+        localStorage.setItem("email", data["user"]["email"]);
+        localStorage.setItem("password", data["user"]["password"]);
         
         router.push('/PestaniaComunidad'); // Redirect to PestaniaComunidad.tsx
 

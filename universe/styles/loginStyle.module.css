@@ -68,7 +68,7 @@
     background-color: #ffebee;
   }
   
-  .inputError {
+  .inputError.inputError[type=password] {
     border-color: red;
     background-color: #ffebee;
   }

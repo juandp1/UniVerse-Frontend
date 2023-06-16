@@ -110,7 +110,7 @@ function Navbar() {
         logoutTimer.current = setTimeout(() => {
             handleAutomaticLogout();
             setShowRecuadro(true); 
-        }, 3000000); //50 minutos despues de iniciar sesion 
+        }, 1800000); //30 minutos despues de iniciar sesion 
     };
 
     //Reiniciar el temporizador si el usuario presnta actividad, de lo contrario se hace el cierre se sesion automatico 
@@ -202,7 +202,7 @@ function Navbar() {
 
             {showRecuadro && (
                 <div className="modalOverlay">
-                    <Recuadro cerrar={handleAceptarClick} />
+                    <Recuadro cerrar={handleAceptarClick} titulo={'Sesión cerrada'} descripcion={'Su sesión ha sido cerrada debido a inactividad'}/>
                 </div>
             )}
 
