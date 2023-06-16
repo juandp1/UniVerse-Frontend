@@ -12,7 +12,7 @@ export const Routes =[
     {
         title:'Inicio',
         path:'/HomeComunidad',
-        icon: <Aiicon.AiFillHome size={"45px"} color={colorIcon}/>,
+        icon: <Aiicon.AiFillHome size={"35px"} color={colorIcon}/>,
         cName:className
     },
     {
