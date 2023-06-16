@@ -154,7 +154,7 @@ export default function PestaniaComunidad() {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${Cookies.get('token')}`
                 },
-                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion })
+                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion, "label": values.materia})
             });
 
             if (res.ok) {
