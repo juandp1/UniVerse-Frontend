@@ -135,7 +135,7 @@
     height: 35px;
     justify-content: center;
     align-items: center;
-    margin-top: 2.7rem;
+    margin-top: 5.5rem;
   }
 
 
@@ -147,7 +147,7 @@
   
     .rightContainer {
       width: 100%;
-      height: 35%;
+      height: 60%;
       order: 2;
       margin-top: 20rem;
 
@@ -156,7 +156,7 @@
     .formLogin {
       background-color: #ffffff;
       width: 80%;
-      height: 50;
+      top: 430px;
     }
 
     .desktopOnly {
@@ -175,7 +175,7 @@
     }
 
     .registerHeading {
-      margin-top: 0rem;
+      margin-top: 1rem;
       margin-bottom: 1rem;
     }
 

@@ -39,7 +39,7 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({"email": values.username, "password": values.password})
+        body: JSON.stringify({ "username": values.username, "email": values.username, "password": values.password })
       });
   
       if (res.ok) {
@@ -48,13 +48,11 @@ const Login = () => {
         nookies.set(null, "user_ID", data["user"]["id"], { path: '/' });
         nookies.set(null, "name", data["user"]["name"], { path: '/' });
         nookies.set(null, "email", data["user"]["email"], { path: '/' });
-        nookies.set(null, "password", data["user"]["password"], { path: '/' });
 
         localStorage.setItem("token", data["access_token"]);
         localStorage.setItem("user_ID", data["user"]["id"]);
         localStorage.setItem("name", data["user"]["name"]); 
         localStorage.setItem("email", data["user"]["email"]);
-        localStorage.setItem("password", data["user"]["password"]);
         
         router.push('/PestaniaComunidad'); // Redirect to PestaniaComunidad.tsx
 
@@ -131,18 +129,18 @@ const Login = () => {
         </form>
       </div>
 
-      <div className={styles.rightContainer}>
+      <div className={styles.rightContainer} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Image
           src="/images/group.png"
           className={styles.desktopOnly}
           width={150}
           height={400}
-          style={{marginTop: '6rem'}}
+          style={{marginTop: '5rem'}}
           alt="icon"
           priority
         />
 
-        <h2 style={{color: '#1d3752', textAlign: 'center', marginTop: '2.7rem', marginBottom: '1rem'  }}>
+        <h2 style={{color: '#1d3752', textAlign: 'center', marginTop: '3.2rem', marginBottom: '1rem'  }}>
           ¿Aún no eres parte?
         </h2>
 
