@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;700&display=swap');
 
 @tailwind base;
@@ -23,53 +22,66 @@
 
 /* Css para etiquetas de html*/
 
-html, body{
-  height:100%;
-  margin:0;
+html,
+body {
+  height: 100%;
+  margin: 0;
   display: flex;
   flex-direction: column;
 }
-h1{  /*Titulo principal*/
+
+h1 {
+  /*Titulo principal*/
   color: #000000;
   font-weight: 700;
   font-family: 'Mulish', sans-serif;
   font-size: 36px;
-  
+
 }
-h2{  /*Titulo Secundario*/
+
+h2 {
+  /*Titulo Secundario*/
   font-weight: 700;
   font-family: 'Mulish', sans-serif;
   font-size: 28px;
 }
-h3{ /*Titulo Terceriario*/
+
+h3 {
+  /*Titulo Terceriario*/
   color: #000000;
   font-weight: 700;
   font-family: 'Mulish', sans-serif;
   font-size: 22px;
-  
+
 }
-h4{   /*Texto normal negrilla*/ 
+
+h4 {
+  /*Texto normal negrilla*/
   color: #000000;
   font-weight: 700;
   font-family: 'Mulish', sans-serif;
   font-size: 16px;
 }
-h5{ /*Texto normal*/
+
+h5 {
+  /*Texto normal*/
   color: #000000;
   font-weight: 400;
   font-family: 'Mulish', sans-serif;
   font-size: 16px;
-  
+
 }
 
-h6{ /*Texto normal negrilla blanco*/
+h6 {
+  /*Texto normal negrilla blanco*/
   color: #ffffff;
   font-weight: 600;
   font-family: 'Mulish', sans-serif;
   font-size: 16px;
-  
+
 }
-label{
+
+label {
   color: #000000;
   font-weight: 400;
   font-family: 'Mulish', sans-serif;
@@ -77,23 +89,23 @@ label{
 }
 
 
-main{
+main {
   width: 100%;
   min-height: 100%;
   transition: 850ms;
 }
 
-main#main.active{
+main#main.active {
   filter: blur(3px);
   filter: brightness(60%);
   background-color: white;
   user-select: none;
   width: 100%;
   min-height: 100vh;
-  
+
 }
 
-form{
+form {
   position: absolute;
   width: 800px;
   min-height: 400px;
@@ -105,17 +117,20 @@ form{
   z-index: 10;
   transition: 850ms;
 }
-form #close{
-  position:absolute;
+
+form #close {
+  position: absolute;
   top: 10px;
   right: 10px;
   border-radius: 20px;
 }
-form #close:hover{
+
+form #close:hover {
   background-color: #ABC7C2;
   cursor: pointer;
 }
-form div#encabezado{
+
+form div#encabezado {
   display: grid;
   grid-template-columns: 70% 30%;
   padding: 30px;
@@ -126,13 +141,14 @@ form div#encabezado{
   align-items: center;
   justify-content: flex-start;
 }
-form div#encabezado div{
+
+form div#encabezado div {
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-form div#inputs{
+form div#inputs {
   display: flex;
   padding: 30px;
   min-width: 100%;
@@ -145,27 +161,32 @@ form div#inputs{
 
 }
 
-form div#inputs div{
+form div#inputs div {
   width: 100%;
   min-width: 50%;
-  
+
 }
 
 
-input[type=text],input[type=number], input[type=date], 
-input[type=time], input[type=month],input[type=email],input[type=password]{
+input[type=text],
+input[type=number],
+input[type=date],
+input[type=time],
+input[type=month],
+input[type=email],
+input[type=password] {
   min-width: 100px;
   width: 100%;
   height: 45px;
-  padding:12px 10px;
+  padding: 12px 10px;
   margin-top: 3px;
   box-sizing: border-box;
   background: #FFFFFF;
   border: 2px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
-  cursor:pointer;
-  
+  cursor: pointer;
+
 }
 
 .inputError {
@@ -179,44 +200,46 @@ input[type=time], input[type=month],input[type=email],input[type=password]{
   margin-top: 0.5rem;
 }
 
-input[type="file"]{
+input[type="file"] {
   height: 45px;
   margin-top: 5px;
-  cursor:pointer;
+  cursor: pointer;
 }
+
 input[type=file]::file-selector-button {
-  
+
   height: 35px;
   width: 125px;
   background: #285F76;
   padding: 5px;
   border-radius: 20px;
-  border:none;
+  border: none;
   color: #fff;
   font-weight: 700;
   font-family: 'Mulish', sans-serif;
   font-size: 16px;
   cursor: pointer;
-  
+
 }
 
 input[type=file]::file-selector-button:hover {
   background: #1D3752;
 }
-select{
+
+select {
   width: 200px;
-  height:45px;
+  height: 45px;
   margin-top: 5px;
   border: 2.72246px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   color: rgb(2, 2, 2);
-  cursor:pointer;
-  
+  cursor: pointer;
+
 }
 
 
-button[type=submit]{
+button[type=submit] {
   display: flex;
   border-radius: 50px;
   background-color: #285F76;
@@ -224,12 +247,14 @@ button[type=submit]{
   height: 35px;
   justify-content: center;
   align-items: center;
-  
+
 }
-button h3{
+
+button h3 {
   color: white;
 }
-button:hover{
+
+button:hover {
   background-color: #1D3752;
 }
 
@@ -243,36 +268,36 @@ button {
   height: 35px;
   justify-content: center;
   align-items: center;
-  
+
 }
 
 
 
 /* Css creados para toda las las paginas*/
-.principal_Content{
+.principal_Content {
   position: relative;
   height: 80%;
-  width:100%;
+  width: 100%;
   padding-top: 120px;
   padding-left: 100px;
 
 
 }
 
-.principal_Content_withoutLateralNavbar{
+.principal_Content_withoutLateralNavbar {
   position: relative;
   height: 80%;
-  width:100%;
+  width: 100%;
   padding-top: 100px;
   align-items: center;
   justify-content: center;
 
 }
 
-.principal_Content_Profile{
+.principal_Content_Profile {
   position: relative;
   height: 80%;
-  width:100%;
+  width: 100%;
   padding-top: 120px;
   align-items: center;
   justify-content: center;
@@ -281,7 +306,7 @@ button {
 
 }
 
-.desplegableOptions{
+.desplegableOptions {
   width: 200px;
   height: auto;
   background-color: #CAFBF2;
@@ -292,30 +317,31 @@ button {
   z-index: 10;
 
   padding: 5px;
-  
+
 
 }
-.desplegableOptions div{
+
+.desplegableOptions div {
   display: flex;
   padding: 2px;
   height: 32px;
 
   width: 100%;
   border-bottom: 1px solid #285F76;
-  
+
 }
 
 
-.desplegableOptions div:hover{
+.desplegableOptions div:hover {
   width: 100%;
   height: 100%;
   border-radius: 5px;
   background-color: #ABC7C2;
   cursor: pointer;
-  
+
 }
 
-.button_crear{
+.button_crear {
   display: flex;
   position: fixed;
   background-color: #CAFBF2;
@@ -328,7 +354,8 @@ button {
   align-items: center;
   transition: 850ms;
 }
-.button_crear:hover{
+
+.button_crear:hover {
   background-color: #cee9e4;
   cursor: pointer;
   width: 90px;
@@ -356,12 +383,12 @@ button {
   border: 2.72246px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .searchButton[type=submit] {
   width: 50px;
-  height: 35px; 
+  height: 35px;
   align-items: center;
   justify-content: center;
   background-color: #285F76;
@@ -370,14 +397,14 @@ button {
   box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   margin-top: 5px;
-  margin-left: 8px; 
-  padding: 4px 8px; 
+  margin-left: 8px;
+  padding: 4px 8px;
   cursor: pointer;
 }
 
 
 
-.corner_Content{
+.corner_Content {
   position: relative;
   height: 20%;
   width: 100%;
@@ -402,12 +429,26 @@ button {
   z-index: 1000;
 }
 
+.container {
+  padding: 0.5rem;
+  width: 70%;
+  height: 350px;
+  border: 3px solid #A9E9DF;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+
+}
+
 @media (max-width: 767px) {
 
-  .principal_Content{
+  .principal_Content {
     position: relative;
     height: 80%;
-    width:100%;
+    width: 100%;
     padding-top: 120px;
     padding-left: 65px;
     align-items: center;
@@ -415,12 +456,5 @@ button {
 
   }
 
-  .mobile.Only{
-
-
-    
-  }
+  .mobile.Only {}
 }
-
-
-
