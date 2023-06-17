@@ -84,7 +84,7 @@ const Login = () => {
         <div className={styles.logoContainer}>
           <Image
             src="/images/UniVerseLogo.svg"
-            width={400}
+            width={500}
             height={50}
             alt="logo"
             priority
@@ -133,14 +133,14 @@ const Login = () => {
         <Image
           src="/images/group.png"
           className={styles.desktopOnly}
-          width={150}
-          height={400}
-          style={{marginTop: '5rem'}}
+          width={200}
+          height={500}
+          style={{marginTop: '3rem', marginBottom: '5rem'}}
           alt="icon"
           priority
         />
 
-        <h2 style={{color: '#1d3752', textAlign: 'center', marginTop: '3.2rem', marginBottom: '1rem'  }}>
+        <h2 style={{color: '#1d3752', textAlign: 'center', marginBottom: '1rem'  }}>
           ¿Aún no eres parte?
         </h2>
 
