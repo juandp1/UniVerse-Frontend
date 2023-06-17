@@ -3,6 +3,7 @@ import LateralNavBar from '../Component/LateralNavBar'
 import Navbar from '../Component/NavBar'
 import Head from 'next/head';
 import * as Bsicon from 'react-icons/bs';
+import Cookies from 'js-cookie';
 
 const colorIcon = "#61EB8D"
 export default function EstadisticasComunidad() {
@@ -14,10 +15,17 @@ export default function EstadisticasComunidad() {
     useEffect(() => {
         const fetchNumUsers = async () => {
             try {
-                const res = await fetch('http://localhost:3333/api/statistics/num_users_per_comm');
+                const res = await fetch('http://localhost:3333/api/statistics/users_per_comm', {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                });
                 if (res.ok) {
                     const data = await res.json();
-                    setNumUsers(data);
+                    setNumUsers(data.users_belongs_to_community.length);
                 } else {
                     throw new Error('Error fetching number of users');
                 }
@@ -28,7 +36,13 @@ export default function EstadisticasComunidad() {
 
         const fetchNumQuestions = async () => {
             try {
-                const res = await fetch('http://localhost:3333/api/statistics/questions_per_comm');
+                const res = await fetch('http://localhost:3333/api/statistics/questions_per_comm', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                });
                 if (res.ok) {
                     const data = await res.json();
                     setNumQuestions(data.questions.length);
@@ -42,7 +56,13 @@ export default function EstadisticasComunidad() {
 
         const fetchNumTopics = async () => {
             try {
-                const res = await fetch('http://localhost:3333/api/statistics/topics_per_comm');
+                const res = await fetch('http://localhost:3333/api/statistics/topics_per_comm', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                });
                 if (res.ok) {
                     const data = await res.json();
                     setNumTopics(data.topics_per_community.length);
@@ -58,8 +78,6 @@ export default function EstadisticasComunidad() {
         fetchNumQuestions();
         fetchNumTopics();
     }, []);
-
-
 
 
 
