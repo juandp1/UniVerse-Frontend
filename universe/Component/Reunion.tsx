@@ -43,23 +43,23 @@ function Reunion({idReunion, nombreCreador, nombreReunion, descripcion_reunion, 
                         <h3>{lugar_reunion}</h3>
                     </div>
                 </div>
-                <div className="absolute bottom-10 right-0">
+                <div className= "absolute top-10 right-0">
                         <div>
                             <SlIcon.SlOptionsVertical size={"40px"} onClick={stateOptionsMeeting} className=" hover:bg-light_blue_hover w-auto h-auto p-2 rounded-md" />
                         </div>
 
                         <div>
                             {optionsMeeting ? (
-                                <div className="desplegableOptions right-4">
+                                <div className="desplegableOptionsReunion right-4">
 
                                     <div className="flex space-x-3 items-center" onClick={() => editar(idReunion, nombreReunion, descripcion_reunion, fecha_reunion, hora_reunion, lugar_reunion)}>
-                                        <AiIcon.AiOutlineEdit size={"20px"} color="#e5964b" />
-                                        <h5>Editar</h5>
+                                        <AiIcon.AiOutlineEdit size={"35px"} color="#e5964b" />
+                                        <h3>Editar detalles la reunión</h3>
                                     </div>
 
                                     <div onClick={()=> eliminar(idReunion, nombreReunion)} className="flex space-x-3 items-center">
-                                        <RiIcon.RiDeleteBinLine size={"20px"} color="#cd3d49" />
-                                        <h5>Eliminar</h5>
+                                        <RiIcon.RiDeleteBinLine size={"35px"} color="#cd3d49" />
+                                        <h3>Eliminar la reunión</h3>
                                     </div>
 
                                 </div>
