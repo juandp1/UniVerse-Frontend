@@ -22,10 +22,10 @@ import { type } from "os";
 
 const colorIcon = "#61EB8D"
 interface Documento {
-    namestring;
-    descriptionstring;
-    filestring;
-    typestring;
+    name: string;
+    description: string;
+    file: string;
+    type: string;
 }
 interface Options {
     value: string;
@@ -51,13 +51,18 @@ const optionsType: Options[] = [
 
 export default function DocumentosTema() {
 
-
+    const [Topic_id, setTopic_id]= useState<string | null>("")
     const [isAdmin, setIsAdmin] = useState(false)
     const [showFormAñadirDocumento, setShowFormAñadirDocumento] = useState(false)
     const statusShowFormAñadirDocumento = () => setShowFormAñadirDocumento(!showFormAñadirDocumento)
     const [file, setFile] = useState<File | null>(null);
     const [Documentos, setDocumentos] = useState([{
-        nombreDocumentos: ''
+        name: "",
+        id:0,
+        description :"",
+        file: new File([],"prueba"),
+        type:"",
+        administrator_id:0
     }])
     const [optionType, setOptionType] = useState<string | null>("libro");
 
@@ -68,20 +73,31 @@ export default function DocumentosTema() {
     }
 
 
+    useEffect(() => {
+        setTopic_id(localStorage.getItem("Topic"))
+    }, []);
+    useEffect(() => {
+        setIsAdmin(localStorage.getItem("is_Admin") == "1");
+    }, []);
+    
+    
     //FUNCION PARA TRAER TODOS LOS DOCUMENTOS APENAS CARGA LA PAGINA
     useEffect(() => {
         const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
             //setIsLoading(true)
             try {
-                const res = await fetch('/api/document', {
+                const res = await fetch('http://localhost:3333/api/topic/'+ Topic_id +'/documents', {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     }
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    setDocumentos(data)
+                    setDocumentos(data["documents"])
+                }else{
+                    console.log(await res.json())
                 }
             } catch (error: any) {
                 console.error('Error:', error);
@@ -122,8 +138,6 @@ export default function DocumentosTema() {
 
                     });
                     toggle()
-
-
                 }
             } catch (error: any) {
                 console.error('Error:', error);
@@ -205,19 +219,14 @@ export default function DocumentosTema() {
                         </div>
                     </div>
                     <div className="flex flex-wrap " style={{ marginTop: '15px' }}>
-                        {/*Temas.map((item,index)=>{
+                        {Documentos.map((item,index)=>{
                             return(
-                                <TarjetaTemas name={item.nombreTema} ruta={"/DocumentosTema"}></TarjetaTemas>
+                                <TarjetaDocumento key={item.id} idDocument={item.id} DocumentName={item.name} descripcion={item.description} docType={item.type}></TarjetaDocumento>
                             )
                         })
-                        */}
-                        <TarjetaDocumento idDocument={1} DocumentName="Libro 1" descripcion="Descripcion del documento" docType={"libro"}></TarjetaDocumento>
+                        }
                         <TarjetaDocumento idDocument={2} DocumentName="Ejercicio 1.2" descripcion="Descripcion del documento" docType={"ejercicio"}></TarjetaDocumento>
                         <TarjetaDocumento idDocument={3} DocumentName="Parcial 1" descripcion="Descripcion del documento" docType={"examen"}></TarjetaDocumento>
-                        <TarjetaDocumento idDocument={4} DocumentName="Ejercicio 2.1" descripcion="Descripcion del documento" docType={"ejercicio"}></TarjetaDocumento>
-                        <TarjetaDocumento idDocument={5} DocumentName="Parcial 2" descripcion="Descripcion del documento" docType={"examen"}></TarjetaDocumento>
-                        <TarjetaDocumento idDocument={6} DocumentName="Libro 2" descripcion="Descripcion del documento" docType={"libro"}></TarjetaDocumento>
-                        <TarjetaDocumento idDocument={7} DocumentName="Ejercicio pre-parcial" descripcion="Descripcion del documento" docType={"ejercicio"}></TarjetaDocumento>
                     </div>
                     <div className="corner_Content">
                         <div className="flex items-center justify-end space-x-3">
