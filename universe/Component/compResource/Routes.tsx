@@ -1,6 +1,7 @@
 import React from "react";
 import * as Faicon from 'react-icons/fa';
 import * as Aiicon from 'react-icons/ai';
+import * as Bsicon from 'react-icons/bs';
 import  style from "/styles/NavBarsStyles.module.css";
 
 const sizeIcon="25px"
@@ -12,7 +13,7 @@ export const Routes =[
     {
         title:'Inicio',
         path:'/HomeComunidad',
-        icon: <Aiicon.AiFillHome size={"35px"} color={colorIcon}/>,
+        icon: <Aiicon.AiFillHome size={"32px"} color={colorIcon}/>,
         cName:className
     },
     {
@@ -31,6 +32,13 @@ export const Routes =[
         title:'Reuniones',
         path:'/Reuniones',
         icon: <Aiicon.AiFillSchedule size={sizeIcon} color={colorIcon}/>,
+        cName:className
+    },
+
+    {
+        title:'EstadisticasComunidad',
+        path:'/EstadisticasComunidad',
+        icon: <Bsicon.BsBarChartFill size={sizeIcon} color={colorIcon}/>,
         cName:className
     },
 ]

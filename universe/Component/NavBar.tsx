@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import * as RxIcon from 'react-icons/rx';
 import * as TiIcon from 'react-icons/ti';
 import * as FaIcon from 'react-icons/fa';
+import * as Bsicon from 'react-icons/bs';
 import style from "/styles/NavBarsStyles.module.css";
 import Image from 'next/image';
 import { Stint_Ultra_Expanded } from 'next/font/google';
@@ -22,7 +23,7 @@ function Navbar() {
     useEffect(() => {
         setName(localStorage.getItem("name"));
     }, []);
-    const [showRecuadro, setShowRecuadro] = useState(false); 
+    const [showRecuadro, setShowRecuadro] = useState(false);
     const logoutTimer = useRef<NodeJS.Timeout | null>(null);
     {/*con este useState se controla para que aparezca las opciones de perfil y de cerrar sesion*/ }
 
@@ -109,7 +110,7 @@ function Navbar() {
 
         logoutTimer.current = setTimeout(() => {
             handleAutomaticLogout();
-            setShowRecuadro(true); 
+            setShowRecuadro(true);
         }, 1800000); //30 minutos despues de iniciar sesion 
     };
 
@@ -119,7 +120,7 @@ function Navbar() {
         if (token) {
             resetLogoutTimer();
 
-            
+
             window.addEventListener('mousemove', resetLogoutTimer);
             window.addEventListener('keydown', resetLogoutTimer);
             return () => {
@@ -133,8 +134,8 @@ function Navbar() {
     }, []);
 
     const handleAceptarClick = () => {
-        setShowRecuadro(false); 
-        router.push('/'); 
+        setShowRecuadro(false);
+        router.push('/');
     };
 
 
@@ -160,6 +161,18 @@ function Navbar() {
                         <Link href="/PestaniaComunidad" className='flex space-x-3 '>
                             <TiIcon.TiGroup size={"25px"} />
                             <h4>Comunidades</h4>
+                        </Link>
+
+                    </div>
+
+                </div>
+
+                <div className="w-auto flex space-x-3 content-center mr-20">
+                    <div className={style.button_NavBar}>
+
+                        <Link href="/EstadisticasGenerales" className='w-auto flex space-x-3 content-center'>
+                            <Bsicon.BsBarChartFill size={"25px"} />
+                            <h4>Estadisticas universe</h4>
                         </Link>
 
                     </div>
@@ -202,7 +215,7 @@ function Navbar() {
 
             {showRecuadro && (
                 <div className="modalOverlay">
-                    <Recuadro cerrar={handleAceptarClick} titulo={'Sesión cerrada'} descripcion={'Su sesión ha sido cerrada debido a inactividad'}/>
+                    <Recuadro cerrar={handleAceptarClick} titulo={'Sesión cerrada'} descripcion={'Su sesión ha sido cerrada debido a inactividad'} />
                 </div>
             )}
 
