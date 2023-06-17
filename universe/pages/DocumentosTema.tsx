@@ -22,10 +22,10 @@ import { type } from "os";
 
 const colorIcon = "#61EB8D"
 interface Documento {
-    name: String;
-    description: String;
-    file: String;
-    type: String;
+    namestring;
+    descriptionstring;
+    filestring;
+    typestring;
 }
 interface Options {
     value: string;
@@ -51,7 +51,7 @@ const optionsType: Options[] = [
 
 export default function DocumentosTema() {
 
-    
+
     const [isAdmin, setIsAdmin] = useState(false)
     const [showFormAñadirDocumento, setShowFormAñadirDocumento] = useState(false)
     const statusShowFormAñadirDocumento = () => setShowFormAñadirDocumento(!showFormAñadirDocumento)
@@ -66,8 +66,8 @@ export default function DocumentosTema() {
         blurMain?.classList.toggle("active")
         statusShowFormAñadirDocumento()
     }
-    
-    
+
+
     //FUNCION PARA TRAER TODOS LOS DOCUMENTOS APENAS CARGA LA PAGINA
     useEffect(() => {
         const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
@@ -91,10 +91,10 @@ export default function DocumentosTema() {
         }
         fetchData();
     }, []);
-    
+
     const crearDocumento = async (values: Documento) => {
         /**funcion para añadir un documento y llevarlo al backend */
-        
+
 
         if (file != null) {
 
@@ -103,6 +103,7 @@ export default function DocumentosTema() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
+
                     },
                     body: JSON.stringify({ "name": values.name, "description": values.description, "file": file, "type": optionType })
                 })
@@ -117,12 +118,12 @@ export default function DocumentosTema() {
                         draggable: true,
                         progress: undefined,
                         theme: "light",
-                        className:style.toast_success_doc
-            
+                        className: style.toast_success_doc
+
                     });
                     toggle()
-                    
-                    
+
+
                 }
             } catch (error: any) {
                 console.error('Error:', error);
@@ -137,7 +138,7 @@ export default function DocumentosTema() {
 
     }
     const proponerDocumento = async (values: Documento) => {
-        
+
         if (file != null) {
 
             try {
@@ -148,7 +149,7 @@ export default function DocumentosTema() {
                     },
                     body: JSON.stringify({ "name": values.name, "description": values.description, "file": file, "type": optionType })
                 })
-                if(res.ok){
+                if (res.ok) {
                     statusShowFormAñadirDocumento()
                     toast.success(' Tu propuesta de documento ha sido enviada al administrador para ser revisada', {
                         position: "top-center",
@@ -159,8 +160,8 @@ export default function DocumentosTema() {
                         draggable: true,
                         progress: undefined,
                         theme: "light",
-                        className:style.toast_success_doc
-            
+                        className: style.toast_success_doc
+
                     });
                     toggle()
                 }
@@ -233,9 +234,9 @@ export default function DocumentosTema() {
 
 
             </main>
-            <ToastContainer 
-            position="top-right"
-            className={style.success_notification}/>
+            <ToastContainer
+                position="top-right"
+                className={style.success_notification} />
             {showFormAñadirDocumento ? (
                 <div>
                     <Formik
@@ -288,8 +289,8 @@ export default function DocumentosTema() {
 
                                     </div>
                                 </div>
-                                <div id="inputs">
-                                    <div>
+                                <div className="inputContainer">
+                                    <div className="component1">
                                         <h5>Titulo:</h5>
                                         <input name="name" type="text" placeholder="Titulo"
                                             value={values.name}
@@ -302,7 +303,7 @@ export default function DocumentosTema() {
                                         />
                                     </div>
                                     {/**segunda columna del formulario esi es necesario */}
-                                    <div>
+                                    <div className="component2">
                                         <h5>Archivo:</h5>
                                         <input name="file" type="file"
                                             //value={values.file}
@@ -332,8 +333,9 @@ export default function DocumentosTema() {
                                             />
                                         </div>
                                     </div>
-
                                 </div>
+
+
                             </form>
                         )}
                     </Formik>
