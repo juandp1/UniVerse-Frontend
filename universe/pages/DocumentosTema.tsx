@@ -148,6 +148,10 @@ export default function DocumentosTema() {
                     });
                     toggle()
                 }
+
+                else{
+                    console.log(await res.json())
+                }
             } catch (error: any) {
                 console.error('Error:', error);
                 alert(error.message);
