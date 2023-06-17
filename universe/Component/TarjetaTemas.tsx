@@ -19,6 +19,7 @@ function TarjetaTemas({id_Topic, name, ruta,eliminar}:Props) {
     const [isAdmin, setIsAdmin] = useState(
         true
     //     ()=>{
+            
     //     if(localStorage.getItem("is_Admin")=="1"){
     //         return true
     //     }else{

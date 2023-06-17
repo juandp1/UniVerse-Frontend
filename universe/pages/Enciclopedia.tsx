@@ -94,6 +94,7 @@ export default function Enciclopedia() {
 			console.error("Error:", error);
 			alert(error.message);
 		}
+        
 	};
 	const eliminar = (topic_ID: number, topic_Name: string) => {
 		topicID = topic_ID;
@@ -115,8 +116,9 @@ export default function Enciclopedia() {
 				body: JSON.stringify({ topicID: topicID, comunidad_ID: localStorage.getItem("comunidad_iD") }),
 			});
 			if (res.ok) {
-				console.log("Error:", "Se ha eliminado el documento de forma correcta ");
+				console.log("Success:", "Se ha eliminado el documento de forma correcta ");
 				alert("Se ha eliminado el documento de forma correcta");
+                newActualizacion();
 			} else {
 				console.error("Error:", "sucedio un error al eliminar un tema, vuelva a intentarlo");
 				alert("sucedio un error al eliminar un tema, vuelva a intentarlo");
