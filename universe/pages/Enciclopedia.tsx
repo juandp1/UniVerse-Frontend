@@ -11,7 +11,7 @@ import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
 
 const colorIcon = "#61EB8D";
 interface Tema {
-	name: String;
+	name: string;
 }
 
 var topicID: number;
@@ -81,7 +81,7 @@ export default function Enciclopedia() {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${localStorage.getItem("token")}`,
 				},
-				body: JSON.stringify({ name: values.name, community_id: localStorage.getItem("comunidad_ID") }),
+				body: JSON.stringify({ "name": values.name, "community_id": localStorage.getItem("comunidad_ID")}),
 			});
 			if (res.ok) {
 				console.log("success:", "Creado con exito");
@@ -89,6 +89,7 @@ export default function Enciclopedia() {
 				statusShowFormCrearTema();
 				newActualizacion();
 			} else {
+				console.log(await res.json())
 			}
 		} catch (error: any) {
 			console.error("Error:", error);
@@ -106,14 +107,13 @@ export default function Enciclopedia() {
 		/**funcion para la creacion de un tema en el backend */
 
 		try {
-			const res = await fetch("http://localhost:3333/api/topic", {
+			const res = await fetch("http://localhost:3333/api/topic/id/" + topicID, {
 				method: "DELETE",
 				mode: "cors",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${localStorage.getItem("token")}`,
 				},
-				body: JSON.stringify({ topicID: topicID, comunidad_ID: localStorage.getItem("comunidad_iD") }),
 			});
 			if (res.ok) {
 				console.log("Success:", "Se ha eliminado el documento de forma correcta ");

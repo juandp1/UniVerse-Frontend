@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import * as SlIcon from 'react-icons/sl';
+import * as BiIcon from 'react-icons/bi';
+import * as AiIcon from 'react-icons/ai';
+import * as RiIcon from 'react-icons/ri';
+import * as Bsicon from "react-icons/bs";
 import style from "/styles/ReunionesStyle.module.css";
 
 import * as FaIcon from 'react-icons/fa';
@@ -6,16 +11,23 @@ import * as FaIcon from 'react-icons/fa';
 
 interface Props {
     idReunion: number
-    nombreCreador: String;
-    nombreReunion: String;
-    Descripcion_reunion: String;
-    fecha_reunion: String;
-    hora_reunion: String;
-    lugar_reunion: String;
+    nombreCreador: string;
+    nombreReunion: string;
+    descripcion_reunion: string;
+    fecha_reunion: string;
+    hora_reunion: string;
+    lugar_reunion: string;
+    editar: (idReunion: number, nombreReunion: string, descripcion_reunion: string, fecha_reunion: string, hora_reunion: string, lugar_reunion: string) => void;
+    eliminar: (id:number, nombreReunion:string) => void;
 }
 
-function Reunion({idReunion, nombreCreador, nombreReunion, Descripcion_reunion, fecha_reunion, hora_reunion, lugar_reunion}: Props):JSX.Element{
+function Reunion({idReunion, nombreCreador, nombreReunion, descripcion_reunion, fecha_reunion, hora_reunion, lugar_reunion, editar, eliminar}: Props):JSX.Element{
+
+    const [optionsMeeting, setOptionsMeeting] = useState(false)
+    const stateOptionsMeeting = () => setOptionsMeeting(!optionsMeeting)
     
+
+
     return (
         <>
             <div className={style.square_pregunta}>
@@ -26,11 +38,38 @@ function Reunion({idReunion, nombreCreador, nombreReunion, Descripcion_reunion, 
                 <div className={style.minisquare_pregunta}>
                     <div style={{position: "absolute", top: "30px", left: "50%", transform: "translateX(-50%)", width: "628px"}}>
                         <h1 style={{marginBottom: '35px', marginTop: '20px'}}>{nombreReunion}</h1>
-                        <h3>{Descripcion_reunion}</h3>
+                        <h3>{descripcion_reunion}</h3>
                         <h3>{fecha_reunion}</h3>
                         <h3>{lugar_reunion}</h3>
                     </div>
                 </div>
+                <div className="absolute bottom-10 right-0">
+                        <div>
+                            <SlIcon.SlOptionsVertical size={"40px"} onClick={stateOptionsMeeting} className=" hover:bg-light_blue_hover w-auto h-auto p-2 rounded-md" />
+                        </div>
+
+                        <div>
+                            {optionsMeeting ? (
+                                <div className="desplegableOptions right-4">
+
+                                    <div className="flex space-x-3 items-center" onClick={() => editar(idReunion, nombreReunion, descripcion_reunion, fecha_reunion, hora_reunion, lugar_reunion)}>
+                                        <AiIcon.AiOutlineEdit size={"20px"} color="#e5964b" />
+                                        <h5>Editar</h5>
+                                    </div>
+
+                                    <div onClick={()=> eliminar(idReunion, nombreReunion)} className="flex space-x-3 items-center">
+                                        <RiIcon.RiDeleteBinLine size={"20px"} color="#cd3d49" />
+                                        <h5>Eliminar</h5>
+                                    </div>
+
+                                </div>
+                            ) : null
+
+                            }
+                        </div>
+
+
+                    </div>
             </div>
 
         </>

@@ -6,6 +6,7 @@ import { useState } from "react";
 import * as Yup from "yup";
 import styles from 'styles/registerStyle.module.css';
 import Link from 'next/link';
+import Recuadro from 'universe/Component/Recuadro';
 
 
 interface FormValues {
@@ -24,6 +25,7 @@ const Registro = () => {
   };
 
   const router = useRouter();
+  const [showRecuadro, setShowRecuadro] = useState(false);
 
   const validationSchema = Yup.object({
     username: Yup.string()
@@ -44,6 +46,10 @@ const Registro = () => {
   const handleRegisterClick = () => {
     router.push('/Login');
   };
+  const handleAceptarClick = () => {
+    setShowRecuadro(false);
+    router.push('/Login');
+};
   const onSubmit = async (values: FormValues) => {
     // Perform authentication logic or send data to the server
     console.log(values);
@@ -61,7 +67,7 @@ const Registro = () => {
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem("token", data["access_token"]);
-        router.push('/Login'); // Redirect to Login.tsx
+        setShowRecuadro(true)
       } else if (res.status == 201) { //codigo de usuario ya existente 
         throw new Error('El usuario ingresado ya existe, intentelo de nuevo');
       } else if (res.status == 400) { //codigo error de email ya existente 
@@ -183,7 +189,11 @@ const Registro = () => {
         </div>
 
       </main>
-
+      {showRecuadro && (
+        <div className="modalOverlay">
+          <Recuadro cerrar={handleAceptarClick} titulo={'Cuenta creada con exito'} descripcion={'Ya puedes iniciar sesion y disfrutar de universe'} />
+        </div>
+      )}
     </>
 
 

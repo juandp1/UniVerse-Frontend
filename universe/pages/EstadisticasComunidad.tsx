@@ -15,9 +15,9 @@ export default function EstadisticasComunidad() {
     useEffect(() => {
         const fetchNumUsers = async () => {
             try {
-                const res = await fetch('http://localhost:3333/api/statistics/users_per_comm', {
+                const res = await fetch('http://localhost:3333/api/statistics/users_per_comm/'+ localStorage.getItem("comunidad_ID"), {
                     method: 'GET',
-                    mode: 'cors',
+
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -25,7 +25,9 @@ export default function EstadisticasComunidad() {
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    setNumUsers(data.users_belongs_to_community.length);
+                    console.log(data)
+                    setNumUsers(data.num_users)
+                    
                 } else {
                     throw new Error('Error fetching number of users');
                 }
@@ -36,7 +38,7 @@ export default function EstadisticasComunidad() {
 
         const fetchNumQuestions = async () => {
             try {
-                const res = await fetch('http://localhost:3333/api/statistics/questions_per_comm', {
+                const res = await fetch('http://localhost:3333/api/statistics/questions_per_comm/' + localStorage.getItem("comunidad_ID"), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -45,7 +47,8 @@ export default function EstadisticasComunidad() {
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    setNumQuestions(data.questions.length);
+                    console.log(data)
+                    setNumQuestions(data.num_questions);
                 } else {
                     throw new Error('Error fetching number of questions');
                 }
@@ -56,7 +59,7 @@ export default function EstadisticasComunidad() {
 
         const fetchNumTopics = async () => {
             try {
-                const res = await fetch('http://localhost:3333/api/statistics/topics_per_comm', {
+                const res = await fetch('http://localhost:3333/api/statistics/topics_per_comm/' + localStorage.getItem("comunidad_ID"), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -65,7 +68,8 @@ export default function EstadisticasComunidad() {
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    setNumTopics(data.topics_per_community.length);
+                    console.log(data)
+                    setNumTopics(data.num_topics);
                 } else {
                     throw new Error('Error fetching number of topics');
                 }

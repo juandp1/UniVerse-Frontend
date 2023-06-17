@@ -202,7 +202,7 @@ input[type=password] {
 
 input[type="file"] {
   height: 45px;
-  margin-top: 5px;
+  margin-top: 10px;
   cursor: pointer;
 }
 
@@ -441,6 +441,22 @@ button {
   display: flex;
   justify-content: center;
 
+}
+
+.component1, .component2 {
+  width: 47%;  
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; 
+  width: 90%; 
+  padding: 15px;
+  min-height: 300px;
+  max-height: auto;
+  background-color: #E8FFFB;
+  border-radius: 20px;
 }
 
 @media (max-width: 767px) {
