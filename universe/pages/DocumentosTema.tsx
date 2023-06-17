@@ -31,6 +31,14 @@ interface Options {
     value: string;
     text: string;
 }
+interface DocumentResponse {
+    name: string,
+    id: number,
+    description:string,
+    file: string,
+    type: string,
+    administrator_id: number
+}
 
 const optionsType: Options[] = [
     {
@@ -52,18 +60,12 @@ const optionsType: Options[] = [
 export default function DocumentosTema() {
 
     const [Topic_id, setTopic_id]= useState<string | null>("")
+    const [Community_id, setCommunity_id]= useState<string | null>("")
     const [isAdmin, setIsAdmin] = useState(false)
     const [showFormAñadirDocumento, setShowFormAñadirDocumento] = useState(false)
     const statusShowFormAñadirDocumento = () => setShowFormAñadirDocumento(!showFormAñadirDocumento)
     const [file, setFile] = useState<File | null>(null);
-    const [Documentos, setDocumentos] = useState([{
-        name: "",
-        id:0,
-        description :"",
-        file: new File([],"prueba"),
-        type:"",
-        administrator_id:0
-    }])
+    const [Documentos, setDocumentos] = useState<DocumentResponse[]>([])
     const [optionType, setOptionType] = useState<string | null>("libro");
 
     const toggle = () => {
@@ -72,12 +74,14 @@ export default function DocumentosTema() {
         statusShowFormAñadirDocumento()
     }
 
-
     useEffect(() => {
         setTopic_id(localStorage.getItem("Topic"))
     }, []);
     useEffect(() => {
         setIsAdmin(localStorage.getItem("is_Admin") == "1");
+    }, []);
+    useEffect(() => {
+        setCommunity_id(localStorage.getItem("comunidad_ID"));
     }, []);
     
     
@@ -95,6 +99,7 @@ export default function DocumentosTema() {
                 });
                 if (res.ok) {
                     const data = await res.json();
+
                     setDocumentos(data["documents"])
                 }else{
                     console.log(await res.json())
@@ -107,21 +112,25 @@ export default function DocumentosTema() {
         }
         fetchData();
     }, []);
-
+    
     const crearDocumento = async (values: Documento) => {
         /**funcion para añadir un documento y llevarlo al backend */
-
-
         if (file != null) {
-
             try {
-                const res = await fetch('http://127.0.0.1:3333/api/document', {
+                const res = await fetch('http://localhost:3333/api/community/' +Community_id+'/documents', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
-
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        
                     },
-                    body: JSON.stringify({ "name": values.name, "description": values.description, "file": file, "type": optionType })
+                    body: JSON.stringify({ 
+                    "name": values.name, 
+                    "description": values.description, 
+                    "file": file, 
+                    "type": optionType, 
+                    "topic_id":Topic_id, 
+                    "administrator_id":null })
                 })
                 if (res.ok) {
                     statusShowFormAñadirDocumento()
@@ -134,8 +143,8 @@ export default function DocumentosTema() {
                         draggable: true,
                         progress: undefined,
                         theme: "light",
-                        className: style.toast_success_doc
-
+                        className:style.toast_success_doc
+            
                     });
                     toggle()
                 }
@@ -151,46 +160,7 @@ export default function DocumentosTema() {
 
 
     }
-    const proponerDocumento = async (values: Documento) => {
-
-        if (file != null) {
-
-            try {
-                const res = await fetch('http://127.0.0.1:3333/api/document', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ "name": values.name, "description": values.description, "file": file, "type": optionType })
-                })
-                if (res.ok) {
-                    statusShowFormAñadirDocumento()
-                    toast.success(' Tu propuesta de documento ha sido enviada al administrador para ser revisada', {
-                        position: "top-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                        className: style.toast_success_doc
-
-                    });
-                    toggle()
-                }
-            } catch (error: any) {
-                console.error('Error:', error);
-                alert(error.message);
-            }
-
-        } else {
-            console.error('Error:', "no ha ingresado ningun archivo");
-        }
-
-
-
-    }
+    
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const fileList = event.target.files;
@@ -243,9 +213,9 @@ export default function DocumentosTema() {
 
 
             </main>
-            <ToastContainer
-                position="top-right"
-                className={style.success_notification} />
+            <ToastContainer 
+            position="top-right"
+            className={style.success_notification}/>
             {showFormAñadirDocumento ? (
                 <div>
                     <Formik
@@ -257,7 +227,7 @@ export default function DocumentosTema() {
                         }}
                         onSubmit={async (values) => {
 
-                            isAdmin ? (crearDocumento(values)) : (proponerDocumento(values))
+                            crearDocumento(values)
 
                             //alert(JSON.stringify(values));
                         }}
@@ -298,8 +268,8 @@ export default function DocumentosTema() {
 
                                     </div>
                                 </div>
-                                <div className="inputContainer">
-                                    <div className="component1">
+                                <div id="inputs">
+                                    <div>
                                         <h5>Titulo:</h5>
                                         <input name="name" type="text" placeholder="Titulo"
                                             value={values.name}
@@ -312,7 +282,7 @@ export default function DocumentosTema() {
                                         />
                                     </div>
                                     {/**segunda columna del formulario esi es necesario */}
-                                    <div className="component2">
+                                    <div>
                                         <h5>Archivo:</h5>
                                         <input name="file" type="file"
                                             //value={values.file}
@@ -342,9 +312,8 @@ export default function DocumentosTema() {
                                             />
                                         </div>
                                     </div>
+
                                 </div>
-
-
                             </form>
                         )}
                     </Formik>
