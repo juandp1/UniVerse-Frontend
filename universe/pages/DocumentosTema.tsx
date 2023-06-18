@@ -82,13 +82,16 @@ export default function DocumentosTema() {
 			// se trae la informacion de los documentos que existen al entrar a la pagina
 			//setIsLoading(true)
 			try {
-				const res = await fetch("http://localhost:3333/api/topic/" + Topic_id + "/documents", {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`,
-					},
-				});
+				const res = await fetch(
+					"http://localhost:3333/api/topic/" + (localStorage.getItem("Topic") ?? "0") + "/documents",
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${localStorage.getItem("token")}`,
+						},
+					}
+				);
 				if (res.ok) {
 					const data = await res.json();
 
