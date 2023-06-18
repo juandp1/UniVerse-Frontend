@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import style from "/styles/ReunionesStyle.module.css";
 import Cookies from "js-cookie";
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
+import "react-toastify/dist/ReactToastify.css";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	context.res.setHeader("Cache-Control", "no-store, must-revalidate");
@@ -96,8 +97,8 @@ export default function ReunionesAnteriores() {
 
 	//MENSAJE AL INTENTAR EDITAR UNA REUNIÓN PASADA
 	const editarReunion = () => {
-		toast.success("Lo siento, no puedes editar una reunión que ya pasó :(", {
-		position: "top-center",
+		toast.warning("Lo siento, no puedes editar una reunión que ya pasó :(", {
+		position: "top-right",
 		autoClose: 5000,
 		hideProgressBar: false,
 		closeOnClick: true,
@@ -107,7 +108,6 @@ export default function ReunionesAnteriores() {
 		theme: "light",
 		className: style.toast_success_doc,
 		});
-		toggle();
 	};
 
 
@@ -136,7 +136,6 @@ export default function ReunionesAnteriores() {
 			console.error("Error:", error);
 			alert(error.message);
 		}
-		toggle();
 	};
 
 	// FUNCION TOGGLE  se encarga de desvanecer el fondo cuando se despliega un formulario
@@ -172,6 +171,7 @@ export default function ReunionesAnteriores() {
 								<Reunion
 									key={index}
 									idReunion={item.id}
+									idAuthor= {item.author_id}
 									nombreReunion={item.name}
 									descripcion_reunion={item.description}
 									lugar_reunion={item.place}
@@ -185,6 +185,7 @@ export default function ReunionesAnteriores() {
 				</div>
 				{/*Agrego los componentes dentro del header*/}
 			</main>
+			<ToastContainer position="top-right" className={style.success_notification} />
 
 			{confirmacion ? (
 				<div className="modalOverlay">

@@ -10,6 +10,7 @@ import * as FaIcon from "react-icons/fa";
 
 interface Props {
   idReunion: number;
+  idAuthor: number;
   nombreReunion: string;
   descripcion_reunion: string;
   lugar_reunion: string;
@@ -20,17 +21,9 @@ interface Props {
   eliminar: (id: number) => void;
 }
 
-//key={item.idReunion}
-// idReu={item.idReunion}
-// name={item.nombreReunion}
-//descripcion={item.descripcion_reunion}
-// lugar={item.lugar_reunion}
-// fecha={item.fecha_reunion}
-// editar={editarReunion}
-// eliminar={eliminarReunion}
-
 function Reunion({
     idReunion,
+    idAuthor,
     nombreReunion,
     descripcion_reunion,
     lugar_reunion,
@@ -40,6 +33,13 @@ function Reunion({
 }: Props): JSX.Element {
   const [optionsMeeting, setOptionsMeeting] = useState(false);
   const stateOptionsMeeting = () => setOptionsMeeting(!optionsMeeting);
+
+  const [isAuthor, setIsAuthor] = useState(false);
+    useEffect(() => {
+      setIsAuthor(localStorage.getItem("user_ID") == idAuthor.toString());
+      console.log(localStorage.getItem("user_ID"))
+      console.log(idAuthor.toString())
+    }, []);
 
   return (
     <>
@@ -70,11 +70,13 @@ function Reunion({
         </div>
         <div className="absolute top-10 right-0">
           <div>
-            <SlIcon.SlOptionsVertical
+            {isAuthor? (
+              <SlIcon.SlOptionsVertical
               size={"40px"}
               onClick={stateOptionsMeeting}
               className=" hover:bg-light_blue_hover w-auto h-auto p-2 rounded-md"
             />
+            ): null}
           </div>
 
           <div>

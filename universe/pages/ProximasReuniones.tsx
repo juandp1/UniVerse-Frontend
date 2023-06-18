@@ -50,7 +50,6 @@ export default function ProximasReuniones() {
 	const [confirmacion, setConfirmacion] = useState(false);
 	const stateConfirmacion = () => {
 		setConfirmacion(!confirmacion);
-		toggle();
 	};
 	const [formEditar, setformEditar] = useState(false);
 	const stateformEditar = () => setformEditar(!formEditar);
@@ -120,16 +119,11 @@ export default function ProximasReuniones() {
 		toggle();
 	};
 
-	const cerrarEdicion = () => {
-		stateformEditar();
-		toggle();
-	};
-
 	//UPDATE REUNION
 	const updateReunion = async (values: Reunion) => {
 		const dateTime = values.fecha_reunion + " " + values.hora_reunion + ":00.000000";
 		try {
-			const res = await fetch("http://localhost:3333/api/meetings/community/" + Community_id, {
+			const res = await fetch("http://localhost:3333/api/meeting/id/" + id_reunion, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -172,6 +166,7 @@ export default function ProximasReuniones() {
 				console.log("Error:", "Se ha eliminado la reunión de forma correcta");
 				alert("Se ha eliminado la reunión de forma correcta");
 				stateConfirmacion();
+				//toggle();
 			} else {
 				throw new Error("ha sucedido un error al elimianr la reunión");
 			}
@@ -179,7 +174,6 @@ export default function ProximasReuniones() {
 			console.error("Error:", error);
 			alert(error.message);
 		}
-		toggle();
 	};
 
 	// FUNCION TOGGLE  se encarga de desvanecer el fondo cuando se despliega un formulario
@@ -215,6 +209,7 @@ export default function ProximasReuniones() {
 								<Reunion
 									key={index}
 									idReunion={item.id}
+									idAuthor= {item.author_id}
 									nombreReunion={item.name}
 									descripcion_reunion={item.description}
 									lugar_reunion={item.place}
