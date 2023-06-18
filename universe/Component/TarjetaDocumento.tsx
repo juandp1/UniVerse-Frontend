@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ReactSVG } from 'react-svg';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import style from "/styles/TarjetaDocumentoStyles.module.css";
 import * as FaIcon from 'react-icons/fa';
 import * as SiIcon from 'react-icons/sl';
@@ -9,13 +9,8 @@ import * as HiIcon from 'react-icons/hi';
 import Link from "next/link";
 
 
-const eliminarDocumento = (): void => {
-    console.log("Eliminar documento")
-}
-const editarDocumento = (): void => {
-    console.log("Editar documento")
-}
-const irTema = (): void => {
+
+const verDocumento= (): void => {
     console.log("Abrir documento")
 }
 
@@ -30,8 +25,34 @@ interface Props {
 }
 
 function TarjetaDocumento({ idDocument, DocumentName, descripcion, docType }: Props) {
-    const [optionsActive, setOptionsActive] = useState(false)
-    const stateOptionsActive = () => setOptionsActive(!optionsActive)
+
+
+    const verDocumento = async (): Promise<void> => {
+        try {
+            const res = await fetch(`http://localhost:3333/api/document/${idDocument}`, {
+                mode: 'cors',
+                headers: {
+                  'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+
+            if(res.ok){
+
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                window.open(url, '_blank');
+            }
+
+            if (!res.ok) {
+                throw new Error("Error fetching document");
+            }
+
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
     return (
         <>
             <div className={style.tarjeta_Temas}  >
@@ -48,30 +69,13 @@ function TarjetaDocumento({ idDocument, DocumentName, descripcion, docType }: Pr
                         }
 
                     </div>
-                    <div className="flex space-x-3 items-center">
-                        <h5 className={style.titulo_Documento}> {DocumentName}</h5>
+
+                    <div className={style.tarjeta_view}>
+                        <div onClick={verDocumento} className="flex space-x-3 items-center">
+                            <h5 className={style.titulo_Documento}> {DocumentName}</h5>
+                        </div>
                     </div>
 
-                    <div className="space-y-3">
-                        <SiIcon.SlOptionsVertical onClick={stateOptionsActive} size={"20px"} className="absolute top-2 left-30 hover:bg-light_blue_hover w-auto h-auto p-2 rounded-md" />
-                        {optionsActive ? (
-                            <div className='desplegableOptions divide-y left-30'>
-
-                                <div onClick={eliminarDocumento} >
-                                    <h5>Eliminar</h5>
-                                </div>
-                                <div onClick={editarDocumento}>
-                                    <h5>Editar</h5>
-
-                                </div>
-
-
-                            </div>
-                        ) : null
-
-                        }
-
-                    </div>
 
                 </div>
 
