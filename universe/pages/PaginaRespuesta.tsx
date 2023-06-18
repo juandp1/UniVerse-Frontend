@@ -2,41 +2,40 @@ import LateralNavBar from '../Component/LateralNavBar'
 import Navbar from '../Component/NavBar'
 import PreguntaForo from '../Component/PreguntaForo'
 import Head from 'next/head';
-import style from "/styles/ForoStyles.module.css";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
-import * as IoIcon from 'react-icons/io';
-import * as HiIcon from 'react-icons/hi';
-import * as Faicon from 'react-icons/fa';
-import { Formik } from 'formik'
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
-
-
-interface Pregunta {
-    tituloPregunta: String;
-    descripcionPregunta: String;
+import * as IoIcon from 'react-icons/io';
+import * as BiIcon from 'react-icons/bi';
+import { Formik } from 'formik';
+import Respuesta from 'universe/Component/Respuesta';
+import style from "/styles/ForoStyles.module.css";
+interface Respuesta {
+    descripcionRespuesta: String;
 }
+
 
 const colorIcon = "#61EB8D"
 
-export default function ForoPreguntas() {
+export default function PaginaRespuestas() {
 
     const [showFormCrearPregunta, setShowFormCrearPregunta] = useState(false)
     const [Topic_id, setTopic_id]= useState<string | null>("")
     useEffect(() => {
         setTopic_id(localStorage.getItem("Topic"))
     }, []);
+    const [question_id, setquestion_id]= useState<string | null>("")
+    useEffect(() => {
+        setquestion_id(localStorage.getItem("question_id"))
+    }, []);
     const statusShowFormCrearPregunta = () => setShowFormCrearPregunta(!showFormCrearPregunta)
 
-    const [Preguntas, setPreguntas] = useState([{
-        id:0,
-        title: "",
-        description:"",
+    const [Respuestas, setRespuestas] = useState([{
+        num_response:0,
+        description:"", 
         score:0,
-        topic_id: 0,
-        community_id: 0,
-        user_name:"",
+        question_id:0, 
+        user_id:0
     }])
 
     const toggle = () => {
@@ -47,7 +46,7 @@ export default function ForoPreguntas() {
     useEffect(() => {
         const fetchData = async () => { // se trae la información de las preguntas que existen al entrar a la página./api/community/<int:community_id>/topic/<int:topic_id>/questions
             try {
-                const res = await fetch('http://localhost:3333/api/community/' + localStorage.getItem("comunidad_ID") + '/topic/' + localStorage.getItem("Topic")+ '/questions', {
+                const res = await fetch('http://localhost:3333/api/question/'+ question_id+'/responses' , {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -58,7 +57,7 @@ export default function ForoPreguntas() {
                 if (res.ok) {
                     const data = await res.json();
                     console.log(data)
-                    setPreguntas(data["questions"])
+                    setRespuestas(data["responses"])
                 }
             } catch (error: any) {
                 console.error('Error:', error);
@@ -70,17 +69,17 @@ export default function ForoPreguntas() {
       }, []);
     
     
-      const CrearPregunta = async (values: Pregunta) => {
+    const CrearRespuesta = async (values: Respuesta) => {
         /**funcion para crear una pregunta y llevarla al backend */
         try {
-            const res = await fetch('http://localhost:3333/api/questions', {
+            const res = await fetch('http://localhost:3333/api/responses', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-                body: JSON.stringify({"title": values.tituloPregunta, "description": values.descripcionPregunta, "topic_id": localStorage.getItem("Topic"), "community_id": localStorage.getItem("comunidad_ID")})
+                body: JSON.stringify({"descripcion": values.descripcionRespuesta, "question_id":question_id})
             })
             if (res.ok) {
                 statusShowFormCrearPregunta()
@@ -127,35 +126,21 @@ export default function ForoPreguntas() {
                 <Navbar></Navbar>
                 <LateralNavBar></LateralNavBar>
                 <div className='principal_Content'>
-                    <div className="flex space-x-3">
-                        <Faicon.FaQuestionCircle size={"85px"} color={"#61EB8D"}/>
-                        <h1>{Topic_id}</h1>
-
-                    </div>
-
-
                     
-                        {Preguntas.map((item, index) => {
+                        {Respuestas.map((item, index) => {
                             return (
-                                <PreguntaForo 
-                                    key={item.id}
-                                    id={item.id}
-                                    title ={item.title}
+                                <Respuesta
+                                    key={item.num_response}
+                                    num_response={item.num_response}
+                                    question_id={item.question_id}
                                     description={item.description}
                                     score={item.score}
-                                    topic_id={item.topic_id}
-                                    community_id={item.community_id}
-                                    user_name={item.user_name}
-                                ></PreguntaForo>
+                                    user_id={item.user_id}
+                                    
+                                ></Respuesta>
                             );
                         })}
-                        <PreguntaForo id={1} title='prueba' description='descripcion de la prueba' score={12} topic_id={4} community_id={4} user_name='Andres'></PreguntaForo>
-
-
-
-                    
-
-
+                        
                 </div>
 
                 <div className="button_crear" onClick={toggle}>
@@ -169,13 +154,13 @@ export default function ForoPreguntas() {
 
                     <Formik
                         initialValues={{
-                            tituloPregunta: '',
-                            descripcionPregunta: ''
+                            
+                            descripcionRespuesta: ''
 
                         }}
                         onSubmit={async (values) => {
 
-                            CrearPregunta(values)
+                            CrearRespuesta(values)
                             //alert(JSON.stringify(values));
                         }}
 
@@ -186,7 +171,7 @@ export default function ForoPreguntas() {
                                     <IoIcon.IoMdClose size={"25px"} onClick={toggle} id="close" />
 
                                     <div>
-                                        <HiIcon.HiFolderAdd size={"60px"} color={"#1D3752"} />
+                                        <BiIcon.BiConversation size={"60px"} color={"#1D3752"} />
                                         <h2>Crear una nueva duda</h2>
                                     </div>
                                     <div>
@@ -198,25 +183,15 @@ export default function ForoPreguntas() {
 
                                 <div id="inputs">
                                     <div>
-                                        <h5>Título de la pregunta:</h5>
-                                        <input name="tituloPregunta" type="text" placeholder="titulo Pregunta"
-                                            value={values.tituloPregunta}
-                                            onChange={handleChange}
-                                        />
-                                        <h5>Descripción detallada de la pregunta:</h5>
-                                        <input name="descripcionPregunta" type="text" placeholder="descripcion Pregunta"
-                                            value={values.descripcionPregunta}
+                                        
+                                        <h5>Escribe tu respuesta:</h5>
+                                        <input name="descripcionRespuesta" type="text" placeholder="Respuesta"
+                                            value={values.descripcionRespuesta}
                                             onChange={handleChange}
                                         />
 
                                     </div>
-                                    
                                 </div>
-
-                                
-
-                                    
-
                                 
                             </form>
                         )}
