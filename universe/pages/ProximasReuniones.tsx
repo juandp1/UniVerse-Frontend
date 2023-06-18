@@ -113,7 +113,7 @@ export default function ProximasReuniones() {
 		fetchData();
 	}, []);
 
-	//EDICION DE LA COMUNIDAD
+	//EDICION DE LA REUNIÓN
 	const editarReunion = (id: number) => {
 		id_reunion = id;
 		stateformEditar();
@@ -179,7 +179,6 @@ export default function ProximasReuniones() {
 			console.error("Error:", error);
 			alert(error.message);
 		}
-		stateformEditar();
 		toggle();
 	};
 
@@ -262,11 +261,11 @@ export default function ProximasReuniones() {
 
 									<div>
 										<HiIcon.HiFolderAdd size={"60px"} color={"#1D3752"} />
-										<h2>Crear una nueva reunión</h2>
+										<h2>Editar una reunión</h2>
 									</div>
 									<div>
 										<button type="submit">
-											<h3>Crear</h3>
+											<h3>Editar</h3>
 										</button>
 									</div>
 								</div>
