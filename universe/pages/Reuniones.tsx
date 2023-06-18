@@ -1,18 +1,17 @@
 import Link from "next/link";
 import LateralNavBar from "../Component/LateralNavBar";
 import Navbar from "../Component/NavBar";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import Head from "next/head";
 import style from "/styles/ReunionesStyle.module.css";
 import TipoReunion from "universe/Component/TipoReunion";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as IoIcon from "react-icons/io";
 import * as HiIcon from "react-icons/hi";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
 
 interface Reunion {
   nombreReunion: String;
@@ -24,86 +23,97 @@ interface Reunion {
 const colorIcon = "#61EB8D";
 
 export default function Reuniones() {
-    const [showFormCrearReunion, setShowFormCrearReunion] = useState(false)
-    const statusShowFormCrearReunion = () => setShowFormCrearReunion(!showFormCrearReunion)
-    const initialValues: Reunion = {
-        nombreReunion: '',
-        descripcion_reunion: '',
-        fecha_reunion: '',
-        hora_reunion: '',
-        lugar_reunion: ''
-    };
+  const [showFormCrearReunion, setShowFormCrearReunion] = useState(false);
+  const statusShowFormCrearReunion = () =>
+    setShowFormCrearReunion(!showFormCrearReunion);
+  const initialValues: Reunion = {
+    nombreReunion: "",
+    descripcion_reunion: "",
+    fecha_reunion: "",
+    hora_reunion: "",
+    lugar_reunion: "",
+  };
 
-    const toggle = () => {
-      var blurMain = document.getElementById("main")
-      blurMain?.classList.toggle("active")
-      statusShowFormCrearReunion()
-  }
+  const toggle = () => {
+    var blurMain = document.getElementById("main");
+    blurMain?.classList.toggle("active");
+    statusShowFormCrearReunion();
+  };
 
   const crearReunion = async (values: Reunion) => {
     /**funcion para crear una reunión y llevarla al backend */
-    const dateTime = values.fecha_reunion + " " + values.hora_reunion + ':00.000000';
-    console.log(dateTime)
+    const dateTime =
+      values.fecha_reunion + " " + values.hora_reunion + ":00.000000";
+    console.log(dateTime);
     try {
-        const res = await fetch('http://localhost:3333/api/community/'+ localStorage.getItem('comunidad_ID') + '/meetings', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            },
-            mode: 'cors',
-            body: JSON.stringify({"name": values.nombreReunion, "description": values.descripcion_reunion, "place": values.lugar_reunion, "date": dateTime})
-        })
-        if (res.ok) {
-            statusShowFormCrearReunion()
-            toast.success('La reunión ha sido creada correctamente', {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                className:style.toast_success_doc
-            });
-            toggle()
+      const res = await fetch(
+        "http://localhost:3333/api/community/" +
+          localStorage.getItem("comunidad_ID") +
+          "/meetings",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          mode: "cors",
+          body: JSON.stringify({
+            name: values.nombreReunion,
+            description: values.descripcion_reunion,
+            place: values.lugar_reunion,
+            date: dateTime,
+          }),
         }
+      );
+      if (res.ok) {
+        statusShowFormCrearReunion();
+        toast.success("La reunión ha sido creada correctamente", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: style.toast_success_doc,
+        });
+        toggle();
+      }
     } catch (error: any) {
-        console.error('Error:', error);
-        alert(error.message);
+      console.error("Error:", error);
+      alert(error.message);
     }
-}
+  };
 
-    const router = useRouter();
+  const router = useRouter();
 
-    const validationSchema = Yup.object({
-      nombreReunion: Yup.string()
-        .max(30, "El nombre de la reunión no debe sobrepasar los 30 caracteres")
-        .required("Campo requerido"),
-      descripcion_reunion: Yup.string()
-        .max(
-          100,
-          "La descripción de la reunión no debe sobrepasar los 100 caracteres"
-        )
-        .required("Campo requerido"),
-      fecha_reunion: Yup.date()
-        .min(
-          new Date(),
-          "La fecha de reunión no puede ser anterior a la fecha actual"
-        )
-        .required("Campo requerido"),
-      hora_reunion: Yup.string()
-        .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Hora de reunión inválida")
-        .required("Campo requerido"),
-      lugar_reunion: Yup.string()
-        .max(
-          50,
-          "La descripción del lugar de la reunión no debe sobrepasar los 50 caracteres"
-        )
-        .required("Campo requerido"),
-    });
-
+  const validationSchema = Yup.object({
+    nombreReunion: Yup.string()
+      .max(30, "El nombre de la reunión no debe sobrepasar los 30 caracteres")
+      .required("Campo requerido"),
+    descripcion_reunion: Yup.string()
+      .max(
+        100,
+        "La descripción de la reunión no debe sobrepasar los 100 caracteres"
+      )
+      .required("Campo requerido"),
+    fecha_reunion: Yup.date()
+      .min(
+        new Date(),
+        "La fecha de reunión no puede ser anterior a la fecha actual"
+      )
+      .required("Campo requerido"),
+    hora_reunion: Yup.string()
+      .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Hora de reunión inválida")
+      .required("Campo requerido"),
+    lugar_reunion: Yup.string()
+      .max(
+        50,
+        "La descripción del lugar de la reunión no debe sobrepasar los 50 caracteres"
+      )
+      .required("Campo requerido"),
+  });
 
   return (
     <>
@@ -130,7 +140,10 @@ export default function Reuniones() {
             />
             <h1>Reuniones</h1>
           </div>
-          <div className="flex justify-center space-x-10" style={{ gap:'130px'}}>
+          <div
+            className="flex justify-center space-x-10"
+            style={{ gap: "130px" }}
+          >
             <Link href="/ProximasReuniones">
               <TipoReunion titulo="Próximas reuniones"></TipoReunion>
             </Link>
