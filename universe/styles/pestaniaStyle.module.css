@@ -1,0 +1,28 @@
+.formSearch{
+    position: relative;
+    width: 500px;
+    min-height: 50px;
+    background-color: white;
+}
+.inputSearch{
+    max-width: 250px;
+    height: 45px;
+    padding: 12px 10px;
+    margin-top: 3px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    cursor: pointer;
+
+}
+.buttonSearch[type=submit]{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background-color: #E8FFFB;
+}
+.buttonSearch[type=submit]:hover{
+    background-color: #adb9b7;
+}
