@@ -46,8 +46,9 @@ export default function PaginaRespuestas() {
     useEffect(() => {
         const fetchData = async () => { // se trae la información de las preguntas que existen al entrar a la página./api/community/<int:community_id>/topic/<int:topic_id>/questions
             try {
-                const res = await fetch('http://localhost:3333/api/question/'+ question_id+'/responses' , {
+                const res = await fetch('http://localhost:3333/api/question/'+ localStorage.getItem("question_id") +'/responses' , {
                     method: 'GET',
+                    mode: "cors",
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -58,6 +59,10 @@ export default function PaginaRespuestas() {
                     const data = await res.json();
                     console.log(data)
                     setRespuestas(data["responses"])
+                }
+
+                else{
+                    console.log(await res.json())
                 }
             } catch (error: any) {
                 console.error('Error:', error);
@@ -79,7 +84,7 @@ export default function PaginaRespuestas() {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-                body: JSON.stringify({"descripcion": values.descripcionRespuesta, "question_id":question_id})
+                body: JSON.stringify({"description": values.descripcionRespuesta, "question_id": localStorage.getItem("question_id")})
             })
             if (res.ok) {
                 statusShowFormCrearPregunta()

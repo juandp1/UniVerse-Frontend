@@ -83,6 +83,7 @@ export default function ForoPreguntas() {
                 body: JSON.stringify({"title": values.tituloPregunta, "description": values.descripcionPregunta, "topic_id": localStorage.getItem("Topic"), "community_id": localStorage.getItem("comunidad_ID")})
             })
             if (res.ok) {
+                console.log(await res.json)
                 statusShowFormCrearPregunta()
                 toast.success('La pregunta ha sido creada correctamente', {
                     position: "top-center",

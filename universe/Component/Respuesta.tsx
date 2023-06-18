@@ -22,8 +22,9 @@ function Respuesta({
     const VoteResponse = async (vote: string) => {
         console.log("voteee")
         try {
-            const res = await fetch('http://localhost:3333//api/responses/'+num_response, {
+            const res = await fetch('http://localhost:3333/api/responses/'+num_response, {
                 method: 'POST',
+                mode: "cors",
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${Cookies.get('token')}`
