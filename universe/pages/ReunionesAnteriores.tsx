@@ -65,11 +65,11 @@ export default function ReunionesAnteriores() {
             <h1>Reuniones Anteriores</h1>
           </div>
           <div>
-            <Reunion idReunion={1} nombreCreador={"Creador #1"} nombreReunion={"Reunion número uno"} Descripcion_reunion={"Esta es la reunión número uno"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
-            <Reunion idReunion={2} nombreCreador={"Creador #2"} nombreReunion={"Reunion número dos"} Descripcion_reunion={"Esta es la reunión número dos"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
-            <Reunion idReunion={3} nombreCreador={"Creador #3"} nombreReunion={"Reunion número tres"} Descripcion_reunion={"Esta es la reunión número tres"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
-            <Reunion idReunion={4} nombreCreador={"Creador #4"} nombreReunion={"Reunion número cuatro"} Descripcion_reunion={"Esta es la reunión número cuatro"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
-            <Reunion idReunion={5} nombreCreador={"Creador #5"} nombreReunion={"Reunion número cinco"} Descripcion_reunion={"Esta es la reunión número cinco"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
+            <Reunion idReunion={1} nombreCreador={"Creador #1"} nombreReunion={"Reunion número uno"} descripcion_reunion={"Esta es la reunión número uno"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
+            <Reunion idReunion={2} nombreCreador={"Creador #2"} nombreReunion={"Reunion número dos"} descripcion_reunion={"Esta es la reunión número dos"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
+            <Reunion idReunion={3} nombreCreador={"Creador #3"} nombreReunion={"Reunion número tres"} descripcion_reunion={"Esta es la reunión número tres"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
+            <Reunion idReunion={4} nombreCreador={"Creador #4"} nombreReunion={"Reunion número cuatro"} descripcion_reunion={"Esta es la reunión número cuatro"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
+            <Reunion idReunion={5} nombreCreador={"Creador #5"} nombreReunion={"Reunion número cinco"} descripcion_reunion={"Esta es la reunión número cinco"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
           </div>
         </div>
         {/*Agrego los componentes dentro del header*/}

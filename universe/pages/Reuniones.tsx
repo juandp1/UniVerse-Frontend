@@ -16,7 +16,7 @@ import * as Yup from "yup";
 
 interface Reunion {
   nombreReunion: String;
-  Descripcion_reunion: String;
+  descripcion_reunion: String;
   fecha_reunion: String;
   hora_reunion: String;
   lugar_reunion: String;
@@ -28,7 +28,7 @@ export default function Reuniones() {
     const statusShowFormCrearReunion = () => setShowFormCrearReunion(!showFormCrearReunion)
     const initialValues: Reunion = {
         nombreReunion: '',
-        Descripcion_reunion: '',
+        descripcion_reunion: '',
         fecha_reunion: '',
         hora_reunion: '',
         lugar_reunion: ''
@@ -52,7 +52,7 @@ export default function Reuniones() {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             },
             mode: 'cors',
-            body: JSON.stringify({"name": values.nombreReunion, "description": values.Descripcion_reunion, "place": values.lugar_reunion, "date": dateTime})
+            body: JSON.stringify({"name": values.nombreReunion, "description": values.descripcion_reunion, "place": values.lugar_reunion, "date": dateTime})
         })
         if (res.ok) {
             statusShowFormCrearReunion()
@@ -81,7 +81,7 @@ export default function Reuniones() {
       nombreReunion: Yup.string()
         .max(30, "El nombre de la reunión no debe sobrepasar los 30 caracteres")
         .required("Campo requerido"),
-      Descripcion_reunion: Yup.string()
+      descripcion_reunion: Yup.string()
         .max(
           100,
           "La descripción de la reunión no debe sobrepasar los 100 caracteres"
@@ -150,7 +150,7 @@ export default function Reuniones() {
           <Formik
             initialValues={{
               nombreReunion: "",
-              Descripcion_reunion: "",
+              descripcion_reunion: "",
               fecha_reunion: "",
               hora_reunion: "",
               lugar_reunion: "",
@@ -189,10 +189,10 @@ export default function Reuniones() {
 
                     <h5>Descripción de la reunión:</h5>
                     <input
-                      name="Descripcion_reunion"
+                      name="descripcion_reunion"
                       type="text"
-                      placeholder="Descripcion reunion"
-                      value={values.Descripcion_reunion}
+                      placeholder="descripcion reunion"
+                      value={values.descripcion_reunion}
                       onChange={handleChange}
                     />
                     <h4 className="my-5">Detalles del encuentro</h4>

@@ -117,9 +117,9 @@ function Navbar() {
     //Reiniciar el temporizador si el usuario presnta actividad, de lo contrario se hace el cierre se sesion automatico 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (token) {
+        const re_token = localStorage.getItem('re_token');
+        if (token || re_token) {
             resetLogoutTimer();
-
 
             window.addEventListener('mousemove', resetLogoutTimer);
             window.addEventListener('keydown', resetLogoutTimer);
