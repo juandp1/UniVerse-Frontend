@@ -8,26 +8,36 @@ import * as Aiicon from "react-icons/ai";
 const colorIcon = "#61EB8D"
 export default function EstadisticasComunidad() {
 
-    const fetchData = async () => {
-        try {
-            const questionsResponse = await fetch('http://localhost:3333/api/statistics/questions_per_comm');
-            const questions = await questionsResponse.json();
-
-            const usersResponse = await fetch('http://localhost:3333/api/statistics/num_users_per_comm/');
-            const users = await usersResponse.json();
-
-            const topicsResponse = await fetch('http://localhost:3333/api/statistics/topics_per_comm/');
-            const topics = await topicsResponse.json();
+    const [numUsersPerComm, setNumUsers] = useState(0);
 
 
+    useEffect(() => {
+        const fetchNumUsers = async () => {
+            try {
+                const res = await fetch('http://localhost:3333/api/statistics/users_per_comm/'+ localStorage.getItem("comunidad_ID"), {
+                    method: 'GET',
 
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    console.log(data)
+                    setNumUsers(data.num_of_users_per_community)
+                    
+                } else {
+                    throw new Error('Error fetching number of users');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
 
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+        fetchNumUsers();
 
-    fetchData();
+    }, []);
 
 
 
