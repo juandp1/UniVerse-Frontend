@@ -57,6 +57,7 @@ function Respuesta({
                     <p >{description}</p>
                 </div>
                 <div>
+                    <h2>Puntuacion {score}</h2>
                     <div className={style.votos}>
                         <div className={style.upvote}>
                             <BsIcon.BsFillHandThumbsUpFill onClick={() => VoteResponse("1")} size={"35px"} />

@@ -105,24 +105,40 @@
 .pregunta {
     display: grid;
     position: relative;
-    grid-template-columns:  15% 1fr 10%;
+    grid-template-columns:  15% 1fr 20%;
     width: 90%;
     height: 243px;
     margin: 20px;
     padding-top: 25px;
+    padding-bottom: 25px;
     background: #A9E9DF;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
 }
-.pregunta:hover{
-    background-color: #ABC7C2;
+
+.cuerpo{
+    height: 100%;
+    display: grid;
+    position: relative;
+    grid-template-rows: 30% 1fr 10%;
+}
+.verRespuestas{
+    display:flex;
+    align-items: center;
+    border-radius: 10px;
+    width: 40%;
+    
+}
+.verRespuestas:hover{
+    background-color: #95a6a3;
     cursor: pointer;
 }
+
 
 .respuesta {
     display: grid;
     position: relative;
-    grid-template-columns:  15% 1fr 10%;
+    grid-template-columns:  15% 1fr 20%;
     width: 90%;
     height: 200px;
     margin: 20px;
