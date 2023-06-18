@@ -4,30 +4,36 @@ import Head from "next/head";
 import PropuestaDocumento from "universe/Component/PropuestaDocumento";
 import style from "/styles/PropuestasDocumentosStyles.module.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import Cookies from "js-cookie";
+
+interface DocumentResponse {
+	name: string;
+	id: number;
+	description: string;
+	file: string;
+	type: string;
+	administrator_id: number;
+}
 
 
 export default function PropuestasDocumentos() {
-
-  const [PropuestasDocumentos, setPropuestasDocumentos] = useState([{
-    tipoDocumento: '',
-    tituloDocumento: '',
-    descripcionDocumento: '',
-    Documento: ''
-  }])
+  
+  const [PropuestasDocumentos, setPropuestasDocumentos] = useState<DocumentResponse[]>([])
 
 //FUNCIÓN PARA TRAER TODAS LAS PROPUESTAS DE DOCUMENTOS APENAS CARGA LA PÁGINA
   useEffect(() => {
     const fetchData = async () => { // se trae la información de las propuestas de documentos que existen al entrar a la página.
         try {
-            const res = await fetch('/api/propuestasDocumentos', {
+            const res = await fetch('http://localhost:3333/api/community/<int:comm_id>/propouse', {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${Cookies.get('token')}`
                 }
             });
             if (res.ok) {
                 const data = await res.json();
-                setPropuestasDocumentos(data)
+                setPropuestasDocumentos(data["documents"])
             }
         } catch (error: any) {
             console.error('Error:', error);
@@ -57,10 +63,14 @@ export default function PropuestasDocumentos() {
                 </div>
             </div>
           <div>
-            <PropuestaDocumento tituloDocumento={"Ejercicio 8.8"} descripcionDocumento={"Ejercicio de ley de Gauss"}></PropuestaDocumento>
-            <PropuestaDocumento tituloDocumento={"Ejercicio 8.9"} descripcionDocumento={"Ejercicio de ley de Gauss difícil xd"}></PropuestaDocumento>
-            <PropuestaDocumento tituloDocumento={"Libro - ley de Gauss"} descripcionDocumento={"Libro completo"}></PropuestaDocumento>
-            <PropuestaDocumento tituloDocumento={"clase ley de Gauss"} descripcionDocumento={"Diapositivas en pdf de la explicación del profe"}></PropuestaDocumento>
+          {PropuestasDocumentos.map((item, index) => {
+							return (
+                <PropuestaDocumento key={index} id={item.id} tituloDocumento={item.name} descripcionDocumento={item.description}></PropuestaDocumento>
+								
+							);
+						})}
+
+            <PropuestaDocumento id={50} tituloDocumento={"Ejercicio 8.8"} descripcionDocumento={"Ejercicio de ley de Gauss"}></PropuestaDocumento>
           </div>
         </div>
         {/*Agrego los componentes dentro del header*/}
