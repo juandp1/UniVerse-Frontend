@@ -46,22 +46,20 @@
     
 
 }
+
+.tarjeta_view{
+    cursor: pointer;   
+}
 .tarjeta_select{
     position: relative;
     background-color: #A9E9DF;
-    width: 100%;
-    height:25%;
+    width: 90%;
+    height: 60%;
     border-radius: 5px;
-    padding: 15px;
+    padding: 5px;
+    margin-left: 15px;
     word-wrap: break-word;
-    text-align: center;
-    
-}
-.tarjeta_select:hover{
-    
-    background-color: #a9e9dfcb;
-    cursor: pointer;
-    
+    text-align: justify;
 }
 
 .descripcion{

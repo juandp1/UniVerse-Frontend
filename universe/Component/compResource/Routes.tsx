@@ -31,10 +31,17 @@ export const Routes =[
     {
         title:'Reuniones',
         path:'/Reuniones',
-        icon: <Aiicon.AiFillSchedule size={sizeIcon} color={colorIcon}/>,
+        icon: <Bsicon.BsCameraVideoFill size={sizeIcon} color={colorIcon}/>,
         cName:className
     },
 
+    {
+        title:'PropuestasDocumentos',
+        path:'/PropuestasDocumentos',
+        icon: <Bsicon.BsFillFileEarmarkCheckFill size={sizeIcon} color={colorIcon}/>,
+        cName:className
+    },
+    
     {
         title:'EstadisticasComunidad',
         path:'/EstadisticasComunidad',

@@ -102,35 +102,27 @@ function Navbar() {
     };
 
 
-    // Contar el tiempo desde que se activo el token
     const resetLogoutTimer = () => {
         if (logoutTimer.current) {
             clearTimeout(logoutTimer.current);
         }
-
+    
         logoutTimer.current = setTimeout(() => {
             handleAutomaticLogout();
             setShowRecuadro(true);
-        }, 1800000); //30 minutos despues de iniciar sesion 
+        }, 1800000); 
     };
-
-    //Reiniciar el temporizador si el usuario presnta actividad, de lo contrario se hace el cierre se sesion automatico 
+    
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
             resetLogoutTimer();
-
-
-            window.addEventListener('mousemove', resetLogoutTimer);
-            window.addEventListener('keydown', resetLogoutTimer);
-            return () => {
-                window.removeEventListener('mousemove', resetLogoutTimer);
-                window.removeEventListener('keydown', resetLogoutTimer);
-                if (logoutTimer.current) {
-                    clearTimeout(logoutTimer.current);
-                }
-            };
         }
+        return () => {
+            if (logoutTimer.current) {
+                clearTimeout(logoutTimer.current);
+            }
+        };
     }, []);
 
     const handleAceptarClick = () => {
