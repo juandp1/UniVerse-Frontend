@@ -15,6 +15,22 @@ export default function HomeComunidad() {
 
     const [isMobile, setIsMobile] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+
+    const [name, setName] = useState<string | null>(null);
+    useEffect(() => {
+        setName(localStorage.getItem("community_name"));
+    }, []);
+
+    const [description, setDescription] = useState<string | null>(null);
+    useEffect(() => {
+        setDescription(localStorage.getItem("community_description"));
+    }, []);
+
+    const [label, setLabel] = useState<string | null>(null);
+    useEffect(() => {
+        setLabel(localStorage.getItem("community_label"));
+    }, []);
+
     // Funcion para determinar si es el usuario que ingresa es admin
     useEffect(() => {
         const fetchUser = async () => {
@@ -31,7 +47,7 @@ export default function HomeComunidad() {
 
                 localStorage.removeItem("is_Admin")
                 console.log(res)
-    
+
                 if (res.status === 200) {
                     setIsAdmin(true);
                     localStorage.setItem("is_Admin","1");
@@ -88,13 +104,13 @@ export default function HomeComunidad() {
                     <div className={`flex items-center ${isMobile ? 'justify-center' : 'justify-start'} space-x-3`}>
                         <Bsicon.BsFillLightningFill size={"100px"} color={colorIcon} />
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <h2 style={{ alignSelf: 'flex-start' }}>Fundamentos de electricidad y magnetismo</h2>
-                            <h4 style={{ alignSelf: 'flex-start' }}>Categoría/materia: (Categoría de la comunidad)</h4>
+                            <h2 style={{ alignSelf: 'flex-start' }}>{name}</h2>
+                            <h4 style={{ alignSelf: 'flex-start' }}>Categoría/materia: {label}</h4>
                         </div>
                     </div>
 
                     <h3 style={{ alignSelf: 'flex-start', marginTop: '15px', marginLeft: '10px' }}>
-                        Descripción: (Descripción de la comunidad)
+                        Descripción: {description}
                     </h3>
 
 

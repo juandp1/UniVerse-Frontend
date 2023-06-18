@@ -52,6 +52,9 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
     }
     const entrarComunidad = () => {
         localStorage.setItem('comunidad_ID', idComunidad.toString())
+        localStorage.setItem("community_name", comunityName);
+        localStorage.setItem("community_description",descripcion);
+        //localStorage.setItem("community_label", label);
         console.log(localStorage.getItem('comunidad_ID'))
         router.push('/HomeComunidad');
     }
