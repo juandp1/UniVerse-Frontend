@@ -14,9 +14,8 @@ export default function EstadisticasComunidad() {
     useEffect(() => {
         const fetchNumUsers = async () => {
             try {
-                const res = await fetch('http://localhost:3333/api/statistics/users_per_comm/'+ localStorage.getItem("comunidad_ID"), {
+                const res = await fetch('http://localhost:3333/api/statistics/num_users_per_comm' , {
                     method: 'GET',
-
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -25,9 +24,10 @@ export default function EstadisticasComunidad() {
                 if (res.ok) {
                     const data = await res.json();
                     console.log(data)
-                    setNumUsers(data.num_of_users_per_community)
-                    
+        
+
                 } else {
+                    console.log(await res.json())
                     throw new Error('Error fetching number of users');
                 }
             } catch (error) {
@@ -62,12 +62,12 @@ export default function EstadisticasComunidad() {
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <h2 style={{ alignSelf: 'flex-start' }}>Estadisticas de la pagina universe</h2>
                             <h4 style={{ alignSelf: 'flex-start' }}>Conoce los numeros mas importantes de universe</h4>
-                            
+
                         </div>
                     </div>
 
                     <h3 style={{ alignSelf: 'flex-start', marginTop: '15px', marginLeft: '60px', marginBottom: '20px' }}>
-                        Aquí encontraras información como el número de usuarios en cada comunidad de universe y las comunidades que hay por cada materia 
+                        Aquí encontraras información como el número de usuarios en cada comunidad de universe y las comunidades que hay por cada materia
                     </h3>
 
 
@@ -77,6 +77,9 @@ export default function EstadisticasComunidad() {
                             <h3 style={{ marginTop: '15px', marginLeft: '10px' }}>
                                 Número de usuarios en cada comunidad
                             </h3>
+                            <div className="flex justify-center items-center h-60">
+                                <h1>{numUsersPerComm}</h1>
+                            </div>
 
                         </div>
 

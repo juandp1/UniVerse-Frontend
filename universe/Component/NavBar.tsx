@@ -118,11 +118,7 @@ function Navbar() {
         if (token) {
             resetLogoutTimer();
         }
-        return () => {
-            if (logoutTimer.current) {
-                clearTimeout(logoutTimer.current);
-            }
-        };
+       
     }, []);
 
     const handleAceptarClick = () => {
