@@ -5,37 +5,44 @@ import Reunion from "universe/Component/Reunion";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { date } from "yup";
 
-
 const colorIcon = "#61EB8D";
 
 export default function ReunionesAnteriores() {
+  const [Reuniones, setReuniones] = useState([
+    {
+      nombreReunion: "",
+    },
+  ]);
 
-  const [Reuniones, setReuniones] = useState([{
-    nombreReunion: ''
-  }])
-
-
-//FUNCIÓN PARA TRAER TODAS LAS REUNIONES ANTERIORES APENAS CARGA LA PÁGINA
+  //FUNCIÓN PARA TRAER TODAS LAS REUNIONES ANTERIORES APENAS CARGA LA PÁGINA
   useEffect(() => {
-    const fetchData = async () => { // se trae la información de las reuniones que existen al entrar a la página.
-        try {
-            const res = await fetch('http://localhost:3333/api/meetings/community/' + localStorage.getItem("comunidad_ID"), {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({'community_ID': localStorage.getItem("comunidad_ID"), 'initial_date': Date.now()-30 , 'final_date': Date.now()})
-            });
-            if (res.ok) {
-                const data = await res.json();
-                setReuniones(data)
-            }
-        } catch (error: any) {
-            console.error('Error:', error);
-            alert(error.message);
+    const fetchData = async () => {
+      // se trae la información de las reuniones que existen al entrar a la página.
+      try {
+        const res = await fetch(
+          "http://localhost:3333/api/meetings/community/" +
+            localStorage.getItem("comunidad_ID"),
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              community_ID: localStorage.getItem("comunidad_ID"),
+              initial_date: Date.now() - 30,
+              final_date: Date.now(),
+            }),
+          }
+        );
+        if (res.ok) {
+          const data = await res.json();
+          setReuniones(data);
         }
-
-    }
+      } catch (error: any) {
+        console.error("Error:", error);
+        alert(error.message);
+      }
+    };
     fetchData();
   }, []);
 
@@ -65,11 +72,51 @@ export default function ReunionesAnteriores() {
             <h1>Reuniones Anteriores</h1>
           </div>
           <div>
-            <Reunion idReunion={1} nombreCreador={"Creador #1"} nombreReunion={"Reunion número uno"} descripcion_reunion={"Esta es la reunión número uno"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
-            <Reunion idReunion={2} nombreCreador={"Creador #2"} nombreReunion={"Reunion número dos"} descripcion_reunion={"Esta es la reunión número dos"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
-            <Reunion idReunion={3} nombreCreador={"Creador #3"} nombreReunion={"Reunion número tres"} descripcion_reunion={"Esta es la reunión número tres"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
-            <Reunion idReunion={4} nombreCreador={"Creador #4"} nombreReunion={"Reunion número cuatro"} descripcion_reunion={"Esta es la reunión número cuatro"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
-            <Reunion idReunion={5} nombreCreador={"Creador #5"} nombreReunion={"Reunion número cinco"} descripcion_reunion={"Esta es la reunión número cinco"} fecha_reunion={"2023/01/29"} hora_reunion={"10:50pm"} lugar_reunion={"CyT"}></Reunion>
+            <Reunion
+              idReunion={1}
+              nombreCreador={"Creador #1"}
+              nombreReunion={"Reunion número uno"}
+              descripcion_reunion={"Esta es la reunión número uno"}
+              fecha_reunion={"2023/01/29"}
+              hora_reunion={"10:50pm"}
+              lugar_reunion={"CyT"}
+            ></Reunion>
+            <Reunion
+              idReunion={2}
+              nombreCreador={"Creador #2"}
+              nombreReunion={"Reunion número dos"}
+              descripcion_reunion={"Esta es la reunión número dos"}
+              fecha_reunion={"2023/01/29"}
+              hora_reunion={"10:50pm"}
+              lugar_reunion={"CyT"}
+            ></Reunion>
+            <Reunion
+              idReunion={3}
+              nombreCreador={"Creador #3"}
+              nombreReunion={"Reunion número tres"}
+              descripcion_reunion={"Esta es la reunión número tres"}
+              fecha_reunion={"2023/01/29"}
+              hora_reunion={"10:50pm"}
+              lugar_reunion={"CyT"}
+            ></Reunion>
+            <Reunion
+              idReunion={4}
+              nombreCreador={"Creador #4"}
+              nombreReunion={"Reunion número cuatro"}
+              descripcion_reunion={"Esta es la reunión número cuatro"}
+              fecha_reunion={"2023/01/29"}
+              hora_reunion={"10:50pm"}
+              lugar_reunion={"CyT"}
+            ></Reunion>
+            <Reunion
+              idReunion={5}
+              nombreCreador={"Creador #5"}
+              nombreReunion={"Reunion número cinco"}
+              descripcion_reunion={"Esta es la reunión número cinco"}
+              fecha_reunion={"2023/01/29"}
+              hora_reunion={"10:50pm"}
+              lugar_reunion={"CyT"}
+            ></Reunion>
           </div>
         </div>
         {/*Agrego los componentes dentro del header*/}
