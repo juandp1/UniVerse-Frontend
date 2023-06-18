@@ -91,6 +91,11 @@ export default function PestaniaComunidad() {
         }
     };
 
+    const [actualizacion, setActualizacion] = useState(0);
+	const newActualizacion = () => {
+		setActualizacion(actualizacion + 1);
+	};
+
 
 
     const [formEditar, setformEditar] = useState(false)
@@ -116,7 +121,7 @@ export default function PestaniaComunidad() {
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    setComunidades(data.communities)
+                    setComunidades(data.communities);
                 }
             } catch (error: any) {
                 console.error('Error:', error);
@@ -124,7 +129,7 @@ export default function PestaniaComunidad() {
             }
         }
         fetchData();
-    }, []);
+    }, [actualizacion]);
 
 
 
@@ -158,6 +163,9 @@ export default function PestaniaComunidad() {
             });
 
             if (res.ok) {
+
+                newActualizacion();
+                
 
             } else {
                 throw new Error('ha sucedido un error al crear la comunidad');

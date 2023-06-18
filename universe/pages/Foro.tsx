@@ -124,7 +124,7 @@ export default function Foro() {
                                     key={item.topic_id}
                                     id_Topic={item.topic_id}
                                     name={item.topic_name}
-                                    ruta={"/DocumentosTema"}
+                                    ruta={"/ForoPreguntas"}
                                     eliminar={eliminar}
                                 ></TarjetaTemas>
                             );
@@ -132,13 +132,13 @@ export default function Foro() {
                         <TarjetaTemas
                             id_Topic={1}
                             name={"Ley de Gauss"}
-                            ruta={"/DocumentosTema"}
+                            ruta={"/ForoPreguntas"}
                             eliminar={eliminar}
                         ></TarjetaTemas>
                         <TarjetaTemas
                             id_Topic={1}
                             name={"Ley de Gauss"}
-                            ruta={"/DocumentosTema"}
+                            ruta={"/ForoPreguntas"}
                             eliminar={eliminar}
                         ></TarjetaTemas>
                     </div>
