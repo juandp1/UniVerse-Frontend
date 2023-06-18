@@ -87,7 +87,6 @@ export default function Enciclopedia() {
 				console.log("success:", "Creado con exito");
 				alert("Creado con exito");
 				statusShowFormCrearTema();
-				newActualizacion();
 			} else {
 				console.log(await res.json())
 			}
@@ -156,18 +155,6 @@ export default function Enciclopedia() {
 								></TarjetaTemas>
 							);
 						})}
-						<TarjetaTemas
-							id_Topic={1}
-							name={"Ley de Gauss"}
-							ruta={"/DocumentosTema"}
-							eliminar={eliminar}
-						></TarjetaTemas>
-						<TarjetaTemas
-							id_Topic={1}
-							name={"Ley de Gauss"}
-							ruta={"/DocumentosTema"}
-							eliminar={eliminar}
-						></TarjetaTemas>
 					</div>
 
 					<div className="button_crear" onClick={statusShowFormCrearTema}>
