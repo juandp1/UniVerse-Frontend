@@ -5,6 +5,7 @@ import Navbar from "universe/Component/NavBar";
 import * as TiIcon from 'react-icons/ti';
 import * as IoIcon from 'react-icons/io';
 import * as AiIcon from 'react-icons/ai';
+import * as BiIcon from 'react-icons/bi';
 import { useEffect, useState } from "react";
 import { Formik, Form, Field } from 'formik';
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
@@ -12,6 +13,9 @@ import Select from 'react-select';
 import { GetServerSideProps } from "next/types";
 import nookies from 'nookies';
 import Cookies from "js-cookie";
+import style from "/styles/pestaniaStyle.module.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -92,9 +96,9 @@ export default function PestaniaComunidad() {
     };
 
     const [actualizacion, setActualizacion] = useState(0);
-	const newActualizacion = () => {
-		setActualizacion(actualizacion + 1);
-	};
+    const newActualizacion = () => {
+        setActualizacion(actualizacion + 1);
+    };
 
 
 
@@ -159,14 +163,26 @@ export default function PestaniaComunidad() {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${Cookies.get('token')}`
                 },
-                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion, "label": values.materia})
+                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion, "label": values.materia })
             });
 
             if (res.ok) {
+                toast.success('Felicidades tu comunidad fue creada con exito', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className:style.toast_success_doc
+        
+                });
 
                 newActualizacion();
-                
 
+            
             } else {
                 throw new Error('ha sucedido un error al crear la comunidad');
             }
@@ -175,7 +191,7 @@ export default function PestaniaComunidad() {
             alert(error.message);
         }
         // try {
-        //     const res = await fetch('/api/label_has_community/name/', {
+        //     const res = await fetch('http://localhost:3333/api/label_has_community/name/', {
         //         method: 'POST',
         //         headers: {
         //             'Content-Type': 'application/json',
@@ -250,6 +266,31 @@ export default function PestaniaComunidad() {
         stateformEditar()
         toggle()
     }
+    const buscarComunidad = async (name: string) => {
+        try {
+            const res = await fetch('http://localhost:3333/api/community/similar_name/' + name, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${Cookies.get('token')}`
+                },
+
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                setComunidades(data.communities);
+                newActualizacion()
+
+            } else {
+                throw new Error('ha sucedido un error al crear la comunidad');
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+        
+    }
 
     // FUNCION TOGGLE  se encarga de desvanecer el fondo cuando se despliega un formulario
     const toggle = () => {
@@ -273,8 +314,42 @@ export default function PestaniaComunidad() {
                     <div className="flex space-x-3 items-center px-16">
                         <TiIcon.TiGroup size={"80px"} color={colorIcon} />
                         <h1>Comunidades</h1>
+                        <Formik
+                            initialValues={{
+                                name: "",
+                            }}
+                            onSubmit={async (values) => {
+                                buscarComunidad(values.name);
+                                //alert(JSON.stringify(values));
+                            }}
+                        >
+                            {({ handleSubmit, values, handleChange }) => (
+                                <form onSubmit={handleSubmit} className={style.formSearch}>
+                                    <div className="flex flex-wrap space-x-3  items-center">
+                                        <input
+                                            name="name"
+                                            type="text"
+                                            placeholder="nombre Comunidad"
+                                            value={values.name}
+                                            onChange={handleChange}
+                                            className={style.inputSearch}
+                                        />
+                                        
+                                        <button type="submit" className={style.buttonSearch}>
+                                            <BiIcon.BiSearchAlt size={"35px"} color={"#285F76"} />
+                                            
+                                        </button>
+
+                                    </div>
 
 
+                                    {/**segunda columna del formulario esi es necesario */}
+
+                                </form>
+                            )}
+                        </Formik>
+
+                        
 
                     </div>
 
@@ -296,6 +371,7 @@ export default function PestaniaComunidad() {
                 </div>
 
             </main>
+            <ToastContainer position="top-right" className={style.success_notification} />
             {confirmacion ? (
 
                 <div className="modalOverlay">
