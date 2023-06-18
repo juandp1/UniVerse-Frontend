@@ -50,7 +50,6 @@ export default function ProximasReuniones() {
 	const [confirmacion, setConfirmacion] = useState(false);
 	const stateConfirmacion = () => {
 		setConfirmacion(!confirmacion);
-		toggle();
 	};
 	const [formEditar, setformEditar] = useState(false);
 	const stateformEditar = () => setformEditar(!formEditar);
@@ -113,14 +112,9 @@ export default function ProximasReuniones() {
 		fetchData();
 	}, []);
 
-	//EDICION DE LA COMUNIDAD
+	//EDICION DE LA REUNIÓN
 	const editarReunion = (id: number) => {
 		id_reunion = id;
-		stateformEditar();
-		toggle();
-	};
-
-	const cerrarEdicion = () => {
 		stateformEditar();
 		toggle();
 	};
@@ -129,7 +123,7 @@ export default function ProximasReuniones() {
 	const updateReunion = async (values: Reunion) => {
 		const dateTime = values.fecha_reunion + " " + values.hora_reunion + ":00.000000";
 		try {
-			const res = await fetch("http://localhost:3333/api/meetings/community/" + Community_id, {
+			const res = await fetch("http://localhost:3333/api/meeting/id/" + id_reunion, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -172,6 +166,7 @@ export default function ProximasReuniones() {
 				console.log("Error:", "Se ha eliminado la reunión de forma correcta");
 				alert("Se ha eliminado la reunión de forma correcta");
 				stateConfirmacion();
+				//toggle();
 			} else {
 				throw new Error("ha sucedido un error al elimianr la reunión");
 			}
@@ -179,8 +174,6 @@ export default function ProximasReuniones() {
 			console.error("Error:", error);
 			alert(error.message);
 		}
-		stateformEditar();
-		toggle();
 	};
 
 	// FUNCION TOGGLE  se encarga de desvanecer el fondo cuando se despliega un formulario
@@ -216,6 +209,7 @@ export default function ProximasReuniones() {
 								<Reunion
 									key={index}
 									idReunion={item.id}
+									idAuthor= {item.author_id}
 									nombreReunion={item.name}
 									descripcion_reunion={item.description}
 									lugar_reunion={item.place}
@@ -262,11 +256,11 @@ export default function ProximasReuniones() {
 
 									<div>
 										<HiIcon.HiFolderAdd size={"60px"} color={"#1D3752"} />
-										<h2>Crear una nueva reunión</h2>
+										<h2>Editar una reunión</h2>
 									</div>
 									<div>
 										<button type="submit">
-											<h3>Crear</h3>
+											<h3>Editar</h3>
 										</button>
 									</div>
 								</div>
