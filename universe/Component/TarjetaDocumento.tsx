@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactSVG } from 'react-svg';
 import router, { useRouter } from 'next/router';
 import style from "/styles/TarjetaDocumentoStyles.module.css";
@@ -10,7 +10,7 @@ import Link from "next/link";
 
 
 
-const verDocumento= (): void => {
+const verDocumento = (): void => {
     console.log("Abrir documento")
 }
 
@@ -19,25 +19,33 @@ interface Props {
     DocumentName: string;
     descripcion: string;
     docType: string;
+    eliminar: (id_document: number, name_documento: string) => void;
+
 
     //editar: (id:number, nameDocumento: string, descripcion: string) => void;
 
 }
 
-function TarjetaDocumento({ idDocument, DocumentName, descripcion, docType }: Props) {
+function TarjetaDocumento({ idDocument, DocumentName, descripcion, docType, eliminar }: Props) {
+    const [isAdmin, setIsAdmin] = useState(false);
 
+    useEffect(() => {
+        setIsAdmin(true);
+    }, []);
+    const [optionsActive, setOptionsActive] = useState(false)
+    const stateOptionsActive = () => setOptionsActive(!optionsActive)
 
     const verDocumento = async (): Promise<void> => {
         try {
             const res = await fetch(`http://localhost:3333/api/document/${idDocument}`, {
                 mode: 'cors',
                 headers: {
-                  'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
 
-            if(res.ok){
+            if (res.ok) {
 
                 const blob = await res.blob();
                 const url = URL.createObjectURL(blob);
@@ -55,7 +63,7 @@ function TarjetaDocumento({ idDocument, DocumentName, descripcion, docType }: Pr
     }
     return (
         <>
-            <div className={style.tarjeta_Temas}  >
+            <div className={style.tarjeta_Temas} >
                 <div className={style.tarjeta_Temas_Color}>
                     <div className="flex space-x-3 items-center">
                         {
@@ -75,6 +83,30 @@ function TarjetaDocumento({ idDocument, DocumentName, descripcion, docType }: Pr
                             <h5 className={style.titulo_Documento}> {DocumentName}</h5>
                         </div>
                     </div>
+                    <div>
+                        {isAdmin ? (
+                            <SiIcon.SlOptionsVertical onClick={stateOptionsActive} size={"25px"} className="absolute top-2 right-0 hover:bg-light_blue_hover w-auto h-auto p-2 rounded-md" />
+                        ) : null
+                        }
+                        {optionsActive ? (
+                            <div className='desplegableOptions divide-y left-10'>
+
+                                <div onClick={() => {
+                                    eliminar(idDocument, DocumentName)
+                                    stateOptionsActive()
+                                }} >
+                                    <h5>Eliminar</h5>
+                                </div>
+
+                            </div>
+                        ) : null
+
+                        }
+
+
+
+                    </div>
+
 
 
                 </div>
