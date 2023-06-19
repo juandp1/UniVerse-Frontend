@@ -27,10 +27,11 @@ interface Props {
 }
 
 function TarjetaDocumento({ idDocument, DocumentName, descripcion, docType, eliminar }: Props) {
-    const [isAdmin, setIsAdmin] = useState(false);
 
+
+    const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
-        setIsAdmin(true);
+        setIsAdmin(localStorage.getItem("is_Admin") == "1");
     }, []);
     const [optionsActive, setOptionsActive] = useState(false)
     const stateOptionsActive = () => setOptionsActive(!optionsActive)

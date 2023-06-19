@@ -216,7 +216,10 @@ export default function PestaniaComunidad() {
                     theme: "light",
                     className: "toast_success_doc"
 
-                });
+
+                }
+                );
+                stateConfirmacionAbandonar();
                 console.error('succes:', "se ha abandonado la comunidad con exito ");
             } else {
                 throw new Error('Ha sucedido un error al abandonar la comunidad');

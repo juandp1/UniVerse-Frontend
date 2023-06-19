@@ -102,24 +102,31 @@ function Navbar() {
     };
 
 
+    // Contar el tiempo desde que se activo el token
     const resetLogoutTimer = () => {
         if (logoutTimer.current) {
             clearTimeout(logoutTimer.current);
         }
-    
+
         logoutTimer.current = setTimeout(() => {
             handleAutomaticLogout();
             setShowRecuadro(true);
-        }, 1800000); 
+        }, 3000000); //50 minutos despues de logearse
     };
-    
+
+    //Inicia el temporizador una vez el usuario se logea
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
             resetLogoutTimer();
+            return () => {
+                if (logoutTimer.current) {
+                    clearTimeout(logoutTimer.current);
+                }
+            };
         }
-       
     }, []);
+
 
     const handleAceptarClick = () => {
         setShowRecuadro(false);

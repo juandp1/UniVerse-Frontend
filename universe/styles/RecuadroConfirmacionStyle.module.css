@@ -1,7 +1,7 @@
 .principal_Div {
     position: absolute;
     width: 375px;
-    height: 250px;
+    height: 300px;
     border-radius: 10px;
     background-color: #E8FFFB;
     top: 50%;
@@ -14,7 +14,9 @@
 }
   
 .principal_Div .first_rectangle {
-    height: 25%;
+    height: 30%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     background-color: #E8FFFB;
     display: flex;
     justify-content: center;

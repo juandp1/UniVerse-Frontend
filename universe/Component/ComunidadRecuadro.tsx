@@ -64,7 +64,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + localStorage.getItem("token")
                 },
-                body: JSON.stringify({ "user_id": parseInt(localStorage.getItem("user_ID") ?? '0', 10), "community_id": parseInt(localStorage.getItem("comunidad_ID") ?? '0', 10) })
+                body: JSON.stringify({ "user_id": parseInt(localStorage.getItem("user_ID") ?? '0', 10), "community_id": idComunidad })
             });
 
             
