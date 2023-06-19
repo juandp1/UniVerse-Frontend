@@ -5,7 +5,7 @@
 
 .leftContainer {
     background-color: #ffffff;
-    width: 50%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -17,7 +17,7 @@
 
 .rightContainer {
     background-color: #ffffff;
-    width: 50%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,6 +39,7 @@
     margin: 20px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
+    position: relative;
 }
 
 .rectangleButton {
@@ -52,7 +53,7 @@
     min-height: 45px;
     height: auto;
     align-self: center;
-    margin-top: 3rem;
+    margin-top: 5px;
     margin-bottom: auto;
 
 }
