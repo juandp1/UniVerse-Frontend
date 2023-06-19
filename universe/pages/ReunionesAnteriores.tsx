@@ -190,6 +190,7 @@ export default function ReunionesAnteriores() {
 			{confirmacion ? (
 				<div className="modalOverlay">
 					<ConfirmacionRecuadro
+						mensaje="Esta seguro de eliminar esta"
 						name={"Reunión"}
 						eliminar={deleteReunion}
 						cerrar={stateConfirmacion}

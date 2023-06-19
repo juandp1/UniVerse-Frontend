@@ -148,6 +148,7 @@ export default function Foro() {
             </main>
             {confirmacion ? (
                 <ConfirmacionRecuadro
+                    mensaje="Esta seguro de eliminar el tema:"
                     name={topicName}
                     eliminar={eliminarTema}
                     cerrar={stateConfirmacion}

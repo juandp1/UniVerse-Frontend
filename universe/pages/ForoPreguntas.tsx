@@ -70,7 +70,7 @@ export default function ForoPreguntas() {
       }, []);
     
     
-      const CrearPregunta = async (values: Pregunta) => {
+    const CrearPregunta = async (values: Pregunta) => {
         /**funcion para crear una pregunta y llevarla al backend */
         try {
             const res = await fetch('http://localhost:3333/api/questions', {
@@ -85,8 +85,8 @@ export default function ForoPreguntas() {
             if (res.ok) {
                 console.log(await res.json)
                 statusShowFormCrearPregunta()
-                toast.success('La pregunta ha sido creada correctamente', {
-                    position: "top-center",
+                toast.success('Tu Pregunta ha sido publicada', {
+                    position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
                     closeOnClick: true,
@@ -94,7 +94,7 @@ export default function ForoPreguntas() {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                    className:style.toast_success_doc
+                    className:"toast_success_doc"
         
                 });
                 toggle()
@@ -130,7 +130,7 @@ export default function ForoPreguntas() {
                 <div className='principal_Content'>
                     <div className="flex space-x-3">
                         <Faicon.FaQuestionCircle size={"85px"} color={"#61EB8D"}/>
-                        <h1>{Topic_id}</h1>
+                        <h1>Preguntas</h1>
 
                     </div>
 
@@ -152,11 +152,6 @@ export default function ForoPreguntas() {
                         })}
                         <PreguntaForo id={1} title='prueba' description='descripcion de la prueba' score={12} topic_id={4} community_id={4} user_name='Andres'></PreguntaForo>
 
-
-
-                    
-
-
                 </div>
 
                 <div className="button_crear" onClick={toggle}>
@@ -164,6 +159,8 @@ export default function ForoPreguntas() {
                 </div>
 
             </main>
+
+            <ToastContainer position="top-right" className="success_notification" />
 
             {showFormCrearPregunta ? (
                 <div>

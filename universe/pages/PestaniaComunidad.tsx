@@ -76,6 +76,11 @@ export default function PestaniaComunidad() {
         setConfirmacion(!confirmacion)
         toggle()
     }
+    const [confirmacionAbandonar, setConfirmacionAbandonar] = useState(false)
+    const stateConfirmacionAbandonar = () => {
+        setConfirmacionAbandonar(!confirmacionAbandonar)
+        toggle()
+    }
     const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
     };
@@ -145,6 +150,45 @@ export default function PestaniaComunidad() {
         description = descripcion
         stateformEditar()
         toggle()
+    }
+    const abandonar = (id: number,nameComunidad: string) => {
+        id_community = id
+        comunityName = nameComunidad
+        stateConfirmacionAbandonar()
+        
+    }
+    const abandonarComunidad = async () => {
+        try {
+            const res = await fetch('http://localhost:3333/api/leave_community', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({ "community_id": id_community, "user_id": localStorage.getItem('user_ID') })
+            });
+            if (res.ok) {
+                toast.success('Ha abandonado la comunidad', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: "toast_success_doc"
+
+                });
+                console.error('succes:', "se ha abandonado la comunidad con exito ");
+            } else {
+                throw new Error('Ha sucedido un error al abandonar la comunidad');
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+
     }
 
     const cerrarEdicion = () => {
@@ -356,12 +400,12 @@ export default function PestaniaComunidad() {
                     <div className="flex flex-wrap justify-center">
                         {Comunidades.map((item, index) => {
                             return (
-                                <ComunidadRecuadro key={item.id} idComunidad={item.id} comunityName={item.name} descripcion={item.description} editar={editar} eliminar={eliminar}></ComunidadRecuadro>
+                                <ComunidadRecuadro key={item.id} idComunidad={item.id} comunityName={item.name} descripcion={item.description} editar={editar} eliminar={eliminar} abandonar={abandonar}></ComunidadRecuadro>
                             )
                         })
                         }
-                        <ComunidadRecuadro idComunidad={1} comunityName="FEM" descripcion="Descripcion de la comunidad Fem" editar={editar} eliminar={eliminar}></ComunidadRecuadro>
-                        <ComunidadRecuadro idComunidad={2} comunityName="Calculo Integral" descripcion="Descripcion de la comunidad Calculo integral" editar={editar} eliminar={eliminar}></ComunidadRecuadro>
+                        <ComunidadRecuadro idComunidad={1} comunityName="FEM" descripcion="Descripcion de la comunidad Fem" editar={editar} eliminar={eliminar} abandonar={abandonar}></ComunidadRecuadro>
+                        <ComunidadRecuadro idComunidad={2} comunityName="Calculo Integral" descripcion="Descripcion de la comunidad Calculo integral" editar={editar} eliminar={eliminar} abandonar={abandonar}></ComunidadRecuadro>
 
                     </div>
 
@@ -373,13 +417,20 @@ export default function PestaniaComunidad() {
             </main>
             <ToastContainer position="top-right" className={style.success_notification} />
             {confirmacion ? (
-
                 <div className="modalOverlay">
-                    <ConfirmacionRecuadro name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
+                    <ConfirmacionRecuadro mensaje={"se va a eliminar la comunidad"} name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
                 </div>
 
             ) : null
             }
+            {confirmacionAbandonar ? (
+				<ConfirmacionRecuadro
+					mensaje="Esta apunto de abandonar la comunidad:"
+					name={comunityName}
+					eliminar={abandonarComunidad}
+					cerrar={stateConfirmacionAbandonar}
+				></ConfirmacionRecuadro>
+			) : null}
 
             {showFormCrearComunidad ? (
                 <div>

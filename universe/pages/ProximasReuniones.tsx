@@ -227,6 +227,7 @@ export default function ProximasReuniones() {
 			{confirmacion ? (
 				<div className="modalOverlay">
 					<ConfirmacionRecuadro
+						mensaje="Esta seguro de eliminar la"
 						name={"Reunión"}
 						eliminar={deleteReunion}
 						cerrar={stateConfirmacion}

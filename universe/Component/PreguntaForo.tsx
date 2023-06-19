@@ -6,6 +6,8 @@ import * as TbIcon from 'react-icons/tb';
 import { number } from 'yup';
 import Cookies from "js-cookie"
 import { useRouter } from 'next/router';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
     id: number
@@ -23,6 +25,7 @@ interface Props {
 function PreguntaForo({ id, title, description, score, topic_id, community_id, user_name }: Props): JSX.Element {
     const router = useRouter();
     const VoteQuestion = async (vote: string) => {
+        
         try {
             const res = await fetch('http://localhost:3333//api/questions/' + id, {
                 method: 'POST',
@@ -35,8 +38,20 @@ function PreguntaForo({ id, title, description, score, topic_id, community_id, u
             });
 
             if (res.ok) {
-                console.log('Error:', "se voto correctamente");
-                alert("voto registrado con exito");
+                console.log('success:', "se voto correctamente");
+                toast.success('Tu voto ha sido registrado exitosamente', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className:"toast_success_doc"
+        
+                });
+                
             } else {
                 throw new Error('error al votar');
             }
@@ -54,6 +69,7 @@ function PreguntaForo({ id, title, description, score, topic_id, community_id, u
     }
     return (
         <>
+            <ToastContainer position="top-right" className="success_notification" />
             <div className={style.pregunta}>
                 <div className='flex flex-wrap justify-center'>
                     <FaIcon.FaUserCircle size={'85px'} />

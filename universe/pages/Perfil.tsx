@@ -305,7 +305,7 @@ export default function Perfil() {
             {confirmacion ? (
 
                 <div className="modalOverlay">
-                    <ConfirmacionRecuadro name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
+                    <ConfirmacionRecuadro mensaje="Esta seguro de eliminar la comunidad" name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
                 </div>
             ) : null
             }

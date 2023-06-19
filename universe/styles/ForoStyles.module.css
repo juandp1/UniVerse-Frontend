@@ -129,6 +129,9 @@
     width: 40%;
     
 }
+.verRespuestas > *{
+    margin: 5px;
+}
 .verRespuestas:hover{
     background-color: #95a6a3;
     cursor: pointer;

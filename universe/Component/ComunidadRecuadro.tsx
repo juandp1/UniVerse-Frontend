@@ -17,13 +17,14 @@ interface Props {
     descripcion: string;
     editar: (id: number, nameComunidad: string, descripcion: string) => void;
     eliminar: (id: number, name: string) => void;
-}
+    abandonar: (id: number, nameComunidad: string) => void;
+}   
 
 
 
 
 
-function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eliminar }: Props) {
+function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eliminar,abandonar }: Props) {
 
     const router = useRouter();
     const [optionsComunity, setOptionsComunity] = useState(false)
@@ -53,27 +54,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
         }
 
     }
-    const abandonarComunidad = async () => {
-        try {
-            const res = await fetch('http://localhost:3333/api/leave_community', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
-                },
-                body: JSON.stringify({ "community_id": idComunidad, "user_id": localStorage.getItem('user_ID') })
-            });
-            if (res.ok) {
-                router.push('/HomeComunidad');
-            } else {
-                throw new Error('Ha sucedido un error al entrar a la comunidad');
-            }
-        } catch (error: any) {
-            console.error('Error:', error);
-            alert(error.message);
-        }
-
-    }
+    
     const entrarComunidad = async () => {
         try {
             const res = await fetch(`http://localhost:3333/api/is_member`, {
@@ -96,7 +77,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
                 console.log(localStorage.getItem('comunidad_ID'))
                 router.push('/HomeComunidad');
             } else {
-                toast.error('No eres miembro de esta comunida, unete primero', {
+                toast.error('No eres miembro de esta comunidad, unete primero', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -154,7 +135,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
                                         <AiIcon.AiOutlineEdit size={"20px"} color="#e5964b" />
                                         <h5>Editar</h5>
                                     </div>
-                                    <div className="flex space-x-3 items-center" onClick={() => abandonarComunidad}>
+                                    <div className="flex space-x-3 items-center" onClick={() => abandonar(idComunidad, comunityName)}>
                                         <BiIcon.BiExit size={"20px"} color="#cd3d49" />
                                         <h5>Abandonar</h5>
                                     </div>
