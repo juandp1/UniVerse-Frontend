@@ -15,66 +15,79 @@ interface DocumentResponse {
 	administrator_id: number;
 }
 
-
 export default function PropuestasDocumentos() {
-  
-  const [PropuestasDocumentos, setPropuestasDocumentos] = useState<DocumentResponse[]>([])
+	const [PropuestasDocumentos, setPropuestasDocumentos] = useState<DocumentResponse[]>([]);
 
-//FUNCIÓN PARA TRAER TODAS LAS PROPUESTAS DE DOCUMENTOS APENAS CARGA LA PÁGINA
-  useEffect(() => {
-    const fetchData = async () => { // se trae la información de las propuestas de documentos que existen al entrar a la página.
-        try {
-            const res = await fetch('http://localhost:3333/api/community/<int:comm_id>/propouse', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${Cookies.get('token')}`
-                }
-            });
-            if (res.ok) {
-                const data = await res.json();
-                setPropuestasDocumentos(data["documents"])
-            }
-        } catch (error: any) {
-            console.error('Error:', error);
-            alert(error.message);
-        }
+	//FUNCIÓN PARA TRAER TODAS LAS PROPUESTAS DE DOCUMENTOS APENAS CARGA LA PÁGINA
+	useEffect(() => {
+		const fetchData = async () => {
+			// se trae la información de las propuestas de documentos que existen al entrar a la página.
+			try {
+				const res = await fetch(`http://localhost:3333/api/community/${localStorage.getItem("comunidad_ID")}/propose`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${Cookies.get("token")}`,
+					},
+				});
 
-    }
-    fetchData();
-  }, []);
+				if (res.ok) {
+					const data = await res.json();
+					console.log(data);
+					console.log(data["documents"]);
+					setPropuestasDocumentos(data["documents"]);
+				}
+			} catch (error: any) {
+				console.error("Error:", error);
+				alert(error.message);
+			}
+		};
+		fetchData();
+	}, []);
 
-  return (
-    <>
-      <Head>
-        <title>Universe</title>
-      </Head>
+	return (
+		<>
+			<Head>
+				<title>Universe</title>
+			</Head>
 
-      <main id="main">
-        <Navbar></Navbar>
-        <LateralNavBar></LateralNavBar>
+			<main id="main">
+				<Navbar></Navbar>
+				<LateralNavBar></LateralNavBar>
 
-        <div className="principal_Content">
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img src="./images/Documentos_verde.png" alt="Documentos" style={{ marginRight: "10px", width: "100px", height: "auto" }}/>
-                <div>
-                    <h1 className={style.font}>Propuestas de Documentos</h1>
-                    <h3 className={style.font_subtitulo}>5 documentos pendientes por verificar.</h3>
-                </div>
-            </div>
-          <div>
-          {PropuestasDocumentos.map((item, index) => {
+				<div className="principal_Content">
+					<div style={{ display: "flex", alignItems: "center" }}>
+						<img
+							src="./images/Documentos_verde.png"
+							alt="Documentos"
+							style={{ marginRight: "10px", width: "100px", height: "auto" }}
+						/>
+						<div>
+							<h1 className={style.font}>Propuestas de Documentos</h1>
+							<h3 className={style.font_subtitulo}>5 documentos pendientes por verificar.</h3>
+						</div>
+					</div>
+					<div>
+						{PropuestasDocumentos.map((item, index) => {
 							return (
-                <PropuestaDocumento key={index} id={item.id} tituloDocumento={item.name} descripcionDocumento={item.description}></PropuestaDocumento>
-								
+								<PropuestaDocumento
+									key={index}
+									id={item.id}
+									tituloDocumento={item.name}
+									descripcionDocumento={item.description}
+								></PropuestaDocumento>
 							);
 						})}
 
-            <PropuestaDocumento id={50} tituloDocumento={"Ejercicio 8.8"} descripcionDocumento={"Ejercicio de ley de Gauss"}></PropuestaDocumento>
-          </div>
-        </div>
-        {/*Agrego los componentes dentro del header*/}
-      </main>
-    </>
-  );
+						<PropuestaDocumento
+							id={50}
+							tituloDocumento={"Ejercicio 8.8"}
+							descripcionDocumento={"Ejercicio de ley de Gauss"}
+						></PropuestaDocumento>
+					</div>
+				</div>
+				{/*Agrego los componentes dentro del header*/}
+			</main>
+		</>
+	);
 }
