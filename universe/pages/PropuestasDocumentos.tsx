@@ -34,6 +34,7 @@ export default function PropuestasDocumentos() {
 				if (res.ok) {
 					const data = await res.json();
 					console.log(data);
+					console.log(data["documents"]);
 					setPropuestasDocumentos(data["documents"]);
 				}
 			} catch (error: any) {
