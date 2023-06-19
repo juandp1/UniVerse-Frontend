@@ -1,0 +1,142 @@
+.container {
+  background-color: #ffffff;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 3rem;
+  position: relative;
+  
+}
+
+.rectangle {
+  display: flex;
+  background-color: #a9e9df;
+  width: 100vw;
+  height: 21vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.rectangle img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.welcomeText {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 9.5rem;
+  text-align: center;
+}
+
+.registerContainer {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+
+
+.formRegistro {
+  background-color: #ffffff;
+  width: 55%;
+  position: absolute;
+  top: 500px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.3rem;
+}
+
+.inputPassword[type=password] {
+  min-width: 100px;
+  width: 100%;
+  height: 45px;
+  padding: 12px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5.44492px 5.44492px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+.inputUsername.inputError[type=text], .inputEmail.inputError[type=email],
+.inputPassword.inputError[type=password]{
+  border-color: red;
+  background-color: #ffebee;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.registerButton{
+  background-color: #285f76;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  align-self: center;
+}
+
+
+.loginLink {
+  margin-top: 1rem;
+  text-align: center;
+  color: #5b5b5b;
+  font-size: 0.9rem;
+}
+
+.loginText {
+  color: #5b5b5b;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.loginText:hover {
+  color: #555;
+}
+
+
+@media (max-width: 767px) {
+
+  .formRegistro {
+    background-color: #ffffff;
+    width: 80%;
+    position: absolute;
+    top: 510px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+  
+  }
+
+}
+
+
+
+
+  

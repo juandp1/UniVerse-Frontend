@@ -1,0 +1,210 @@
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .leftContainer {
+    background-color: #ffffff;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: -1rem;
+    position: relative;
+  }
+  
+  .rightContainer {
+    background-color: #a9e9df;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  
+  .logoImage {
+    max-width: auto;
+    height: auto;
+  }
+  
+  
+  .formLogin {
+    background-color: #ffffff;
+    width: 60%;
+    position: absolute;
+    top: 525px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  
+  .inputUsername[type=text],
+  .inputEmail,
+  .inputPassword {
+    width: 100%;
+    height: 45px;
+    padding: 12px 10px;
+    margin-top: 3px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .inputUsername.inputError[type=text] {
+    border-color: red;
+    background-color: #ffebee;
+  }
+  
+  .inputError.inputError[type=password] {
+    border-color: red;
+    background-color: #ffebee;
+  }
+  
+  .errorMessage {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+  
+  .forgotPasswordGroup {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .forgotPasswordLink {
+    color: #3e3e3e;
+    text-decoration: underline;
+  }
+  
+  
+  .loginButton {
+    display: flex;
+    border-radius: 50px;
+    background-color: #285f76;
+    color: #ffffff;
+    width: 160px;
+    height: 40px;
+    align-self: center;
+    margin-top: 1.5rem;
+  }
+  
+  
+  .iconImage {
+    max-width: 100%;
+    height: 130px;
+    margin-top: 1rem;
+  }
+  
+  .registerHeading {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #1d3752;
+    margin-top: 2.7rem;
+    margin-bottom: 1rem;
+  }
+  
+  .registerText {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #1d3752;
+  }
+  
+  .registerButton {
+    display: flex;
+    border-radius: 50px;
+    background-color: #285f76;
+    color: #ffffff;
+    width: 150px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5.5rem;
+  }
+
+
+  @media (max-width: 767px) {
+
+    .container {
+      flex-direction: column;
+    }
+  
+    .rightContainer {
+      width: 100%;
+      height: 60%;
+      order: 2;
+      margin-top: 20rem;
+
+    }
+
+    .formLogin {
+      background-color: #ffffff;
+      width: 80%;
+      top: 430px;
+    }
+
+    .desktopOnly {
+      display: none;
+    }
+
+
+    .leftContainer {
+      width: 100%;
+      height: 40%;
+    }
+    
+    .registerContent {
+      order: 3;
+      margin-top: 10rem;
+    }
+
+    .registerHeading {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .registerText {
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .registerButton {
+      margin-top: 0rem;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  

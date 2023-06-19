@@ -1,0 +1,89 @@
+.principal_Div {
+    position: absolute;
+    width: 375px;
+    height: 300px;
+    border-radius: 10px;
+    background-color: #E8FFFB;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; 
+}
+  
+.principal_Div .first_rectangle {
+    height: 30%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #E8FFFB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.principal_Div .second_rectangle {
+    flex-grow: 1; 
+    padding: 10px 30px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #A9E9DF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.button_aceptar {
+    display: flex;
+    border-radius: 50px;
+    background-color: #285F76;
+    width: 125px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
+    margin-top: 10px;
+}
+  
+.button_cancelar{
+    display: flex;
+    border-radius: 50px;
+    background-color: #E8FFFB;
+    width: 125px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
+}
+.button_cancelar:hover{
+    background-color:#ABC7C2 ;
+}
+.button_eliminar{
+    display: flex;
+    border-radius: 50px;
+    background-color: #285F76;
+    width: 125px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
+}
+.button_eliminar h4{
+    color: white;
+}
+
+.button_aceptar{
+    display: flex;
+    border-radius: 50px;
+    background-color: #285F76;
+    width: 125px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
+}
+.button_aceptar h4{
+    color: white;
+}

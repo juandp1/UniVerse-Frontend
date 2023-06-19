@@ -1,0 +1,19 @@
+.SelectType{
+    max-width: auto;
+    
+}
+.success_notification{
+    width: 400px;
+    height: 100px;
+    margin: 5px;
+    
+}
+.toast_success_doc{
+    border-radius: 5px;
+    color: #000000;
+    font-weight: 400;
+    font-family: 'Mulish', sans-serif;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0,0.50);
+    
+}
