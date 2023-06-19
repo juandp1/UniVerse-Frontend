@@ -49,6 +49,12 @@ interface Comunidad {
     materia: string
 }
 
+interface Options {
+    id: number,
+    name: string;
+
+}
+
 const colorIcon = "#61EB8D";
 var comunityName: string
 var description: string
@@ -84,6 +90,7 @@ export default function PestaniaComunidad() {
     const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
     };
+    const [optionType, setOptionType] = useState<string | null>("");
 
     const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -115,6 +122,9 @@ export default function PestaniaComunidad() {
         name: "",
         description: "",
     }])
+    const [Labels, setLabels] = useState<Options[]>([])
+
+
     // OBTENCION DE TODAS LAS COMUNIDADES 
     useEffect(() => {
         const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
@@ -140,6 +150,33 @@ export default function PestaniaComunidad() {
         fetchData();
     }, [actualizacion]);
 
+    useEffect(() => {
+        const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
+            //setIsLoading(true)
+            try {
+                const res = await fetch("http://localhost:3333/api/labels", {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setLabels(data["labels"]);
+                    setOptionType(Labels[0].name)
+                    console.error('success:', "se han traido correctamente todos los labels");
+                } else {
+                    console.log(await res.json())
+                }
+            } catch (error: any) {
+                console.error('Error:', error);
+                alert(error.message);
+            }
+        }
+        fetchData();
+    }, []);
+
 
 
 
@@ -151,11 +188,11 @@ export default function PestaniaComunidad() {
         stateformEditar()
         toggle()
     }
-    const abandonar = (id: number,nameComunidad: string) => {
+    const abandonar = (id: number, nameComunidad: string) => {
         id_community = id
         comunityName = nameComunidad
         stateConfirmacionAbandonar()
-        
+
     }
     const abandonarComunidad = async () => {
         try {
@@ -199,6 +236,7 @@ export default function PestaniaComunidad() {
     //CREACION COMUNIDAD
 
     const crearComunidad = async (values: Comunidad) => {
+        console.log(JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion, "label": optionType }))
         try {
             const res = await fetch('http://localhost:3333/api/community', {
                 method: 'POST',
@@ -207,7 +245,7 @@ export default function PestaniaComunidad() {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${Cookies.get('token')}`
                 },
-                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion, "label": values.materia })
+                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion, "label": optionType })
             });
 
             if (res.ok) {
@@ -220,13 +258,13 @@ export default function PestaniaComunidad() {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                    className:style.toast_success_doc
-        
+                    className: style.toast_success_doc
+
                 });
 
                 newActualizacion();
 
-            
+
             } else {
                 throw new Error('ha sucedido un error al crear la comunidad');
             }
@@ -333,7 +371,7 @@ export default function PestaniaComunidad() {
             console.error('Error:', error);
             alert(error.message);
         }
-        
+
     }
 
     // FUNCION TOGGLE  se encarga de desvanecer el fondo cuando se despliega un formulario
@@ -378,10 +416,10 @@ export default function PestaniaComunidad() {
                                             onChange={handleChange}
                                             className={style.inputSearch}
                                         />
-                                        
+
                                         <button type="submit" className={style.buttonSearch}>
                                             <BiIcon.BiSearchAlt size={"35px"} color={"#285F76"} />
-                                            
+
                                         </button>
 
                                     </div>
@@ -393,7 +431,7 @@ export default function PestaniaComunidad() {
                             )}
                         </Formik>
 
-                        
+
 
                     </div>
 
@@ -424,13 +462,13 @@ export default function PestaniaComunidad() {
             ) : null
             }
             {confirmacionAbandonar ? (
-				<ConfirmacionRecuadro
-					mensaje="Esta apunto de abandonar la comunidad:"
-					name={comunityName}
-					eliminar={abandonarComunidad}
-					cerrar={stateConfirmacionAbandonar}
-				></ConfirmacionRecuadro>
-			) : null}
+                <ConfirmacionRecuadro
+                    mensaje="Esta apunto de abandonar la comunidad:"
+                    name={comunityName}
+                    eliminar={abandonarComunidad}
+                    cerrar={stateConfirmacionAbandonar}
+                ></ConfirmacionRecuadro>
+            ) : null}
 
             {showFormCrearComunidad ? (
                 <div>
@@ -485,21 +523,22 @@ export default function PestaniaComunidad() {
                                             onChange={handleChange}
                                         />
                                         <h5>Categoria o materia a la que se refiere la comunidad:</h5>
-                                        <div className="searchInputWrapper">
-                                            <input
-                                                name="materia"
-                                                type="text"
-                                                placeholder="Buscar"
-                                                value={searchQuery}
-                                                onChange={handleSearchQueryChange}
+                                        <div className={style.SelectType}>
+                                            <Select
+                                                // If you don't need a state you can remove the two following lines value & onChange
+                                                placeholder="Materia"
+                                                onChange={(option: Options | null) => {
+                                                    if (option != null) {
+                                                        setOptionType(option.name);
+                                                    }
+                                                }}
+                                                getOptionLabel={(option: Options) => option.name}
+                                                getOptionValue={(option: Options) => option.name}
+                                                options={Labels}
+                                                defaultValue={Labels[0]}
+                                                isSearchable={true}
                                             />
-                                            <button type="submit" className="searchButton">
-                                                <IoIcon.IoIosSearch size={20} color="#fff" />
-                                            </button>
-
                                         </div>
-
-
                                     </div>
 
                                 </div>
