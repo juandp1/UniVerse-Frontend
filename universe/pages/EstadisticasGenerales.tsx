@@ -4,10 +4,16 @@ import Navbar from "../Component/NavBar";
 import Head from "next/head";
 import * as Bsicon from "react-icons/bs";
 import * as Aiicon from "react-icons/ai";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label} from 'recharts';
 
 const colorIcon = "#61EB8D";
+
+interface UserPerComm {
+	name: string;
+	users: number;
+}
 export default function EstadisticasComunidad() {
-	const [numUsersPerComm, setNumUsers] = useState(0);
+	const [numUsersPerComm, setNumUsers] = useState<UserPerComm[]>([]);
 
 	useEffect(() => {
 		const fetchNumUsers = async () => {
@@ -21,7 +27,9 @@ export default function EstadisticasComunidad() {
 				});
 				if (res.ok) {
 					const data = await res.json();
-					console.log(data);
+					// Convertir el objeto a un array de objetos para usar con Recharts
+					const dataArray = Object.keys(data).map(key => ({ name: key, users: data[key] }));
+					setNumUsers(dataArray);
 				} else {
 					console.log(await res.json());
 					throw new Error("Error fetching number of users");
@@ -52,21 +60,34 @@ export default function EstadisticasComunidad() {
 					</div>
 
 					<h3 style={{ alignSelf: "flex-start", marginTop: "15px", marginLeft: "60px", marginBottom: "20px" }}>
-						Aquí encontraras información como el número de usuarios en cada comunidad de universe y las comunidades que
-						hay por cada materia
+						Aquí encontraras el número de usuarios en cada comunidad de universe
 					</h3>
 
 					<div className="flex flex-wrap justify-center">
-						<div className="container">
-							<h3 style={{ marginTop: "15px", marginLeft: "10px" }}>Número de usuarios en cada comunidad</h3>
-							<div className="flex justify-center items-center h-60">
-								<h1>{numUsersPerComm}</h1>
+						<div className="containerChart">
+							<h3>Número de usuarios en cada comunidad</h3>
+							<div className="flex justify-center items-center" style={{ marginTop: "60px" }}>
+								<BarChart
+									width={1200}
+									height={600}
+									data={numUsersPerComm}
+									margin={{
+										top: 5, right: 30, left: 20, bottom: 30,
+									}}
+								>
+									<CartesianGrid strokeDasharray="3 3" />
+									<XAxis dataKey="name">
+										<Label value="Comunidad" offset={-5} position="insideBottom" style={{ fill: 'black' }} />
+									</XAxis>
+									<YAxis>
+										<Label angle={-90} value="Número de usuarios" position="insideLeft" style={{ textAnchor: 'middle', fill: 'black' }} />
+									</YAxis>
+									<Tooltip />
+									<Bar dataKey="users" fill="#A9E9DF" />
+								</BarChart>
 							</div>
 						</div>
 
-						<div className="container">
-							<h3 style={{ marginTop: "15px", marginLeft: "10px" }}>Comunidades por materia</h3>
-						</div>
 					</div>
 				</div>
 			</main>
