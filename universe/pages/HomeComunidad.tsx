@@ -153,7 +153,7 @@ export default function HomeComunidad() {
                 console.log(data);
                 setReuniones([data]);
               } else {
-                throw new Error('Meeting not found');
+                throw new Error('Aún no hay reuniones en la comunidad');
               }
             } catch (error: any) {
               console.error('Error:', error);
@@ -181,7 +181,7 @@ export default function HomeComunidad() {
                 console.log(data.communities);
                 setTemas(data.communities);
               } else {
-                throw new Error('Meeting not found');
+                throw new Error('Aún no hay temas en la comunidad');
               }
             } catch (error: any) {
               console.error('Error:', error);
@@ -209,7 +209,7 @@ export default function HomeComunidad() {
                 console.log(data);
                 setPreguntas([data]);
               } else {
-                throw new Error('Meeting not found');
+                throw new Error('Aún no hay preguntas en la comunidad');
               }
             } catch (error: any) {
               console.error('Error:', error);
@@ -310,7 +310,7 @@ export default function HomeComunidad() {
                                     );
                                 })}
 
-                                <button className={style.rectangleButton} onClick={Reuniones}>Apuntarse</button>
+                                <button className={style.rectangleButton} onClick={Reuniones}>VER REUNION</button>
                             </div>
 
 
@@ -337,7 +337,7 @@ export default function HomeComunidad() {
                                     );
                                 })}
 
-                                <button className={style.rectangleButton} onClick={Foro}>Ver duda</button>
+                                <button className={style.rectangleButton} onClick={Foro}>VER PREGUNTA</button>
                             </div>
                         </div>
 
@@ -367,7 +367,7 @@ export default function HomeComunidad() {
                                     })}
                                 </div>
 
-                                <button className={style.rectangleButton} onClick={Enciclopedia}>Ver tema</button>
+                                <button className={style.rectangleButton} onClick={Enciclopedia}>VER TEMA</button>
                             </div>
                         </div>
                     </div>

@@ -129,18 +129,6 @@ export default function Foro() {
                                 ></TarjetaTemas>
                             );
                         })}
-                        <TarjetaTemas
-                            id_Topic={1}
-                            name={"Ley de Gauss"}
-                            ruta={"/ForoPreguntas"}
-                            eliminar={eliminar}
-                        ></TarjetaTemas>
-                        <TarjetaTemas
-                            id_Topic={1}
-                            name={"Ley de Gauss"}
-                            ruta={"/ForoPreguntas"}
-                            eliminar={eliminar}
-                        ></TarjetaTemas>
                     </div>
 
                 </div>
