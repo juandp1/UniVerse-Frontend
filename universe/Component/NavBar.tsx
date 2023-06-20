@@ -101,7 +101,7 @@ function Navbar() {
               throw new Error('An error occurred while logging out.');
             }
 
-          }, 2000); // 50 minutes in milliseconds
+          }, 3000000); 
         }
       }, []);
     
