@@ -3,6 +3,7 @@ import style from "/styles/ForoStyles.module.css";
 import * as FaIcon from 'react-icons/fa';
 import * as BsIcon from 'react-icons/bs';
 import * as TbIcon from 'react-icons/tb';
+import * as AiIcon from 'react-icons/ai';
 import { number } from 'yup';
 import Cookies from "js-cookie"
 import { useRouter } from 'next/router';
@@ -98,13 +99,17 @@ function PreguntaForo({ id, title, description, score, topic_id, community_id, u
 
                 </div>
                 <div >
-                <h2>Puntuacion {score}</h2>
+                    <div className='flex flex-wrap space-x-3 items-center'>
+                        <AiIcon.AiFillStar color='#1ecab0'size={"45px"} />
+                        <h2>{score}</h2>
+                    </div>
+                
                     <div className={style.votos}>
                         <div className={style.upvote}>
-                            <BsIcon.BsFillHandThumbsUpFill color='#1D3752' onClick={() => VoteQuestion("1")} size={"35px"} />
+                            <BsIcon.BsFillHandThumbsUpFill color='#1D3752' onClick={() => VoteQuestion("1")} size={"45px"} />
                         </div>
                         <div className={style.downvote}>
-                            <BsIcon.BsFillHandThumbsDownFill color='#1D3752' onClick={() => VoteQuestion("-1")} size={"35px"} />
+                            <BsIcon.BsFillHandThumbsDownFill color='#1D3752' onClick={() => VoteQuestion("-1")} size={"45px"} />
                         </div>
                     </div>
                 </div>
