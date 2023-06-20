@@ -155,7 +155,7 @@ export default function HomeComunidad() {
 					console.log(data);
 					setReuniones([data]);
 				} else {
-					throw new Error("Aún no hay reuniones en la comunidad");
+					console.log(res)
 				}
 			} catch (error: any) {
 				console.error("Error:", error);
@@ -186,7 +186,7 @@ export default function HomeComunidad() {
 					console.log(data);
 					setTemas([data]);
 				} else {
-					throw new Error("Aún no hay temas en la comunidad");
+					console.log(res)
 				}
 			} catch (error: any) {
 				console.error("Error:", error);
@@ -218,7 +218,7 @@ export default function HomeComunidad() {
 					console.log(data);
 					setPreguntas([data]);
 				} else {
-					throw new Error("Aún no hay preguntas en la comunidad");
+					console.log(res)
 				}
 			} catch (error: any) {
 				console.error("Error:", error);
@@ -248,7 +248,7 @@ export default function HomeComunidad() {
 	const router = useRouter();
 
 	const Reuniones = () => {
-		router.push("/Reuniones");
+		router.push("/ProximasReuniones");
 	};
 
 	const Foro = () => {
@@ -278,7 +278,7 @@ export default function HomeComunidad() {
 					</div>
 
 					<h3 style={{ alignSelf: "flex-start", marginTop: "15px", marginLeft: "10px" }}>
-						Encuentra aqui las principales novedades de esta comunidad, nuevos temas, reuniones y preguntas
+						Encuentra aqui las principales novedades de esta comunidad, nuevos temas, reuniones y preguntas. Accede a cada sección dando click en los botones de abajo y sigue disfrutando universe.
 					</h3>
 
 					<h2 style={{ alignSelf: "flex-start", marginTop: "20px", marginLeft: "10px" }}>Novedades</h2>
@@ -307,7 +307,7 @@ export default function HomeComunidad() {
 								})}
 
 								<button className={style.rectangleButton} onClick={Reuniones}>
-									VER REUNION
+									VER LAS PROXIMAS REUNIONES
 								</button>
 							</div>
 
@@ -333,7 +333,7 @@ export default function HomeComunidad() {
 								})}
 
 								<button className={style.rectangleButton} onClick={Foro}>
-									VER PREGUNTA
+									VER TODAS LAS PREGUNTAS
 								</button>
 							</div>
 						</div>
@@ -361,7 +361,7 @@ export default function HomeComunidad() {
 								</div>
 
 								<button className={style.rectangleButton} onClick={Enciclopedia}>
-									VER TEMA
+									VER TODOS LOS TEMAS
 								</button>
 							</div>
 						</div>
