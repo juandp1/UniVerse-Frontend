@@ -33,7 +33,7 @@ function Navbar() {
             const token = localStorage.getItem('token');
 
             // Realizar la petición al backend para cerrar la sesión
-            const res = await fetch('http://127.0.0.1:3333/api/logout', {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/logout', {
                 method: 'DELETE',
                 mode: 'cors',
                 headers: {
@@ -103,29 +103,12 @@ function Navbar() {
 
 
     // Contar el tiempo desde que se activo el token
-    const resetLogoutTimer = () => {
-        if (logoutTimer.current) {
-            clearTimeout(logoutTimer.current);
-        }
-
-        logoutTimer.current = setTimeout(() => {
-            handleAutomaticLogout();
-            setShowRecuadro(true);
-        }, 3000000); //50 minutos despues de logearse
-    };
-
-    //Inicia el temporizador una vez el usuario se logea
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            resetLogoutTimer();
-            return () => {
-                if (logoutTimer.current) {
-                    clearTimeout(logoutTimer.current);
-                }
-            };
-        }
+        // setear el temporizador
+        const timerId = setTimeout(handleAutomaticLogout, 50 * 60 * 1000); //50 minutos
+        return () => clearTimeout(timerId);
     }, []);
+    
 
 
     const handleAceptarClick = () => {
