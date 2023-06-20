@@ -360,7 +360,6 @@ export default function DocumentosTema() {
 									<div className={style.SelectType}>
 										<Select
 											// If you don't need a state you can remove the two following lines value & onChange
-
 											placeholder="Tipo"
 											onChange={(option: Options | null) => {
 												if (option != null) {

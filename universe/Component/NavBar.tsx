@@ -74,37 +74,37 @@ function Navbar() {
     useEffect(() => {
         const token = localStorage.getItem("token");
         const re_token = localStorage.getItem("re_token");
-    
-        if (token || re_token) {
-          setTimeout(async () => {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/logout', {
-              method: 'DELETE',
-              mode: 'cors',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${Cookies.get('token')}`,
-                
-              }
-            });
-    
-            if(res.ok) {
-              setShowRecuadro(true);
-              
-              nookies.destroy(null, 'token');
-              nookies.destroy(null, "user_ID");
-              nookies.destroy(null, "name");
-              nookies.destroy(null, "email");
-    
-              
-    
-            } else {
-              throw new Error('An error occurred while logging out.');
-            }
 
-          }, 3000000); 
+        if (token || re_token) {
+            setTimeout(async () => {
+                const res = await fetch('https://universe-backend.azurewebsites.net/api/logout', {
+                    method: 'DELETE',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${Cookies.get('token')}`,
+
+                    }
+                });
+
+                if (res.ok) {
+                    setShowRecuadro(true);
+
+                    nookies.destroy(null, 'token');
+                    nookies.destroy(null, "user_ID");
+                    nookies.destroy(null, "name");
+                    nookies.destroy(null, "email");
+
+
+
+                } else {
+                    throw new Error('An error occurred while logging out.');
+                }
+
+            }, 3000000);
         }
-      }, []);
-    
+    }, []);
+
 
 
     const handleAceptarClick = () => {
@@ -130,26 +130,32 @@ function Navbar() {
                     />
                 </div>
                 <div className="flex grow space-x-3 ">
-                    <div className={style.button_NavBar}>
+                    <div className='flex flex-wrap' >
+                        <div className={style.button_NavBar}>
+                            <Link href="/PestaniaComunidad" className='flex space-x-3 '>
+                                <TiIcon.TiGroup size={"25px"} />
+                                <h4>Comunidades</h4>
+                            </Link>
+                        </div>
+                        <div className={style.button_NavBar}>
+                            <Link href="/EstadisticasGenerales" className='w-auto flex space-x-3 content-center'>
+                                <Bsicon.BsBarChartFill size={"25px"} />
+                                <h4>Estadisticas universe</h4>
+                            </Link>
 
-                        <Link href="/PestaniaComunidad" className='flex space-x-3 '>
-                            <TiIcon.TiGroup size={"25px"} />
-                            <h4>Comunidades</h4>
-                        </Link>
+                        </div>
+
+
+
+
+
 
                     </div>
 
                 </div>
 
                 <div className="w-auto flex space-x-3 content-center mr-20">
-                    <div className={style.button_NavBar}>
 
-                        <Link href="/EstadisticasGenerales" className='w-auto flex space-x-3 content-center'>
-                            <Bsicon.BsBarChartFill size={"25px"} />
-                            <h4>Estadisticas universe</h4>
-                        </Link>
-
-                    </div>
 
                 </div>
 
