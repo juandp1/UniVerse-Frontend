@@ -1,6 +1,7 @@
 import style from "/styles/ForoStyles.module.css";
 import * as FaIcon from 'react-icons/fa';
 import * as BsIcon from 'react-icons/bs';
+import * as AiIcon from 'react-icons/ai';
 import Cookies from "js-cookie"
 
 
@@ -57,13 +58,16 @@ function Respuesta({
                     <p >{description}</p>
                 </div>
                 <div>
-                    <h2>Puntuacion {score}</h2>
+                <div className='flex flex-wrap space-x-3 items-center'>
+                        <AiIcon.AiFillStar color='#55d097'size={"45px"} />
+                        <h2>{score}</h2>
+                    </div>
                     <div className={style.votos}>
                         <div className={style.upvote}>
-                            <BsIcon.BsFillHandThumbsUpFill onClick={() => VoteResponse("1")} size={"35px"} />
+                            <BsIcon.BsFillHandThumbsUpFill color='#1D3752' onClick={() => VoteResponse("1")} size={"45px"} />
                         </div>
                         <div className={style.downvote}>
-                            <BsIcon.BsFillHandThumbsDownFill onClick={() => VoteResponse("-1")} size={"35px"} />
+                            <BsIcon.BsFillHandThumbsDownFill color='#1D3752' onClick={() => VoteResponse("-1")} size={"45px"} />
                         </div>
                     </div>
                 </div>

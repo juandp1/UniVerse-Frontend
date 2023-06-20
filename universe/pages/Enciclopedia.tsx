@@ -87,6 +87,7 @@ export default function Enciclopedia() {
 			if (res.ok) {
 				console.log("success:", "Creado con exito");
 				alert("Creado con exito");
+				newActualizacion()
 				statusShowFormCrearTema();
 			} else {
 				console.log(await res.json())

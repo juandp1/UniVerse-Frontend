@@ -332,7 +332,7 @@ export default function PestaniaComunidad() {
             if (res.ok) {
                 const data = await res.json();
                 setComunidades(data.communities);
-                newActualizacion()
+                
 
             } else {
                 throw new Error('ha sucedido un error al crear la comunidad');
