@@ -31,9 +31,21 @@ const EditarPerfil = () => {
 
 
     const [showRecuadro, setShowRecuadro] = useState(false);
+    const [showRecuadro2, setShowRecuadro2] = useState(false);
+    const [showRecuadro3, setShowRecuadro3] = useState(false);
+
     const handleAceptarClick = () => {
         setShowRecuadro(false);
         router.push('/Perfil');
+    };
+
+    const handleAceptarClick2 = () => {
+        setShowRecuadro2(false);
+
+    };
+    const handleAceptarClick3 = () => {
+        setShowRecuadro3(false);
+
     };
 
     const initialValues: ProfileFormValues = {
@@ -50,15 +62,16 @@ const EditarPerfil = () => {
         setStoredPassword(localStorage.getItem("password"));
     }, []);
 
-    
 
 
-    const validationSchema = Yup.object({
-        username: Yup.string().required("Campo requerido"),
-        email: Yup.string().email("El email ingresado no es válido").required("Campo requerido"),
-        act_password: Yup.string().min(8, "La contraseña debe incluir al menos 8 caracteres").max(32, "La contraseña no debe exceder los 32 caracteres").required("Campo requerido"),
-        new_password: Yup.string().oneOf([Yup.ref("act_password")], "Las contraseñas no coinciden").required("Campo requerido"),
-    });
+
+    const validationSchema = Yup.object().shape({
+        username: Yup.string().matches(/^\S*$/, 'Los espacios no estan permitidos').required("Campo requerido").max(15, "El nombre de usuario no debe sobrepasar los 15 caracteres") ,
+        email: Yup.string().email("El email ingresado no es válido").matches(/^\S*$/, 'Los espacios no estan permitidos').required("Campo requerido"),
+        act_password: Yup.string().min(8, "La contraseña debe incluir al menos 8 caracteres").max(32, "La contraseña no debe exceder los 32 caracteres").matches(/^\S*$/, 'Los espacios no estan permitidos').required("Campo requerido"),
+        new_password: Yup.string().oneOf([Yup.ref("act_password")], "Las contraseñas no coinciden").matches(/^\S*$/, 'Los espacios no estan permitidos').required("Campo requerido"),
+    })
+
     const onSubmit = async (values: ProfileFormValues) => {
         // Perform authentication logic or send data to the server
         console.log(values);
@@ -75,11 +88,15 @@ const EditarPerfil = () => {
 
             if (res.ok) {
                 const data = await res.json();
-                localStorage.setItem("name", data["name"]); 
+                localStorage.setItem("name", data["name"]);
                 localStorage.setItem("email", data["email"]);
                 setShowRecuadro(true);
-            } else {
-                throw new Error("An error occurred while updating the user");
+            } else if (res.status === 400) {
+                setShowRecuadro2(true);
+
+            }
+            else {
+                setShowRecuadro3(true);
             }
         } catch (error: any) {
             console.error('Error:', error);
@@ -144,7 +161,7 @@ const EditarPerfil = () => {
 
                             </div>
                             <div className={style.component2}>
-                                <h4 style={{ alignSelf: 'flex-start', marginTop: '5px' }}>Contraseña actual:</h4>
+                                <h4 style={{ alignSelf: 'flex-start', marginTop: '5px' }}>Ingrese su nueva contraseña:</h4>
                                 <input
                                     type="password"
                                     id="act_password"
@@ -157,7 +174,7 @@ const EditarPerfil = () => {
                                 )}
 
 
-                                <h4 style={{ alignSelf: 'flex-start', marginTop: '20px' }}>Nueva contraseña:</h4>
+                                <h4 style={{ alignSelf: 'flex-start', marginTop: '20px' }}>Confirmar contraseña:</h4>
                                 <input
                                     type="password"
                                     id="new_password"
@@ -194,6 +211,20 @@ const EditarPerfil = () => {
                     <Recuadro cerrar={handleAceptarClick} titulo={'Cambios realizados'} descripcion={'Se han realizado los cambios en su informacion personal de manera exitosa'} />
                 </div>
             )}
+
+            {showRecuadro2 && (
+                <div className="modalOverlay">
+                    <Recuadro cerrar={handleAceptarClick2} titulo={'Email ya registrado'} descripcion={'Un usuario con la dirección de correo ingresado ya existe, intentelo de nuevo'} />
+                </div>
+            )}
+
+            {showRecuadro3 && (
+                <div className="modalOverlay">
+                    <Recuadro cerrar={handleAceptarClick3} titulo={'Error editando el perfil'} descripcion={'Ha ocurrido un error editando su información persona'} />
+                </div>
+            )}
+
+
 
 
 
