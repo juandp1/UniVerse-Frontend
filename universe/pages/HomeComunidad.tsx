@@ -170,18 +170,21 @@ export default function HomeComunidad() {
 	useEffect(() => {
 		const fetchNextTopic = async () => {
 			try {
-				const res = await fetch("https://universe-backend.azurewebsites.net/api/topics/recent_topic", {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`,
-					},
-				});
+				const res = await fetch(
+					"https://universe-backend.azurewebsites.net/api/topics/recent_topic/" + localStorage.getItem("comunidad_ID"),
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${localStorage.getItem("token")}`,
+						},
+					}
+				);
 
 				if (res.ok) {
 					const data = await res.json();
-					console.log(data.communities);
-					setTemas(data.communities);
+					console.log(data);
+					setTemas([data]);
 				} else {
 					throw new Error("Aún no hay temas en la comunidad");
 				}
@@ -198,13 +201,17 @@ export default function HomeComunidad() {
 	useEffect(() => {
 		const fetchNextQuestion = async () => {
 			try {
-				const res = await fetch("https://universe-backend.azurewebsites.net/api/questions/recent_question", {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`,
-					},
-				});
+				const res = await fetch(
+					"https://universe-backend.azurewebsites.net/api/questions/recent_question/" +
+						localStorage.getItem("comunidad_ID"),
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${localStorage.getItem("token")}`,
+						},
+					}
+				);
 
 				if (res.ok) {
 					const data = await res.json();
