@@ -46,7 +46,7 @@ export default function Foro() {
             // se trae la informacion de los documentos que existen al entrar a la pagina
             //setIsLoading(true)
             try {
-                const res = await fetch("http://localhost:3333/api/topics/community/" + localStorage.getItem("comunidad_ID"), {
+                const res = await fetch("https://universe-backend.azurewebsites.net/api/topics/community/" + localStorage.getItem("comunidad_ID"), {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export default function Foro() {
         /**funcion para la creacion de un tema en el backend */
 
         try {
-            const res = await fetch("http://localhost:3333/api/topic/id/" + topicID, {
+            const res = await fetch("https://universe-backend.azurewebsites.net/api/topic/id/" + topicID, {
                 method: "DELETE",
                 mode: "cors",
                 headers: {

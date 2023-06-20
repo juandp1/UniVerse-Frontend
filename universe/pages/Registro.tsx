@@ -49,13 +49,13 @@ const Registro = () => {
   const handleAceptarClick = () => {
     setShowRecuadro(false);
     router.push('/Login');
-};
+  };
   const onSubmit = async (values: FormValues) => {
     // Perform authentication logic or send data to the server
     console.log(values);
 
     try {
-      const res = await fetch('http://localhost:3333/api/register', {
+      const res = await fetch('https://universe-backend.azurewebsites.net/api/register', {
         method: 'POST',
         mode: 'cors',
         headers: {

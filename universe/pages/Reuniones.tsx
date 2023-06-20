@@ -45,7 +45,7 @@ export default function Reuniones() {
 		console.log(dateTime);
 		try {
 			const res = await fetch(
-				"http://localhost:3333/api/community/" + localStorage.getItem("comunidad_ID") + "/meetings",
+				"https://universe-backend.azurewebsites.net/api/community/" + localStorage.getItem("comunidad_ID") + "/meetings",
 				{
 					method: "POST",
 					headers: {

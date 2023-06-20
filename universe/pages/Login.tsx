@@ -33,7 +33,7 @@ const Login = () => {
     console.log(values);
   
     try {
-      const res = await fetch('http://localhost:3333/api/login', {
+      const res = await fetch('https://universe-backend.azurewebsites.net/api/login', {
         method: 'POST',
         mode: 'cors',
         headers: {

@@ -85,7 +85,7 @@ export default function ProximasReuniones() {
 				}-${referenceDate.getDate()} ${referenceDate.getHours()}:${referenceDate.getMinutes()}:${referenceDate.getSeconds()}`;
 
 				const res = await fetch(
-					"http://localhost:3333/api/meetings/community/" + localStorage.getItem("comunidad_ID"),
+					"https://universe-backend.azurewebsites.net/api/meetings/community/" + localStorage.getItem("comunidad_ID"),
 					{
 						method: "POST",
 						headers: {
@@ -123,7 +123,7 @@ export default function ProximasReuniones() {
 	const updateReunion = async (values: Reunion) => {
 		const dateTime = values.fecha_reunion + " " + values.hora_reunion + ":00.000000";
 		try {
-			const res = await fetch("http://localhost:3333/api/meeting/id/" + id_reunion, {
+			const res = await fetch("https://universe-backend.azurewebsites.net/api/meeting/id/" + id_reunion, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -154,7 +154,7 @@ export default function ProximasReuniones() {
 	};
 	const deleteReunion = async () => {
 		try {
-			const res = await fetch("http://localhost:3333/api/meeting/id/" + id_reunion, {
+			const res = await fetch("https://universe-backend.azurewebsites.net/api/meeting/id/" + id_reunion, {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",

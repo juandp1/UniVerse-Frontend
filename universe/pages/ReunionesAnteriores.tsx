@@ -67,7 +67,7 @@ export default function ReunionesAnteriores() {
 				}-${referenceDate.getDate()} ${referenceDate.getHours()}:${referenceDate.getMinutes()}:${referenceDate.getSeconds()}`;
 
 				const res = await fetch(
-					"http://localhost:3333/api/meetings/community/" + localStorage.getItem("comunidad_ID"),
+					"https://universe-backend.azurewebsites.net/api/meetings/community/" + localStorage.getItem("comunidad_ID"),
 					{
 						method: "POST",
 						headers: {
@@ -117,7 +117,7 @@ export default function ReunionesAnteriores() {
 	};
 	const deleteReunion = async () => {
 		try {
-			const res = await fetch("http://localhost:3333/api/meeting/id/" + id_reunion, {
+			const res = await fetch("https://universe-backend.azurewebsites.net/api/meeting/id/" + id_reunion, {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",

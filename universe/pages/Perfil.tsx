@@ -6,13 +6,14 @@ import * as AiIcon from 'react-icons/ai';
 import LateralNavBar from "universe/Component/LateralNavBar";
 import Navbar from "universe/Component/NavBar";
 import style from "/styles/homeComunidadStyles.module.css";
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import { Formik, Form, Field } from 'formik';
 import { GetServerSideProps } from "next/types";
 import nookies from 'nookies';
 import Cookies from "js-cookie";
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
+import { ToastContainer, toast } from "react-toastify";
 
 
 
@@ -38,37 +39,29 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
 };
 
-
-
 interface Comunidad {
 
     id: number
     nameComunidad: string
     descripcion: string
     materia: string
+}
 
+interface Options {
+    id: number,
+    name: string;
 
 }
+
 const colorIcon = "#61EB8D";
 var comunityName: string
 var description: string
 var id_community: number
 
+
+
 export default function Perfil() {
 
-
-    const [name, setName] = useState<string | null>(null);
-    useEffect(() => {
-        setName(localStorage.getItem("name"));
-    }, []);
-
-    const [email, setEmail] = useState<string | null>(null);
-    useEffect(() => {
-        setEmail(localStorage.getItem("email"));
-    }, []);
-
-
-    const router = useRouter();
 
     //VERIFICAR SI EL USUARIO ESTA LOGEADO
 
@@ -80,32 +73,24 @@ export default function Perfil() {
         setShowFormCrearComunidad(!showFormCrearComunidad)
         toggle()
     }
-    const [searchQuery, setSearchQuery] = useState("");
-    const [searchResults, setSearchResults] = useState<Comunidad[]>([]);
+
     const [confirmacion, setConfirmacion] = useState(false)
     const stateConfirmacion = () => {
         setConfirmacion(!confirmacion)
         toggle()
     }
-    const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(e.target.value);
+    const [confirmacionAbandonar, setConfirmacionAbandonar] = useState(false)
+    const stateConfirmacionAbandonar = () => {
+        setConfirmacionAbandonar(!confirmacionAbandonar)
+        toggle()
+    }
+
+    const [optionType, setOptionType] = useState<string | null>("");
+
+    const [actualizacion, setActualizacion] = useState(0);
+    const newActualizacion = () => {
+        setActualizacion(actualizacion + 1);
     };
-
-    const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        try {
-            //  API para buscar materias
-            const response = await fetch(`/api/search?query=${searchQuery}`);
-            const data = await response.json();
-
-            // Actualizar los resultados de materias
-            setSearchResults(data.results);
-        } catch (error) {
-            console.error("Error searching for subjects:", error);
-        }
-    };
-
 
 
     const [formEditar, setformEditar] = useState(false)
@@ -116,12 +101,15 @@ export default function Perfil() {
         name: "",
         description: "",
     }])
+    const [Labels, setLabels] = useState<Options[]>([])
+
+
     // OBTENCION DE TODAS LAS COMUNIDADES 
     useEffect(() => {
-        const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
+        const fetchData = async () => { // se trae la informacion de las comunidades que existen al entrar a la pagina
             //setIsLoading(true)
             try {
-                const res = await fetch("http://localhost:3333/api/communities", {
+                const res = await fetch("https://universe-backend.azurewebsites.net/api/communities", {
                     method: 'GET',
                     mode: 'cors',
                     headers: {
@@ -131,7 +119,33 @@ export default function Perfil() {
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    setComunidades(data.communities)
+                    setComunidades(data.communities);
+                }
+            } catch (error: any) {
+                console.error('Error:', error);
+                alert(error.message);
+            }
+        }
+        fetchData();
+    }, [actualizacion]);
+
+    useEffect(() => {
+        const fetchData = async () => { // se trae la informacion de los labels que existen al entrar a la pagina
+            //setIsLoading(true)
+            try {
+                const res = await fetch("https://universe-backend.azurewebsites.net/api/labels", {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    console.log(data)
+                    setLabels(data["labels"]);
+                } else {
+                    console.log(await res.json())
                 }
             } catch (error: any) {
                 console.error('Error:', error);
@@ -142,6 +156,11 @@ export default function Perfil() {
     }, []);
 
 
+    useEffect(() => {
+        if (Labels.length > 0) {
+            setOptionType(Labels[0].name);
+        }
+    }, [Labels]);
 
 
     //EDICION DE LA COMUNIDAD
@@ -152,26 +171,68 @@ export default function Perfil() {
         stateformEditar()
         toggle()
     }
+    const abandonar = (id: number, nameComunidad: string) => {
+        id_community = id
+        comunityName = nameComunidad
+        stateConfirmacionAbandonar()
+
+    }
+    const abandonarComunidad = async () => {
+        try {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/leave_community', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({ "community_id": id_community, "user_id": localStorage.getItem('user_ID') })
+            });
+            if (res.ok) {
+                toast.success('Ha abandonado la comunidad', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: "toast_success_doc"
+
+
+                }
+                );
+                stateConfirmacionAbandonar();
+                console.error('succes:', "se ha abandonado la comunidad con exito ");
+            } else {
+                throw new Error('Ha sucedido un error al abandonar la comunidad');
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+
+    }
 
     const cerrarEdicion = () => {
         stateformEditar()
         toggle()
     }
 
-
     //UPDATE COMUNIDAD
     const updateComunidad = async (values: Comunidad) => {
         try {
-            const res = await fetch('http://localhost:3333/api/community/name/' + comunityName, {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/community/name/' + comunityName, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${Cookies.get('token')}`
                 },
-                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion })
+                body: JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion, "label": values.materia })
             });
 
             if (res.ok) {
+                newActualizacion();
 
             } else {
                 throw new Error('ha sucedido un error al crear la comunidad');
@@ -183,6 +244,7 @@ export default function Perfil() {
         stateformEditar()
         toggle()
     }
+
     const eliminar = (comunnuty_ID: number, name: string) => {
         id_community = comunnuty_ID
         comunityName = name
@@ -190,7 +252,7 @@ export default function Perfil() {
     }
     const deleteComunidad = async () => {
         try {
-            const res = await fetch('/api/community/name/' + comunityName, {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/community/name/' + comunityName, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -220,8 +282,17 @@ export default function Perfil() {
     }
 
 
-    //PRIMERA FUNCION EN EJECUTARSE ES TRAERSE LA INFORMACION DE LAS COMUNIDADES
-    //getInfoComunidades()
+
+    const [name, setName] = useState<string | null>(null);
+    useEffect(() => {
+        setName(localStorage.getItem("name"));
+    }, []);
+
+    const [email, setEmail] = useState<string | null>(null);
+    useEffect(() => {
+        setEmail(localStorage.getItem("email"));
+    }, []);
+
 
     const editarPerfil = () => {
         router.push('/EditarPerfil');
@@ -271,24 +342,18 @@ export default function Perfil() {
 
 
                     <h3 style={{ alignSelf: 'flex-start', marginTop: '20px', marginLeft: '10px' }}>
-                        Participante de:
+                        Comunidades disponibles:
                     </h3>
 
 
 
                     <div className="flex flex-wrap justify-center" style={{ marginLeft: '10px' }} >
-                        {/*Comunidades.map((item, index)=>{
-                            return(
-                                <ComunidadRecuadro key={item.nameComunidad} idComunidad={item.id} comunityName={item.nameComunidad} descripcion={item.descripcion} editar={editar}></ComunidadRecuadro>
+                        {Comunidades.map((item, index) => {
+                            return (
+                                <ComunidadPerfil key={item.id} idComunidad={item.id} comunityName={item.name} descripcion={item.description} editar={editar} eliminar={eliminar} abandonar={abandonar}></ComunidadPerfil>
                             )
-                        })*/
-
+                        })
                         }
-
-                        <ComunidadPerfil idComunidad={1} comunityName="FEM" descripcion="Descripcion de la comunidad Fem" editar={editar} eliminar={eliminar}></ComunidadPerfil>
-                        <ComunidadPerfil idComunidad={2} comunityName="Calculo Integral" descripcion="Descripcion de la comunidad Calculo integral" editar={editar} eliminar={eliminar}></ComunidadPerfil>
-                        <ComunidadPerfil idComunidad={3} comunityName="Calculo Diferencial" descripcion="Descripcion de la comunidad Calculo Diferencial " editar={editar} eliminar={eliminar}></ComunidadPerfil>
-                        <ComunidadPerfil idComunidad={4} comunityName="Bases de Datos" descripcion="Descripcion de la comunidad Base de datos" editar={editar} eliminar={eliminar}></ComunidadPerfil>
 
 
                         <button className={style.rectangleButton} style={{ marginBottom: '10px' }} onClick={editarPerfil}>
@@ -301,9 +366,27 @@ export default function Perfil() {
 
 
             </main>
+            <ToastContainer position="top-right" className={style.success_notification} />
+            {confirmacion ? (
+                <div className="modalOverlay">
+                    <ConfirmacionRecuadro mensaje={"Se eliminara la comunidad"} name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
+                </div>
+
+            ) : null
+
+            }
+            {confirmacionAbandonar ? (
+                <div className="modalOverlay">
+                    <ConfirmacionRecuadro
+                        mensaje="Esta apunto de abandonar la comunidad:"
+                        name={comunityName}
+                        eliminar={abandonarComunidad}
+                        cerrar={stateConfirmacionAbandonar}
+                    ></ConfirmacionRecuadro>
+                </div>
+            ) : null}
 
             {confirmacion ? (
-
                 <div className="modalOverlay">
                     <ConfirmacionRecuadro mensaje="Esta seguro de eliminar la comunidad" name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
                 </div>
@@ -328,46 +411,48 @@ export default function Perfil() {
 
                     >
                         {({ handleSubmit, values, handleChange }) => (
-                            <form id="login" onSubmit={handleSubmit}>
-                                <div id="encabezado">
-                                    <IoIcon.IoMdClose size={"25px"} onClick={cerrarEdicion} id="close" />
+                            <div className="modalOverlay">
+                                <form id="login" onSubmit={handleSubmit}>
+                                    <div id="encabezado">
+                                        <IoIcon.IoMdClose size={"25px"} onClick={cerrarEdicion} id="close" />
 
-                                    <div>
-                                        <AiIcon.AiFillEdit size={"60px"} color={"#1D3752"} />
-                                        <h2>Editar Comunidad</h2>
+                                        <div>
+                                            <AiIcon.AiFillEdit size={"60px"} color={"#1D3752"} />
+                                            <h2>Editar Comunidad</h2>
+                                        </div>
+                                        <div>
+                                            <button type="submit">
+                                                <h3>Editar</h3>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <button type="submit">
-                                            <h3>Editar</h3>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div id="inputs">
+                                    <div id="inputs">
 
-                                    <div>
-                                        <h5>Nombre de la comunidad:</h5>
-                                        <input name="NombreComunidad" type="text" placeholder="Nombre de la comunidad"
-                                            value={values.nameComunidad}
-                                            onChange={handleChange}
-                                        />
+                                        <div>
+                                            <h5>Nombre de la comunidad:</h5>
+                                            <input name="nameComunidad" type="text" placeholder="Nombre de la comunidad"
+                                                value={values.nameComunidad}
+                                                onChange={handleChange}
+                                            />
 
-                                        <h5>Descripcion de la comunidad</h5>
-                                        <input name="descripcion" type="text" placeholder="Descripcion de la comunidad"
-                                            value={values.descripcion}
-                                            onChange={handleChange}
-                                        />
+                                            <h5>Descripcion de la comunidad</h5>
+                                            <input name="descripcion" type="text" placeholder="Descripcion de la comunidad"
+                                                value={values.descripcion}
+                                                onChange={handleChange}
+                                            />
 
-                                        <h5>Categoria o materia a la que se refiere la comunidad:</h5>
-                                        <input name="materia" type="text" placeholder="Buscar"
-                                            value={values.materia}
-                                            onChange={handleChange}
-                                        />
+                                            <h5>Categoria o materia a la que se refiere la comunidad:</h5>
+                                            <input name="materia" type="text" placeholder="Buscar"
+                                                value={values.materia}
+                                                onChange={handleChange}
+                                            />
 
+
+                                        </div>
 
                                     </div>
-
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         )}
 
                     </Formik>

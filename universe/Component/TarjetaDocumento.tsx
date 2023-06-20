@@ -38,7 +38,7 @@ function TarjetaDocumento({ idDocument, DocumentName, descripcion, docType, elim
 
     const verDocumento = async (): Promise<void> => {
         try {
-            const res = await fetch(`http://localhost:3333/api/document/${idDocument}`, {
+            const res = await fetch(`https://universe-backend.azurewebsites.net/api/document/${idDocument}`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

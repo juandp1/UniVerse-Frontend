@@ -15,7 +15,7 @@ export default function EstadisticasComunidad() {
 		const fetchNumUsers = async () => {
 			try {
 				const res = await fetch(
-					"http://localhost:3333/api/statistics/users_per_comm/" + localStorage.getItem("comunidad_ID"),
+					"https://universe-backend.azurewebsites.net/api/statistics/users_per_comm/" + localStorage.getItem("comunidad_ID"),
 					{
 						method: "GET",
 
@@ -40,7 +40,7 @@ export default function EstadisticasComunidad() {
 		const fetchNumQuestions = async () => {
 			try {
 				const res = await fetch(
-					"http://localhost:3333/api/statistics/questions_per_comm/" + localStorage.getItem("comunidad_ID"),
+					"https://universe-backend.azurewebsites.net/api/statistics/questions_per_comm/" + localStorage.getItem("comunidad_ID"),
 					{
 						method: "GET",
 						headers: {
@@ -64,7 +64,7 @@ export default function EstadisticasComunidad() {
 		const fetchNumTopics = async () => {
 			try {
 				const res = await fetch(
-					"http://localhost:3333/api/statistics/topics_per_comm/" + localStorage.getItem("comunidad_ID"),
+					"https://universe-backend.azurewebsites.net/api/statistics/topics_per_comm/" + localStorage.getItem("comunidad_ID"),
 					{
 						method: "GET",
 						headers: {

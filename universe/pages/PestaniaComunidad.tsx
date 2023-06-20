@@ -87,25 +87,9 @@ export default function PestaniaComunidad() {
         setConfirmacionAbandonar(!confirmacionAbandonar)
         toggle()
     }
-    const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(e.target.value);
-    };
+
     const [optionType, setOptionType] = useState<string | null>("");
 
-    const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        try {
-            //  API para buscar materias
-            const response = await fetch(`/api/search?query=${searchQuery}`);
-            const data = await response.json();
-
-            // Actualizar los resultados de materias
-            setSearchResults(data.results);
-        } catch (error) {
-            console.error("Error searching for subjects:", error);
-        }
-    };
 
     const [actualizacion, setActualizacion] = useState(0);
     const newActualizacion = () => {
@@ -127,10 +111,10 @@ export default function PestaniaComunidad() {
 
     // OBTENCION DE TODAS LAS COMUNIDADES 
     useEffect(() => {
-        const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
+        const fetchData = async () => { // se trae la informacion de las comunidades que existen al entrar a la pagina
             //setIsLoading(true)
             try {
-                const res = await fetch("http://localhost:3333/api/communities", {
+                const res = await fetch("https://universe-backend.azurewebsites.net/api/communities", {
                     method: 'GET',
                     mode: 'cors',
                     headers: {
@@ -151,10 +135,10 @@ export default function PestaniaComunidad() {
     }, [actualizacion]);
 
     useEffect(() => {
-        const fetchData = async () => { // se trae la informacion de los documentos que existen al entrar a la pagina
+        const fetchData = async () => { // se trae la informacion de los labels que existen al entrar a la pagina
             //setIsLoading(true)
             try {
-                const res = await fetch("http://localhost:3333/api/labels", {
+                const res = await fetch("https://universe-backend.azurewebsites.net/api/labels", {
                     method: 'GET',
                     mode: 'cors',
                     headers: {
@@ -163,9 +147,8 @@ export default function PestaniaComunidad() {
                 });
                 if (res.ok) {
                     const data = await res.json();
+                    console.log(data)
                     setLabels(data["labels"]);
-                    setOptionType(Labels[0].name)
-                    console.error('success:', "se han traido correctamente todos los labels");
                 } else {
                     console.log(await res.json())
                 }
@@ -178,6 +161,11 @@ export default function PestaniaComunidad() {
     }, []);
 
 
+    useEffect(() => {
+        if (Labels.length > 0) {
+            setOptionType(Labels[0].name);
+        }
+    }, [Labels]);
 
 
     //EDICION DE LA COMUNIDAD
@@ -196,7 +184,7 @@ export default function PestaniaComunidad() {
     }
     const abandonarComunidad = async () => {
         try {
-            const res = await fetch('http://localhost:3333/api/leave_community', {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/leave_community', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -241,7 +229,7 @@ export default function PestaniaComunidad() {
     const crearComunidad = async (values: Comunidad) => {
         console.log(JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion, "label": optionType }))
         try {
-            const res = await fetch('http://localhost:3333/api/community', {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/community', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -275,33 +263,12 @@ export default function PestaniaComunidad() {
             console.error('Error:', error);
             alert(error.message);
         }
-        // try {
-        //     const res = await fetch('http://localhost:3333/api/label_has_community/name/', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Authorization': `Bearer ${localStorage.getItem("token")}`
-        //         },
-        //         body: JSON.stringify({ nombreComunidad: values.nameComunidad, materia: values.materia })
-        //     });
-
-        //     if (res.ok) {
-
-        //     } else {
-        //         throw new Error('ha sucedido un error al crear la comunidad');
-        //     }
-        // } catch (error: any) {
-        //     console.error('Error:', error);
-        //     alert(error.message);
-        // }
-
-
         statusShowFormCrearComunidad()
     }
     //UPDATE COMUNIDAD
     const updateComunidad = async (values: Comunidad) => {
         try {
-            const res = await fetch('http://localhost:3333/api/community/name/' + comunityName, {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/community/name/' + comunityName, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -329,7 +296,7 @@ export default function PestaniaComunidad() {
     }
     const deleteComunidad = async () => {
         try {
-            const res = await fetch('http://localhost:3333/api/community/name/' + comunityName, {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/community/name/' + comunityName, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -353,7 +320,7 @@ export default function PestaniaComunidad() {
     }
     const buscarComunidad = async (name: string) => {
         try {
-            const res = await fetch('http://localhost:3333/api/community/similar_name/' + name, {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/community/similar_name/' + name, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -445,8 +412,6 @@ export default function PestaniaComunidad() {
                             )
                         })
                         }
-                        <ComunidadRecuadro idComunidad={1} comunityName="FEM" descripcion="Descripcion de la comunidad Fem" editar={editar} eliminar={eliminar} abandonar={abandonar}></ComunidadRecuadro>
-                        <ComunidadRecuadro idComunidad={2} comunityName="Calculo Integral" descripcion="Descripcion de la comunidad Calculo integral" editar={editar} eliminar={eliminar} abandonar={abandonar}></ComunidadRecuadro>
 
                     </div>
 
@@ -491,6 +456,7 @@ export default function PestaniaComunidad() {
 
                     >
                         {({ handleSubmit, values, handleChange }) => (
+                            <div className= "modalOverlay">
                             <form id="login" onSubmit={handleSubmit}>
                                 <div id="encabezado">
                                     <IoIcon.IoMdClose size={"25px"} onClick={statusShowFormCrearComunidad} id="close" />
@@ -526,6 +492,8 @@ export default function PestaniaComunidad() {
                                             onChange={handleChange}
                                         />
                                         <h5>Categoria o materia a la que se refiere la comunidad:</h5>
+
+
                                         <div className={style.SelectType}>
                                             <Select
                                                 // If you don't need a state you can remove the two following lines value & onChange
@@ -546,6 +514,7 @@ export default function PestaniaComunidad() {
 
                                 </div>
                             </form>
+                            </div>
                         )}
 
                     </Formik>

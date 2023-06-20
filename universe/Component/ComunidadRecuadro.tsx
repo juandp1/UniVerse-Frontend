@@ -33,7 +33,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
 
     const unirseComunidad = async () => {
         try {
-            const res = await fetch('http://localhost:3333/api/enter_community', {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/enter_community', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
     
     const entrarComunidad = async () => {
         try {
-            const res = await fetch(`http://localhost:3333/api/is_member`, {
+            const res = await fetch(`https://universe-backend.azurewebsites.net/api/is_member`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -127,10 +127,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
                         <div>
                             {optionsComunity ? (
                                 <div className="desplegableOptions right-4">
-                                    <div className="flex space-x-3 items-center">
-                                        <BiIcon.BiInfoCircle size={"20px"} color="#34b83b" />
-                                        <h5>Informacion</h5>
-                                    </div>
+
                                     <div className="flex space-x-3 items-center" onClick={() => editar(idComunidad, comunityName, descripcion)}>
                                         <AiIcon.AiOutlineEdit size={"20px"} color="#e5964b" />
                                         <h5>Editar</h5>

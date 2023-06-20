@@ -47,7 +47,7 @@ export default function ForoPreguntas() {
     useEffect(() => {
         const fetchData = async () => { // se trae la información de las preguntas que existen al entrar a la página./api/community/<int:community_id>/topic/<int:topic_id>/questions
             try {
-                const res = await fetch('http://localhost:3333/api/community/' + localStorage.getItem("comunidad_ID") + '/topic/' + localStorage.getItem("Topic")+ '/questions', {
+                const res = await fetch('https://universe-backend.azurewebsites.net/api/community/' + localStorage.getItem("comunidad_ID") + '/topic/' + localStorage.getItem("Topic")+ '/questions', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ export default function ForoPreguntas() {
     const CrearPregunta = async (values: Pregunta) => {
         /**funcion para crear una pregunta y llevarla al backend */
         try {
-            const res = await fetch('http://localhost:3333/api/questions', {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/questions', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

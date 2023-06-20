@@ -140,7 +140,7 @@ export default function HomeComunidad() {
     useEffect(() => {
         const fetchNextMeeting = async () => {
             try {
-              const res = await fetch("http://localhost:3333/api/community/" + localStorage.getItem("comunidad_ID") + "/next_meeting", {
+              const res = await fetch("https://universe-backend.azurewebsites.net/api/community/" + localStorage.getItem("comunidad_ID") + "/next_meeting", {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',
@@ -168,7 +168,7 @@ export default function HomeComunidad() {
     useEffect(() => {
         const fetchNextTopic = async () => {
             try {
-              const res = await fetch("http://localhost:3333/api/topics/recent_topic", {
+              const res = await fetch("https://universe-backend.azurewebsites.net/api/topics/recent_topic", {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',
@@ -196,7 +196,7 @@ export default function HomeComunidad() {
     useEffect(() => {
         const fetchNextQuestion = async () => {
             try {
-              const res = await fetch("http://localhost:3333/api/questions/recent_question", {
+              const res = await fetch("https://universe-backend.azurewebsites.net/api/questions/recent_question", {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',
