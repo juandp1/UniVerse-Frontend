@@ -44,17 +44,20 @@
 
 .rectangleButton {
     display: flex;
+    padding: 10px;
     align-items: center;
     justify-content: center;
     border-radius: 50px;
     background-color: #285f76;
     color: #ffffff;
     min-width: 100px;
-    min-height: 45px;
+    width: auto;
+    min-height: 55px;
     height: auto;
     align-self: center;
     margin-top: 5px;
     margin-bottom: auto;
+    font-weight: 500;
 
 }
 

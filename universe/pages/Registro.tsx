@@ -29,19 +29,28 @@ const Registro = () => {
 
   const validationSchema = Yup.object({
     username: Yup.string()
+      .trim('El nombre de usuario no puede comenzar ni terminar con espacios en blanco')
+      .matches(/^(?!\s*$).+$/, 'El nombre de usuario no puede ser solo espacios en blanco')
       .max(15, "El nombre de usuario no debe sobrepasar los 15 caracteres") 
       .required("Campo requerido"),
     email: Yup.string()
+      .trim('El email no puede comenzar ni terminar con espacios en blanco')
+      .matches(/^(?!\s*$).+$/, 'El email no puede ser solo espacios en blanco')
       .email("El email ingresado no es válido")
       .required("Campo requerido"),
     password: Yup.string()
+      .trim('La contraseña no puede comenzar ni terminar con espacios en blanco')
+      .matches(/^(?!\s*$).+$/, 'La contraseña no puede ser solo espacios en blanco')
       .min(8, "La contraseña debe incluir al menos 8 caracteres")
       .max(32, "La contraseña no debe exceder los 32 caracteres")
       .required("Campo requerido"),
     confirmPassword: Yup.string()
+      .trim('La confirmación de la contraseña no puede comenzar ni terminar con espacios en blanco')
+      .matches(/^(?!\s*$).+$/, 'La confirmación de la contraseña no puede ser solo espacios en blanco')
       .oneOf([Yup.ref("password")], "Las contraseñas no coinciden")
       .required("Campo requerido"),
   });
+  
 
   const handleRegisterClick = () => {
     router.push('/Login');
