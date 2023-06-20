@@ -142,7 +142,7 @@ const Login = () => {
 
           <div className={styles.rightContainer} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Image
-              src="/images/group.png"
+              src="/images/Group.png"
               className={styles.desktopOnly}
               width={150}
               height={400}
