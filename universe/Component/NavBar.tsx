@@ -6,6 +6,7 @@ import * as FaIcon from 'react-icons/fa';
 import * as Bsicon from 'react-icons/bs';
 import style from "/styles/NavBarsStyles.module.css";
 import Image from 'next/image';
+import nookies from 'nookies';
 import { Stint_Ultra_Expanded } from 'next/font/google';
 import { useRouter } from 'next/router';
 import Recuadro from "universe/Component/Recuadro";
@@ -20,9 +21,11 @@ function Navbar() {
     const [menuDesplegable, setMenuDesplegable] = useState(false)
     const stateMenuDesplegable = () => setMenuDesplegable(!menuDesplegable)
     const [name, setName] = useState<string | null>(null);
+
     useEffect(() => {
         setName(localStorage.getItem("name"));
     }, []);
+
     const [showRecuadro, setShowRecuadro] = useState(false);
     const logoutTimer = useRef<NodeJS.Timeout | null>(null);
     {/*con este useState se controla para que aparezca las opciones de perfil y de cerrar sesion*/ }
@@ -38,7 +41,7 @@ function Navbar() {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${Cookies.get('token')}`
                 },
             });
 
@@ -48,10 +51,13 @@ function Navbar() {
 
 
                 // Borrar el token del almacenamiento local
-                localStorage.removeItem('token');
-                localStorage.removeItem('user_ID');
-                localStorage.removeItem('name');
+                localStorage.clear();
                 Cookies.remove('token');
+                nookies.destroy(null, 'token');
+                nookies.destroy(null, 're_token');
+                nookies.destroy(null, "user_ID");
+                nookies.destroy(null, "name");
+                nookies.destroy(null, "email");
 
                 // Redirigir al usuario a la página de inicio 
                 router.push('/');
@@ -65,49 +71,39 @@ function Navbar() {
         }
     };
 
-    const handleAutomaticLogout = async () => {
-        try {
-            // Obtener el token del almacenamiento local
-            const token = localStorage.getItem('token');
-
-            // Realizar la petición al backend para cerrar la sesión
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/logout', {
-                method: 'DELETE',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-
-            if (res.ok) {
-                const data = await res.json();
-                setShowRecuadro(true);
-
-
-                // Borrar el token del almacenamiento local
-                localStorage.removeItem('token');
-                localStorage.removeItem('user_ID');
-                localStorage.removeItem('name');
-                Cookies.remove('token');
-
-            }
-            if (!res.ok) {
-                throw new Error('No se pudo cerrar la sesión');
-            }
-
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-
-
-    // Contar el tiempo desde que se activo el token
     useEffect(() => {
-        // setear el temporizador
-        const timerId = setTimeout(handleAutomaticLogout, 50 * 60 * 1000); //50 minutos
-        return () => clearTimeout(timerId);
-    }, []);
+        const token = localStorage.getItem("token");
+        const re_token = localStorage.getItem("re_token");
+    
+        if (token || re_token) {
+          setTimeout(async () => {
+            const res = await fetch('https://universe-backend.azurewebsites.net/api/logout', {
+              method: 'DELETE',
+              mode: 'cors',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${Cookies.get('token')}`,
+                
+              }
+            });
+    
+            if(res.ok) {
+              setShowRecuadro(true);
+              
+              nookies.destroy(null, 'token');
+              nookies.destroy(null, "user_ID");
+              nookies.destroy(null, "name");
+              nookies.destroy(null, "email");
+    
+              
+    
+            } else {
+              throw new Error('An error occurred while logging out.');
+            }
+
+          }, 2000); // 50 minutes in milliseconds
+        }
+      }, []);
     
 
 
