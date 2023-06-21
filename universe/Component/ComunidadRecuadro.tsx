@@ -5,6 +5,7 @@ import * as BiIcon from 'react-icons/bi';
 import * as AiIcon from 'react-icons/ai';
 import * as RiIcon from 'react-icons/ri';
 import * as Bsicon from "react-icons/bs";
+import * as Ioicon from "react-icons/io";
 import { useState } from "react";
 import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
@@ -105,7 +106,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
             <div className={style.comunidadRecuadro}>
                 <div className={style.encabezado}>
                     <div className="flex space-x-3 ">
-                        <Bsicon.BsFillLightningFill size={"40px"} />
+                        <Ioicon.IoMdSchool size={"40px"} />
                         <h2>{comunityName}</h2>
                     </div>
                     <div className="flex space-x-3">
