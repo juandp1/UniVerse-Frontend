@@ -71,11 +71,11 @@ const Registro = () => {
 
 
   const handleAceptarClick2 = () => {
-    setShowRecuadro(false);
+    setShowRecuadro2(false);
   };
 
   const handleAceptarClick3 = () => {
-    setShowRecuadro(false);
+    setShowRecuadro3(false);
   };
   const onSubmit = async (values: FormValues) => {
     // Perform authentication logic or send data to the server
