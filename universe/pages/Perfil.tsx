@@ -225,7 +225,7 @@ export default function Perfil() {
                         });
                         break;
                     case "User not in community":
-                        toast.error('No puedes abandonar la comunidad porqueno perteneces a ella', {
+                        toast.error('No puedes abandonar la comunidad porque no perteneces a ella', {
                             position: "top-right",
                             autoClose: 4000,
                             hideProgressBar: false,
