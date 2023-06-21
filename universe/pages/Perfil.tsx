@@ -177,6 +177,7 @@ export default function Perfil() {
         stateConfirmacionAbandonar()
 
     }
+
     const abandonarComunidad = async () => {
         try {
             const res = await fetch('https://universe-backend.azurewebsites.net/api/leave_community', {
@@ -203,9 +204,60 @@ export default function Perfil() {
                 }
                 );
                 stateConfirmacionAbandonar();
-                console.error('succes:', "se ha abandonado la comunidad con exito ");
-            } else {
-                throw new Error('Ha sucedido un error al abandonar la comunidad');
+                console.error('success:', "se ha abandonado la comunidad con exito ");
+            }
+
+            else if (res.status == 400) { //codigo de usuario ya existente 
+                const data = await res.json();
+                switch (data.message) {
+                    case "Admin cannot leave community":
+                        toast.error('No puedes abandonar la comunidad porque eres administrador de la misma', {
+                            position: "top-right",
+                            autoClose: 4000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            className: style.toast_success_doc
+
+                        });
+                        break;
+                    case "User not in community":
+                        toast.error('No puedes abandonar la comunidad porqueno perteneces a ella', {
+                            position: "top-right",
+                            autoClose: 4000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            className: style.toast_success_doc
+
+                        });
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+
+
+            else {
+                toast.error('Ocurrio un error al abandonar la comunidad', {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: style.toast_success_doc
+
+                });
             }
         } catch (error: any) {
             console.error('Error:', error);
@@ -213,6 +265,7 @@ export default function Perfil() {
         }
 
     }
+
 
     const cerrarEdicion = () => {
         stateformEditar()

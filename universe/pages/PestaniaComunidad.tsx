@@ -195,7 +195,7 @@ export default function PestaniaComunidad() {
             if (res.ok) {
                 toast.success('Ha abandonado la comunidad', {
                     position: "top-right",
-                    autoClose: 5000,
+                    autoClose: 4000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -208,9 +208,60 @@ export default function PestaniaComunidad() {
                 }
                 );
                 stateConfirmacionAbandonar();
-                console.error('succes:', "se ha abandonado la comunidad con exito ");
-            } else {
-                throw new Error('Ha sucedido un error al abandonar la comunidad');
+                console.error('success', "se ha abandonado la comunidad con exito ");
+            }
+
+            else if (res.status == 400) { //codigo de usuario ya existente 
+                const data = await res.json();
+                switch (data.message) {
+                    case "Admin cannot leave community":
+                        toast.error('No puedes abandonar la comunidad porque eres administrador de la misma', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            className: style.toast_success_doc
+
+                        });
+                        break;
+                    case "User not in community":
+                        toast.error('No puedes abandonar la comunidad porqueno perteneces a ella', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            className: style.toast_success_doc
+
+                        });
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+
+
+            else {
+                toast.error('Ocurrio un error al abandonar la comunidad', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: style.toast_success_doc
+
+                });
             }
         } catch (error: any) {
             console.error('Error:', error);
@@ -288,11 +339,11 @@ export default function PestaniaComunidad() {
                     progress: undefined,
                     theme: "light",
                     className: style.toast_success_doc
-    
+
                 });
                 newActualizacion()
             } else {
-                toast.error('No puedes editar esta comunida ya que no eres admin', {
+                toast.error('No puedes editar esta comunidad ya que no eres admin', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -302,7 +353,7 @@ export default function PestaniaComunidad() {
                     progress: undefined,
                     theme: "light",
                     className: style.toast_success_doc
-    
+
                 });
             }
         } catch (error: any) {
@@ -340,12 +391,12 @@ export default function PestaniaComunidad() {
                     progress: undefined,
                     theme: "light",
                     className: style.toast_success_doc
-    
+
                 });
                 stateConfirmacion()
                 newActualizacion()
-            }else if( res.status === 401) {
-                toast.error('No puedes eliminar esta comunida ya que no eres admin', {
+            } else if (res.status === 401) {
+                toast.error('No puedes eliminar esta comunidad ya que no eres admin', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -355,18 +406,18 @@ export default function PestaniaComunidad() {
                     progress: undefined,
                     theme: "light",
                     className: style.toast_success_doc
-    
+
                 });
-                
+
             }
         } catch (error: any) {
             console.error('Error:', error);
             alert(error.message);
         }
-        
+
     }
     const buscarComunidad = async (name: string) => {
-        if(name === "" || name==null){
+        if (name === "" || name == null) {
             toast.warning('Debes de ingresar algun input', {
                 position: "top-right",
                 autoClose: 5000,
@@ -379,8 +430,8 @@ export default function PestaniaComunidad() {
                 className: style.toast_success_doc
 
             });
-            
-        }else{
+
+        } else {
             try {
                 const res = await fetch('https://universe-backend.azurewebsites.net/api/community/similar_name/' + name, {
                     method: 'GET',
@@ -388,24 +439,24 @@ export default function PestaniaComunidad() {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${Cookies.get('token')}`
                     },
-    
+
                 });
-    
+
                 if (res.ok) {
                     const data = await res.json();
                     setComunidades(data.communities);
-                    
-    
+
+
                 } else {
                     console.log(await res.json())
-                    
+
                 }
             } catch (error: any) {
                 console.error('Error:', error);
                 alert(error.message);
             }
         }
-        
+
 
     }
 
@@ -521,64 +572,64 @@ export default function PestaniaComunidad() {
 
                     >
                         {({ handleSubmit, values, handleChange }) => (
-                            <div className= "modalOverlay">
-                            <form id="login" onSubmit={handleSubmit}>
-                                <div id="encabezado">
-                                    <IoIcon.IoMdClose size={"25px"} onClick={statusShowFormCrearComunidad} id="close" />
+                            <div className="modalOverlay">
+                                <form id="login" onSubmit={handleSubmit}>
+                                    <div id="encabezado">
+                                        <IoIcon.IoMdClose size={"25px"} onClick={statusShowFormCrearComunidad} id="close" />
 
-                                    <div>
-                                        <TiIcon.TiGroup size={"60px"} color={"#1D3752"} />
-                                        <h2>Crear una nueva comunidad</h2>
-                                    </div>
-                                    <div>
-                                        <button type="submit">
-                                            <h3>Crear</h3>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div id="inputs">
-
-                                    <div>
-                                        <h5>Nombre de la comunidad:</h5>
-                                        <input
-                                            name="nameComunidad"
-                                            type="text"
-                                            placeholder="Nombre de la comunidad"
-                                            value={values.nameComunidad}
-                                            onChange={handleChange}
-                                        />
-
-                                        <h5>Descripcion de la comunidad</h5>
-                                        <input
-                                            name="descripcion"
-                                            type="text"
-                                            placeholder="Descripcion de la comunidad"
-                                            value={values.descripcion}
-                                            onChange={handleChange}
-                                        />
-                                        <h5>Categoria o materia a la que se refiere la comunidad:</h5>
-
-
-                                        <div className={style.SelectType}>
-                                            <Select
-                                                // If you don't need a state you can remove the two following lines value & onChange
-                                                placeholder="Materia"
-                                                onChange={(option: Options | null) => {
-                                                    if (option != null) {
-                                                        setOptionType(option.name);
-                                                    }
-                                                }}
-                                                getOptionLabel={(option: Options) => option.name}
-                                                getOptionValue={(option: Options) => option.name}
-                                                options={Labels}
-                                                defaultValue={Labels[0]}
-                                                isSearchable={true}
-                                            />
+                                        <div>
+                                            <TiIcon.TiGroup size={"60px"} color={"#1D3752"} />
+                                            <h2>Crear una nueva comunidad</h2>
+                                        </div>
+                                        <div>
+                                            <button type="submit">
+                                                <h3>Crear</h3>
+                                            </button>
                                         </div>
                                     </div>
+                                    <div id="inputs">
 
-                                </div>
-                            </form>
+                                        <div>
+                                            <h5>Nombre de la comunidad:</h5>
+                                            <input
+                                                name="nameComunidad"
+                                                type="text"
+                                                placeholder="Nombre de la comunidad"
+                                                value={values.nameComunidad}
+                                                onChange={handleChange}
+                                            />
+
+                                            <h5>Descripcion de la comunidad</h5>
+                                            <input
+                                                name="descripcion"
+                                                type="text"
+                                                placeholder="Descripcion de la comunidad"
+                                                value={values.descripcion}
+                                                onChange={handleChange}
+                                            />
+                                            <h5>Categoria o materia a la que se refiere la comunidad:</h5>
+
+
+                                            <div className={style.SelectType}>
+                                                <Select
+                                                    // If you don't need a state you can remove the two following lines value & onChange
+                                                    placeholder="Materia"
+                                                    onChange={(option: Options | null) => {
+                                                        if (option != null) {
+                                                            setOptionType(option.name);
+                                                        }
+                                                    }}
+                                                    getOptionLabel={(option: Options) => option.name}
+                                                    getOptionValue={(option: Options) => option.name}
+                                                    options={Labels}
+                                                    defaultValue={Labels[0]}
+                                                    isSearchable={true}
+                                                />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
                             </div>
                         )}
 
