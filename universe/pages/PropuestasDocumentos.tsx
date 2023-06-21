@@ -4,7 +4,32 @@ import Head from "next/head";
 import PropuestaDocumento from "universe/Component/PropuestaDocumento";
 import style from "/styles/PropuestasDocumentosStyles.module.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { GetServerSideProps } from "next/types";
+import nookies from 'nookies';
 import Cookies from "js-cookie";
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    context.res.setHeader('Cache-Control', 'no-store, must-revalidate');
+    const token = nookies.get(context).token;
+
+    if (!token) {
+        //Si no esta logeado lo redirige al Login
+        return {
+            redirect: {
+                destination: '/Login',
+                permanent: false,
+            },
+        };
+    }
+
+    //Si esta logeado le muestra la pagina 
+    return {
+        props: {}, // Muestra la pagina 
+    };
+};
+
+
 
 interface DocumentResponse {
 	name: string;

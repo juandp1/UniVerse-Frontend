@@ -13,6 +13,7 @@ import * as HiIcon from "react-icons/hi";
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
 import { number } from "yup";
 
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	context.res.setHeader("Cache-Control", "no-store, must-revalidate");
 	const token = nookies.get(context).token;

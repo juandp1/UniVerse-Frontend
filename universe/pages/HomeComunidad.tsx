@@ -12,6 +12,31 @@ import PreguntaForo from "../Component/Preguntahome";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Preguntahome from "../Component/Preguntahome";
+import { GetServerSideProps } from "next/types";
+import nookies from 'nookies';
+import Cookies from "js-cookie";
+
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	context.res.setHeader("Cache-Control", "no-store, must-revalidate");
+	const token = nookies.get(context).token;
+
+	if (!token) {
+		//Si no esta logeado lo redirige al Login
+		return {
+			redirect: {
+				destination: "/Login",
+				permanent: false,
+			},
+		};
+	}
+
+	//Si esta logeado le muestra la pagina
+	return {
+		props: {}, // Muestra la pagina
+	};
+};
 
 const colorIcon = "#61EB8D";
 

@@ -12,9 +12,33 @@ import { ReactSVG } from "react-svg";
 import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { type } from "os";
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
+
+import { GetServerSideProps } from "next/types";
+import nookies from 'nookies';
+import Cookies from "js-cookie";
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	context.res.setHeader("Cache-Control", "no-store, must-revalidate");
+	const token = nookies.get(context).token;
+
+	if (!token) {
+		//Si no esta logeado lo redirige al Login
+		return {
+			redirect: {
+				destination: "/Login",
+				permanent: false,
+			},
+		};
+	}
+
+	//Si esta logeado le muestra la pagina
+	return {
+		props: {}, // Muestra la pagina
+	};
+};
+
 
 const colorIcon = "#61EB8D";
 interface Documento {

@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
 import "react-toastify/dist/ReactToastify.css";
 
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	context.res.setHeader("Cache-Control", "no-store, must-revalidate");
 	const token = nookies.get(context).token;

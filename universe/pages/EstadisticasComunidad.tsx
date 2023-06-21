@@ -4,6 +4,28 @@ import Navbar from "../Component/NavBar";
 import Head from "next/head";
 import * as Bsicon from "react-icons/bs";
 import Cookies from "js-cookie";
+import { GetServerSideProps } from "next/types";
+import nookies from 'nookies';
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	context.res.setHeader("Cache-Control", "no-store, must-revalidate");
+	const token = nookies.get(context).token;
+
+	if (!token) {
+		//Si no esta logeado lo redirige al Login
+		return {
+			redirect: {
+				destination: "/Login",
+				permanent: false,
+			},
+		};
+	}
+
+	//Si esta logeado le muestra la pagina
+	return {
+		props: {}, // Muestra la pagina
+	};
+};
 
 const colorIcon = "#61EB8D";
 export default function EstadisticasComunidad() {
