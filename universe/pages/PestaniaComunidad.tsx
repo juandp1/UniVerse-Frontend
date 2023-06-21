@@ -278,9 +278,32 @@ export default function PestaniaComunidad() {
             });
 
             if (res.ok) {
-
+                toast.success('La comunidad ha sido editada de forma correcta', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: style.toast_success_doc
+    
+                });
+                newActualizacion()
             } else {
-                throw new Error('ha sucedido un error al crear la comunidad');
+                toast.error('No puedes editar esta comunida ya que no eres admin', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: style.toast_success_doc
+    
+                });
             }
         } catch (error: any) {
             console.error('Error:', error);
@@ -306,17 +329,41 @@ export default function PestaniaComunidad() {
             });
 
             if (res.ok) {
-                console.log('Error:', "Se ha eliminado la comunidad de forma correcta");
-                alert("Se ha eliminado la comunidad de forma correcta");
-            } else {
-                throw new Error('ha sucedido un error al elimianr la comunidad');
+                console.log(await res.json());
+                toast.success('La comunidad ha sido eliminada de forma correcta', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: style.toast_success_doc
+    
+                });
+                stateConfirmacion()
+                newActualizacion()
+            }else if( res.status === 401) {
+                toast.error('No puedes eliminar esta comunida ya que no eres admin', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: style.toast_success_doc
+    
+                });
+                
             }
         } catch (error: any) {
             console.error('Error:', error);
             alert(error.message);
         }
-        stateformEditar()
-        toggle()
+        
     }
     const buscarComunidad = async (name: string) => {
         if(name === "" || name==null){
@@ -442,7 +489,7 @@ export default function PestaniaComunidad() {
             <ToastContainer position="top-right" className={style.success_notification} />
             {confirmacion ? (
                 <div className="modalOverlay">
-                    <ConfirmacionRecuadro mensaje={"se va a eliminar la comunidad"} name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
+                    <ConfirmacionRecuadro mensaje={"Se va a eliminar la comunidad"} name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
                 </div>
 
             ) : null

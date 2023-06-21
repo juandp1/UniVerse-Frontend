@@ -172,6 +172,17 @@ export default function DocumentosTema() {
 	const crearDocumento = async (values: Documento) => {
 		if (file === null) {
 			console.error("Error: no ha ingresado ningun archivo");
+			toast.warning("No ha subido cargado ningun archivo", {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+				className: style.toast_success_doc,
+			});
 			return;
 		}
 
@@ -263,21 +274,8 @@ export default function DocumentosTema() {
 								></TarjetaDocumento>
 							);
 						})}
-						<TarjetaDocumento
-							idDocument={2}
-							DocumentName="Ejercicio 1.2"
-							descripcion="Descripcion del documento"
-							docType={"ejercicio"}
-							eliminar={eliminarDocumento}
-						></TarjetaDocumento>
-						<TarjetaDocumento
-							idDocument={3}
-							DocumentName="Parcial 1"
-							descripcion="Descripcion del documento"
-							docType={"examen"}
-							eliminar={eliminarDocumento}
-						></TarjetaDocumento>
-					</div>
+						
+				</div>
 
 					<div className="corner_Content">
 						<div className="flex items-center justify-end space-x-3">

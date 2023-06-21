@@ -8,6 +8,8 @@ import TarjetaTemas from "universe/Component/TarjetaTemas";
 import { useEffect, useState } from "react";
 import { Formik } from "formik";
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const colorIcon = "#61EB8D";
 interface Tema {
@@ -18,6 +20,11 @@ var topicID: number;
 var topicName: string;
 
 export default function Enciclopedia() {
+	const [isAdmin, setIsAdmin] = useState(false);
+	useEffect(() => {
+		setIsAdmin(localStorage.getItem("is_Admin") == "1");
+	}, []);
+
 	const [showFormCrearTema, setShowFormCrearTema] = useState(false);
 	const statusShowFormCrearTema = () => {
 		setShowFormCrearTema(!showFormCrearTema);
@@ -89,7 +96,19 @@ export default function Enciclopedia() {
 			});
 			if (res.ok) {
 				console.log("success:", "Creado con exito");
-				alert("Creado con exito");
+				toast.success('Creado con exito', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: "toast_success_doc"
+    
+                });
+                newActualizacion()
 				newActualizacion();
 				statusShowFormCrearTema();
 			} else {
@@ -120,7 +139,18 @@ export default function Enciclopedia() {
 			});
 			if (res.ok) {
 				console.log("Success:", "Se ha eliminado el documento de forma correcta ");
-				alert("Se ha eliminado el documento de forma correcta");
+				toast.success('Eliminado con exito con exito', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: "toast_success_doc"
+    
+                });
 				newActualizacion();
 			} else {
 				console.error("Error:", "sucedio un error al eliminar un tema, vuelva a intentarlo");
@@ -160,13 +190,19 @@ export default function Enciclopedia() {
 							);
 						})}
 					</div>
+					{isAdmin ? (
+						<div className="button_crear" onClick={statusShowFormCrearTema}>
+							<IoIcon.IoMdAdd size={"80px"} color={colorIcon} />
+						</div>
+					) : null
 
-					<div className="button_crear" onClick={statusShowFormCrearTema}>
-						<IoIcon.IoMdAdd size={"80px"} color={colorIcon} />
-					</div>
+
+					}
+
 				</div>
 				{/**aqui empieza el formulario que aparecera sobre todo el contenido de la pagina en ese momento */}
 			</main>
+			<ToastContainer position="top-right" className="success_notification" />
 			{confirmacion ? (
 				<ConfirmacionRecuadro
 					mensaje="Esta seguro de eliminar el tema:"

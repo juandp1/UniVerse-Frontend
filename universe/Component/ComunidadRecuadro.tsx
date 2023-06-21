@@ -46,8 +46,21 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
                 localStorage.setItem('comunidad_ID', idComunidad.toString())
                 console.log(localStorage.getItem('comunidad_ID'))
                 router.push('/HomeComunidad');
-            } else {
-                throw new Error('Ha sucedido un error al entrar a la comunidad');
+            }else if(res.status === 400) {
+                toast.warning('Ya eres miembro de esta comunidad', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    className: style.toast_success_doc
+    
+                });
+                
+                
             }
         } catch (error: any) {
             console.error('Error:', error);
