@@ -73,9 +73,8 @@ function Navbar() {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        const re_token = localStorage.getItem("re_token");
 
-        if (token || re_token) {
+        if (token) {
             setTimeout(async () => {
                 const res = await fetch('https://universe-backend.azurewebsites.net/api/logout', {
                     method: 'DELETE',
@@ -89,13 +88,6 @@ function Navbar() {
 
                 if (res.ok) {
                     setShowRecuadro(true);
-
-                    nookies.destroy(null, 'token');
-                    nookies.destroy(null, "user_ID");
-                    nookies.destroy(null, "name");
-                    nookies.destroy(null, "email");
-
-
 
                 } else {
                     throw new Error('An error occurred while logging out.');
