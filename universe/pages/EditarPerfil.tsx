@@ -66,11 +66,29 @@ const EditarPerfil = () => {
 
 
     const validationSchema = Yup.object().shape({
-        username: Yup.string().matches(/^\S*$/, 'Los espacios no estan permitidos').required("Campo requerido").max(15, "El nombre de usuario no debe sobrepasar los 15 caracteres") ,
-        email: Yup.string().email("El email ingresado no es válido").matches(/^\S*$/, 'Los espacios no estan permitidos').required("Campo requerido"),
-        act_password: Yup.string().min(8, "La contraseña debe incluir al menos 8 caracteres").max(32, "La contraseña no debe exceder los 32 caracteres").matches(/^\S*$/, 'Los espacios no estan permitidos').required("Campo requerido"),
-        new_password: Yup.string().oneOf([Yup.ref("act_password")], "Las contraseñas no coinciden").matches(/^\S*$/, 'Los espacios no estan permitidos').required("Campo requerido"),
+        username: Yup.string()
+            .trim('El nombre de usuario no puede comenzar ni terminar con espacios en blanco')
+            .matches(/^\S*$/, 'Los espacios no estan permitidos')
+            .required("Campo requerido")
+            .max(15, "El nombre de usuario no debe sobrepasar los 15 caracteres"),
+        email: Yup.string()
+            .trim('El email no puede comenzar ni terminar con espacios en blanco')
+            .email("El email ingresado no es válido")
+            .matches(/^\S*$/, 'Los espacios no estan permitidos')
+            .required("Campo requerido"),
+        act_password: Yup.string()
+            .trim('La contraseña no puede comenzar ni terminar con espacios en blanco')
+            .min(8, "La contraseña debe incluir al menos 8 caracteres")
+            .max(32, "La contraseña no debe exceder los 32 caracteres")
+            .matches(/^\S*$/, 'Los espacios no estan permitidos')
+            .required("Campo requerido"),
+        new_password: Yup.string()
+            .trim('La confirmación de la contraseña no puede comenzar ni terminar con espacios en blanco')
+            .oneOf([Yup.ref("act_password")], "Las contraseñas no coinciden")
+            .matches(/^\S*$/, 'Los espacios no estan permitidos')
+            .required("Campo requerido"),
     })
+    
 
     const onSubmit = async (values: ProfileFormValues) => {
         // Perform authentication logic or send data to the server

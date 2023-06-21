@@ -319,28 +319,46 @@ export default function PestaniaComunidad() {
         toggle()
     }
     const buscarComunidad = async (name: string) => {
-        try {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/community/similar_name/' + name, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${Cookies.get('token')}`
-                },
+        if(name === "" || name==null){
+            toast.warning('Debes de ingresar algun input', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                className: style.toast_success_doc
 
             });
-
-            if (res.ok) {
-                const data = await res.json();
-                setComunidades(data.communities);
-                
-
-            } else {
-                throw new Error('ha sucedido un error al crear la comunidad');
+            
+        }else{
+            try {
+                const res = await fetch('https://universe-backend.azurewebsites.net/api/community/similar_name/' + name, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${Cookies.get('token')}`
+                    },
+    
+                });
+    
+                if (res.ok) {
+                    const data = await res.json();
+                    setComunidades(data.communities);
+                    
+    
+                } else {
+                    console.log(await res.json())
+                    
+                }
+            } catch (error: any) {
+                console.error('Error:', error);
+                alert(error.message);
             }
-        } catch (error: any) {
-            console.error('Error:', error);
-            alert(error.message);
         }
+        
 
     }
 

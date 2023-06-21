@@ -49,17 +49,20 @@ export default function Enciclopedia() {
 			// se trae la informacion de los documentos que existen al entrar a la pagina
 			//setIsLoading(true)
 			try {
-				const res = await fetch("https://universe-backend.azurewebsites.net/api/topics/community/" + localStorage.getItem("comunidad_ID"), {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`,
-					},
-				});
+				const res = await fetch(
+					"https://universe-backend.azurewebsites.net/api/topics/community/" + localStorage.getItem("comunidad_ID"),
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${localStorage.getItem("token")}`,
+						},
+					}
+				);
 
 				if (res.ok) {
 					const data = await res.json();
-					console.log(data)
+					console.log(data);
 					console.log(data["topics"]);
 					setTemas(data["topics"]);
 				}
@@ -82,21 +85,20 @@ export default function Enciclopedia() {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${localStorage.getItem("token")}`,
 				},
-				body: JSON.stringify({ "name": values.name, "community_id": localStorage.getItem("comunidad_ID")}),
+				body: JSON.stringify({ name: values.name, community_id: localStorage.getItem("comunidad_ID") }),
 			});
 			if (res.ok) {
 				console.log("success:", "Creado con exito");
 				alert("Creado con exito");
-				newActualizacion()
+				newActualizacion();
 				statusShowFormCrearTema();
 			} else {
-				console.log(await res.json())
+				console.log(await res.json());
 			}
 		} catch (error: any) {
 			console.error("Error:", error);
 			alert(error.message);
 		}
-        
 	};
 	const eliminar = (topic_ID: number, topic_Name: string) => {
 		topicID = topic_ID;
@@ -119,7 +121,7 @@ export default function Enciclopedia() {
 			if (res.ok) {
 				console.log("Success:", "Se ha eliminado el documento de forma correcta ");
 				alert("Se ha eliminado el documento de forma correcta");
-                newActualizacion();
+				newActualizacion();
 			} else {
 				console.error("Error:", "sucedio un error al eliminar un tema, vuelva a intentarlo");
 				alert("sucedio un error al eliminar un tema, vuelva a intentarlo");
