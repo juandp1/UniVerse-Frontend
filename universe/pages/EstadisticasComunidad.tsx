@@ -125,6 +125,16 @@ export default function EstadisticasComunidad() {
 
 						<div className="container">
 							<div className="justify-center items-center">
+								<h3 style={{ marginTop: "15px" }}>Número de temas en el foro</h3>
+
+								<div className="flex justify-center items-center h-60">
+									<h1>{numTopics}</h1>
+								</div>
+							</div>
+						</div>
+
+						<div className="container">
+							<div className="justify-center items-center">
 								<h3 style={{ marginTop: "15px" }}>Número de preguntas en el foro</h3>
 
 								<div className="flex justify-center items-center h-60">
@@ -133,15 +143,7 @@ export default function EstadisticasComunidad() {
 							</div>
 						</div>
 
-						<div className="container">
-							<div className="justify-center items-center">
-								<h3 style={{ marginTop: "15px" }}>Número de temas en el foro</h3>
 
-								<div className="flex justify-center items-center h-60">
-									<h1>{numTopics}</h1>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</main>
