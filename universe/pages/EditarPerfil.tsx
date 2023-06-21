@@ -141,7 +141,7 @@ const EditarPerfil = () => {
                 <Navbar></Navbar>
                 <div className="principal_Content_Profile">
                     <div className="flex items-center justify-start space-x-3">
-                        <Faicon.FaUser size={"100px"} color={colorIcon} />
+                        <Faicon.FaUserEdit size={"130px"} color={colorIcon} />
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <h2 style={{ alignSelf: 'flex-start' }}>Editar perfil</h2>
                         </div>
