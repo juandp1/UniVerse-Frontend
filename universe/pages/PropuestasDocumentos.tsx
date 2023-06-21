@@ -79,11 +79,6 @@ export default function PropuestasDocumentos() {
 							);
 						})}
 
-						<PropuestaDocumento
-							id={50}
-							tituloDocumento={"Ejercicio 8.8"}
-							descripcionDocumento={"Ejercicio de ley de Gauss"}
-						></PropuestaDocumento>
 					</div>
 				</div>
 				{/*Agrego los componentes dentro del header*/}
