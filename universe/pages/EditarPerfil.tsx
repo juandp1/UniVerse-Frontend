@@ -33,6 +33,7 @@ const EditarPerfil = () => {
     const [showRecuadro, setShowRecuadro] = useState(false);
     const [showRecuadro2, setShowRecuadro2] = useState(false);
     const [showRecuadro3, setShowRecuadro3] = useState(false);
+    const [showRecuadro4, setShowRecuadro4] = useState(false);
 
     const handleAceptarClick = () => {
         setShowRecuadro(false);
@@ -45,6 +46,11 @@ const EditarPerfil = () => {
     };
     const handleAceptarClick3 = () => {
         setShowRecuadro3(false);
+
+    };
+
+    const handleAceptarClick4 = () => {
+        setShowRecuadro4(false);
 
     };
 
@@ -89,7 +95,7 @@ const EditarPerfil = () => {
             .matches(/^\S*$/, 'Los espacios no estan permitidos')
             .required("Campo requerido"),
     })
-    
+
 
     const onSubmit = async (values: ProfileFormValues) => {
         // Perform authentication logic or send data to the server
@@ -111,18 +117,24 @@ const EditarPerfil = () => {
                 localStorage.setItem("email", data["email"]);
                 setShowRecuadro(true);
             } else if (res.status === 400) {
-                setShowRecuadro2(true);
-
-            }
-            else {
-                setShowRecuadro3(true);
+                const data = await res.json();
+                switch (data.message) {
+                    case "A user with that email already exists":
+                        setShowRecuadro2(true);
+                        break;
+                    case "A user with that name already exists":
+                        setShowRecuadro3(true);
+                        break;
+                    default:
+                        setShowRecuadro4(true);
+                        break;
+                }
             }
         } catch (error: any) {
             console.error('Error:', error);
             alert(error.message);
         }
     };
-
 
 
     const formik = useFormik({
@@ -239,7 +251,13 @@ const EditarPerfil = () => {
 
             {showRecuadro3 && (
                 <div className="modalOverlay">
-                    <Recuadro cerrar={handleAceptarClick3} titulo={'Error editando el perfil'} descripcion={'Ha ocurrido un error editando su información persona'} />
+                    <Recuadro cerrar={handleAceptarClick3} titulo={'Nombre de usuario ya registrado'} descripcion={'Un usuario con el nombre de ususario ingresado ya existe, intentelo de nuevo'} />
+                </div>
+            )}
+
+            {showRecuadro4 && (
+                <div className="modalOverlay">
+                    <Recuadro cerrar={handleAceptarClick4} titulo={'Error editando el perfil'} descripcion={'Ha ocurrido un error editando su información personal'} />
                 </div>
             )}
 

@@ -27,12 +27,18 @@ const Registro = () => {
   const router = useRouter();
   const [showRecuadro, setShowRecuadro] = useState(false);
 
+  const [showRecuadro2, setShowRecuadro2] = useState(false);
+
+  const [showRecuadro3, setShowRecuadro3] = useState(false);
+
+
+
   const validationSchema = Yup.object({
     username: Yup.string()
       .trim('El nombre de usuario no puede comenzar ni terminar con espacios en blanco')
       .matches(/^(?!\s*$).+$/, 'El nombre de usuario no puede ser solo espacios en blanco')
       .min(5, "El nombre de usuario debe incluir al menos 8 caracteres")
-      .max(15, "El nombre de usuario no debe sobrepasar los 15 caracteres") 
+      .max(15, "El nombre de usuario no debe sobrepasar los 15 caracteres")
       .required("Campo requerido"),
     email: Yup.string()
       .trim('El email no puede comenzar ni terminar con espacios en blanco')
@@ -51,14 +57,25 @@ const Registro = () => {
       .oneOf([Yup.ref("password")], "Las contraseñas no coinciden")
       .required("Campo requerido"),
   });
-  
+
 
   const handleRegisterClick = () => {
     router.push('/Login');
   };
+
+
   const handleAceptarClick = () => {
     setShowRecuadro(false);
     router.push('/Login');
+  };
+
+
+  const handleAceptarClick2 = () => {
+    setShowRecuadro(false);
+  };
+
+  const handleAceptarClick3 = () => {
+    setShowRecuadro(false);
   };
   const onSubmit = async (values: FormValues) => {
     // Perform authentication logic or send data to the server
@@ -78,17 +95,25 @@ const Registro = () => {
         const data = await res.json();
         localStorage.setItem("token", data["access_token"]);
         setShowRecuadro(true)
-      } else if (res.status == 201) { //codigo de usuario ya existente 
-        throw new Error('El usuario ingresado ya existe, intentelo de nuevo');
-      } else if (res.status == 400) { //codigo error de email ya existente 
-        throw new Error('El email ingresado ya existe, intentelo de nuevo');
+      } else if (res.status == 400) { //codigo de usuario ya existente 
+        const data = await res.json();
+        switch (data.message) {
+          case "A user with that email already exists":
+            setShowRecuadro2(true);
+            break;
+          case "A user with that name already exists":
+            setShowRecuadro3(true);
+            break;
+          default:
+
+            break;
+        }
       }
     } catch (error: any) {
       console.error('Error:', error);
       alert(error.message);
     }
   };
-
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -103,7 +128,7 @@ const Registro = () => {
         <div className={styles.container}>
           <div className={styles.rectangle}>
             <Image
-              src="/images/UniVerseLogo.png"
+              src="/images/universelogo.png"
               width={300}
               height={35}
               alt="logo"
@@ -204,6 +229,22 @@ const Registro = () => {
           <Recuadro cerrar={handleAceptarClick} titulo={'Cuenta creada con exito'} descripcion={'Ya puedes iniciar sesion y disfrutar de universe'} />
         </div>
       )}
+
+      {showRecuadro2 && (
+        <div className="modalOverlay">
+          <Recuadro cerrar={handleAceptarClick2} titulo={'Email invalido'} descripcion={'El email ingresado ya esta en uso, intentelo de nuevo'} />
+        </div>
+      )}
+
+      {showRecuadro3 && (
+        <div className="modalOverlay">
+          <Recuadro cerrar={handleAceptarClick3} titulo={'Usuario invalido'} descripcion={'El usuario ingresado ya esta en uso, intentelo de nuevo'} />
+        </div>
+      )}
+
+
+
+
     </>
 
 
