@@ -363,8 +363,7 @@ export default function PestaniaComunidad() {
             console.error('Error:', error);
             alert(error.message);
         }
-        stateformEditar()
-        toggle()
+        
     }
     const buscarComunidad = async (name: string) => {
         if(name === "" || name==null){
