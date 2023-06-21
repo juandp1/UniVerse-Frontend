@@ -1,5 +1,5 @@
 .comunidadRecuadro{
-    width: 80%;
+    width: 90%;
     height: 200px;
     background-color: #A9E9DF;
     border-radius: 30px;
@@ -9,7 +9,7 @@
 .encabezado{
     display: grid;
     position: relative;
-    grid-template-columns: 1fr 35% 3%;
+    grid-template-columns: 1fr 28% 3%;
     width: 100%;
     height: 75px;
     background-color: #E8FFFB;
