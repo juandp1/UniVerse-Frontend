@@ -684,10 +684,22 @@ export default function PestaniaComunidad() {
                                         />
 
                                         <h5>Categoria o materia a la que se refiere la comunidad:</h5>
-                                        <input name="materia" type="text" placeholder="Buscar"
-                                            value={values.materia}
-                                            onChange={handleChange}
-                                        />
+                                        <div className={style.SelectType}>
+                                            <Select
+                                                // If you don't need a state you can remove the two following lines value & onChange
+                                                placeholder="Materia"
+                                                onChange={(option: Options | null) => {
+                                                    if (option != null) {
+                                                        setOptionType(option.name);
+                                                    }
+                                                }}
+                                                getOptionLabel={(option: Options) => option.name}
+                                                getOptionValue={(option: Options) => option.name}
+                                                options={Labels}
+                                                defaultValue={Labels[0]}
+                                                isSearchable={true}
+                                            />
+                                        </div>
 
 
                                     </div>
