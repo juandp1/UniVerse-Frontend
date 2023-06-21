@@ -177,7 +177,7 @@ export default function PaginaRespuestas() {
 
                                     <div>
                                         <BiIcon.BiConversation size={"60px"} color={"#1D3752"} />
-                                        <h2>Crear una nueva duda</h2>
+                                        <h2>Crear una nueva respuesta</h2>
                                     </div>
                                     <div>
                                         <button type="submit">
