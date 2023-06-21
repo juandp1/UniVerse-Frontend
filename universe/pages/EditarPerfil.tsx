@@ -70,6 +70,7 @@ const EditarPerfil = () => {
             .trim('El nombre de usuario no puede comenzar ni terminar con espacios en blanco')
             .matches(/^\S*$/, 'Los espacios no estan permitidos')
             .required("Campo requerido")
+            .min(5, "El nombre de usuario debe incluir al menos 8 caracteres")
             .max(15, "El nombre de usuario no debe sobrepasar los 15 caracteres"),
         email: Yup.string()
             .trim('El email no puede comenzar ni terminar con espacios en blanco')

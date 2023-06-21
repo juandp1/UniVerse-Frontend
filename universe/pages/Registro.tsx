@@ -31,6 +31,7 @@ const Registro = () => {
     username: Yup.string()
       .trim('El nombre de usuario no puede comenzar ni terminar con espacios en blanco')
       .matches(/^(?!\s*$).+$/, 'El nombre de usuario no puede ser solo espacios en blanco')
+      .min(5, "El nombre de usuario debe incluir al menos 8 caracteres")
       .max(15, "El nombre de usuario no debe sobrepasar los 15 caracteres") 
       .required("Campo requerido"),
     email: Yup.string()
