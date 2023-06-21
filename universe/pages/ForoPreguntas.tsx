@@ -150,7 +150,7 @@ export default function ForoPreguntas() {
                                 ></PreguntaForo>
                             );
                         })}
-                        <PreguntaForo id={1} title='prueba' description='descripcion de la prueba' score={12} topic_id={4} community_id={4} user_name='Andres'></PreguntaForo>
+                
 
                 </div>
 
