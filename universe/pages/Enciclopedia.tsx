@@ -18,6 +18,11 @@ var topicID: number;
 var topicName: string;
 
 export default function Enciclopedia() {
+	const [isAdmin, setIsAdmin] = useState(false);
+	useEffect(() => {
+		setIsAdmin(localStorage.getItem("is_Admin") == "1");
+	}, []);
+
 	const [showFormCrearTema, setShowFormCrearTema] = useState(false);
 	const statusShowFormCrearTema = () => {
 		setShowFormCrearTema(!showFormCrearTema);
@@ -160,10 +165,15 @@ export default function Enciclopedia() {
 							);
 						})}
 					</div>
+					{isAdmin ? (
+						<div className="button_crear" onClick={statusShowFormCrearTema}>
+							<IoIcon.IoMdAdd size={"80px"} color={colorIcon} />
+						</div>
+					) : null
 
-					<div className="button_crear" onClick={statusShowFormCrearTema}>
-						<IoIcon.IoMdAdd size={"80px"} color={colorIcon} />
-					</div>
+
+					}
+
 				</div>
 				{/**aqui empieza el formulario que aparecera sobre todo el contenido de la pagina en ese momento */}
 			</main>
