@@ -342,6 +342,7 @@ export default function PestaniaComunidad() {
                     className: style.toast_success_doc
     
                 });
+                stateConfirmacion()
                 newActualizacion()
             }else if( res.status === 401) {
                 toast.error('No puedes eliminar esta comunida ya que no eres admin', {
@@ -489,7 +490,7 @@ export default function PestaniaComunidad() {
             <ToastContainer position="top-right" className={style.success_notification} />
             {confirmacion ? (
                 <div className="modalOverlay">
-                    <ConfirmacionRecuadro mensaje={"se va a eliminar la comunidad"} name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
+                    <ConfirmacionRecuadro mensaje={"Se va a eliminar la comunidad"} name={comunityName} eliminar={deleteComunidad} cerrar={stateConfirmacion}></ConfirmacionRecuadro>
                 </div>
 
             ) : null
