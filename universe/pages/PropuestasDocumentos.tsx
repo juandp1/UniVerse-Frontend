@@ -83,7 +83,7 @@ export default function PropuestasDocumentos() {
 				<div className="principal_Content">
 					<div style={{ display: "flex", alignItems: "center" }}>
 						<img
-							src="./images/Documentos_verde.png"
+							src="./images/documentos_verde.png"
 							alt="Documentos"
 							style={{ marginRight: "10px", width: "100px", height: "auto" }}
 						/>
