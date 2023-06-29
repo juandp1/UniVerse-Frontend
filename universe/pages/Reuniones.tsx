@@ -16,6 +16,7 @@ import { GetServerSideProps } from "next/types";
 import nookies from 'nookies';
 import Cookies from "js-cookie";
 
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	context.res.setHeader("Cache-Control", "no-store, must-revalidate");
 	const token = nookies.get(context).token;
@@ -63,47 +64,85 @@ export default function Reuniones() {
 	};
 
 	const crearReunion = async (values: Reunion) => {
-		/**funcion para crear una reunión y llevarla al backend */
 		const dateTime = values.fecha_reunion + " " + values.hora_reunion + ":00";
 		console.log(dateTime);
+	  
 		try {
-			const res = await fetch(
-				"https://universe-backend.azurewebsites.net/api/community/" + localStorage.getItem("comunidad_ID") + "/meetings",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`,
-					},
-					mode: "cors",
-					body: JSON.stringify({
-						name: values.nombreReunion,
-						description: values.descripcion_reunion,
-						place: values.lugar_reunion,
-						date: dateTime,
-					}),
-				}
-			);
-			if (res.ok) {
-				statusShowFormCrearReunion();
-				toast.success("La reunión ha sido creada correctamente", {
-					position: "top-center",
-					autoClose: 5000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-					className: style.toast_success_doc,
-				});
-				toggle();
+		  const res = await fetch(
+			"https://universe-backend.azurewebsites.net/api/community/" +
+			  localStorage.getItem("comunidad_ID") +
+			  "/meetings",
+			{
+			  method: "POST",
+			  headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			  },
+			  mode: "cors",
+			  body: JSON.stringify({
+				name: values.nombreReunion,
+				description: values.descripcion_reunion,
+				place: values.lugar_reunion,
+				date: dateTime,
+			  }),
 			}
+		  );
+	  
+		  if (res.status === 400) {
+			const data = await res.json();
+			console.log("Response data:", data);
+	  
+			if (data.message === "Invalid date") {
+			  toast.error("La fecha de la reunión es inválida, o ya pasó, intentalo de nuevo", {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+				className: style.toast_success_doc,
+			  });
+			} else {
+			  console.log("Unhandled error:", data);
+			}
+		  } else if (res.ok) {
+			statusShowFormCrearReunion();
+			toast.success("La reunión ha sido creada correctamente", {
+			  position: "top-right",
+			  autoClose: 5000,
+			  hideProgressBar: false,
+			  closeOnClick: true,
+			  pauseOnHover: true,
+			  draggable: true,
+			  progress: undefined,
+			  theme: "light",
+			  className: style.toast_success_doc,
+			});
+			toggle();
+		  } else {
+			console.log("Unhandled response:", res);
+			toast.error("Ocurrió un error al crear la reunión", {
+			  position: "top-right",
+			  autoClose: 5000,
+			  hideProgressBar: false,
+			  closeOnClick: true,
+			  pauseOnHover: true,
+			  draggable: true,
+			  progress: undefined,
+			  theme: "light",
+			  className: style.toast_success_doc,
+			});
+		  }
 		} catch (error: any) {
-			console.error("Error:", error);
-			alert(error.message);
+		  console.error("Error:", error);
+		  alert(error.message);
 		}
-	};
+	  };
+	  
+
+
 
 	const router = useRouter();
 
@@ -160,6 +199,7 @@ export default function Reuniones() {
 				</div>
 				{/*Agrego los componentes dentro del header*/}
 			</main>
+			<ToastContainer position="top-right" className={style.success_notification} />
 
 			{showFormCrearReunion ? (
 				<div>

@@ -12,6 +12,8 @@ import * as IoIcon from "react-icons/io";
 import * as HiIcon from "react-icons/hi";
 import ConfirmacionRecuadro from "universe/Component/ConfirmacionRecuadro";
 import { number } from "yup";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -164,13 +166,33 @@ export default function ProximasReuniones() {
 			});
 
 			if (res.ok) {
-				console.log("Error:", "Se ha eliminado la reunión de forma correcta");
-				alert("Se ha eliminado la reunión de forma correcta");
+				toast.success("La reunión ha eliminada", {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+					className: style.toast_success_doc,
+				  });
 				stateConfirmacion();
 				//toggle();
-			} else {
-				throw new Error("ha sucedido un error al elimianr la reunión");
-			}
+			} 
+			else {
+				toast.error("Ocurrió un error al crear la reunión", {
+				  position: "top-right",
+				  autoClose: 5000,
+				  hideProgressBar: false,
+				  closeOnClick: true,
+				  pauseOnHover: true,
+				  draggable: true,
+				  progress: undefined,
+				  theme: "light",
+				  className: style.toast_success_doc,
+				});
+			  }
 		} catch (error: any) {
 			console.error("Error:", error);
 			alert(error.message);
@@ -224,6 +246,7 @@ export default function ProximasReuniones() {
 				</div>
 				{/*Agrego los componentes dentro del header*/}
 			</main>
+			<ToastContainer position="top-right" className={style.success_notification} />
 
 			{confirmacion ? (
 				<div className="modalOverlay">
