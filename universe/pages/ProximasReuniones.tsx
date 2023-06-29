@@ -181,7 +181,7 @@ export default function ProximasReuniones() {
 				//toggle();
 			} 
 			else {
-				toast.error("Ocurrió un error al crear la reunión", {
+				toast.error("Ocurrió un error al eliminar la reunión", {
 				  position: "top-right",
 				  autoClose: 5000,
 				  hideProgressBar: false,
