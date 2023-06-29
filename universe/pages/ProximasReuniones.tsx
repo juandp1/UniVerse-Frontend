@@ -166,7 +166,7 @@ export default function ProximasReuniones() {
 			});
 
 			if (res.ok) {
-				toast.success("La reunión ha eliminada", {
+				toast.success("La reunión ha sido eliminada", {
 					position: "top-right",
 					autoClose: 5000,
 					hideProgressBar: false,
