@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { useState } from "react";
 import * as Yup from "yup";
 import styles from 'styles/registerStyle.module.css';
-import Link from 'next/link';
 import Recuadro from 'universe/Component/Recuadro';
 
 
@@ -82,7 +81,7 @@ const Registro = () => {
     console.log(values);
 
     try {
-      const res = await fetch('https://universe-backend.azurewebsites.net/api/register', {
+      const res = await fetch('http://127.0.0.1:3333/api/register', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -91,10 +90,15 @@ const Registro = () => {
         body: JSON.stringify({ "name": values.username, "email": values.email, "password": values.password })
       });
 
+     
+
+      // ...
+
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem("token", data["access_token"]);
-        setShowRecuadro(true)
+        // console.log(data);
+        router.push('/2fa');
       } else if (res.status == 400) { //codigo de usuario ya existente 
         const data = await res.json();
         switch (data.message) {
