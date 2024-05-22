@@ -11,6 +11,7 @@ import Recuadro from 'universe/Component/Recuadro';
 interface LoginFormValues {
   username: string;
   password: string;
+  token: string;
 }
 
 const Login = () => {
@@ -18,6 +19,7 @@ const Login = () => {
   const initialValues: LoginFormValues = {
     username: "",
     password: "",
+    token: "",
   };
 
   const router = useRouter();
@@ -33,6 +35,8 @@ const Login = () => {
       .required("Campo requerido"),
     password: Yup.string()
       .required("Campo requerido"),
+    token: Yup.string()
+      .required("Campo requerido"),
   });
 
   const onSubmit = async (values: LoginFormValues) => {
@@ -40,13 +44,13 @@ const Login = () => {
     console.log(values);
 
     try {
-      const res = await fetch('https://universe-backend.azurewebsites.net/api/login', {
+      const res = await fetch('http://127.0.0.1:3333/api/login', {
         method: 'POST',
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ "name": values.username, "email": values.username, "password": values.password })
+        body: JSON.stringify({ "name": values.username, "email": values.username, "password": values.password, "token": values.token})
       });
 
       if (res.ok) {
@@ -129,6 +133,19 @@ const Login = () => {
                   placeholder="Contraseña"
                   className={`${styles.inputPassword} ${formik.touched.password && formik.errors.password ? styles.inputError : ""}`}
                   {...formik.getFieldProps("password")}
+                />
+                {formik.touched.password && formik.errors.password && (
+                  <div className={styles.errorMessage}>{formik.errors.password}</div>
+                )}
+              </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="password">Token 2fa:</label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Token 2fa"
+                  className={`${styles.inputPassword} ${formik.touched.password && formik.errors.password ? styles.inputError : ""}`}
+                  {...formik.getFieldProps("token")}
                 />
                 {formik.touched.password && formik.errors.password && (
                   <div className={styles.errorMessage}>{formik.errors.password}</div>
