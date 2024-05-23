@@ -32,9 +32,9 @@ const Registro = () => {
   const [showRecuadro3, setShowRecuadro3] = useState(false);
 
   const recaptchaRef = useRef<ReCAPTCHA>();
-  const [showCapcha, setShowCapcha] = useState(false);
-  const [captchaCode, setCaptchaCode] = useState<string | null>(null);
-  const [valuesForm, setValuesForm] = useState<FormValues>(initialValues);
+  const [captchaEmpty, setCaptchaEmpty] = useState(true);
+
+
 
 
 
@@ -84,24 +84,26 @@ const Registro = () => {
     setShowRecuadro3(false);
   };
 
+  const onReCAPTCHAChange = (captchaCode: (string | null)) => {
+    if (!captchaCode) {
+      setCaptchaEmpty(true);
+      return
+    } else {
+      setCaptchaEmpty(false);
+    }
+  }
 
 
-  const handleSubmit = (event: InputEvent) => {
-    event.preventDefault();
-    // Execute the reCAPTCHA when the form is submitted
-
-  };
-  const registerInAPi = async () => {
+  const registerInAPi = async (values: FormValues) => {
 
     try {
       const res = await fetch('http://127.0.0.1:3333/api/register', {
         method: 'POST',
         mode: 'cors',
         headers: {
-
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ "name": valuesForm.username, "email": valuesForm.email, "password": valuesForm.password })
+        body: JSON.stringify({ "name": values.username, "email": values.email, "password": values.password })
       });
       // ...
 
@@ -131,27 +133,27 @@ const Registro = () => {
   }
 
 
-  const onReCAPTCHAChange = async (captchaCode: (string | null)) => {
-    // If the reCAPTCHA code is null or undefined indicating that
-    // the reCAPTCHA was expired then return early
-    if (!captchaCode) {
+  const onSubmit = async (values: FormValues) => {
+    // Perform authentication logic or send data to the server
+    const token = recaptchaRef.current?.getValue();
+    if (!token) {
+      console.log('No token');
+      setCaptchaEmpty(true);
       return;
     }
-    console.log(captchaCode);
-    console.log(valuesForm);
 
     try {
       const response = await fetch("/api/registerCaptchaVerification", {
         method: "POST",
-        body: JSON.stringify({ captcha: captchaCode }),
+        body: JSON.stringify({ captcha: token }),
         headers: {
           "Content-Type": "application/json",
         },
       });
       if (response.ok) {
         // If the response is ok than show the success alert
-        registerInAPi();
-        
+        registerInAPi(values);
+
       } else {
         // Else throw an error with the message returned
         // from the API
@@ -164,17 +166,6 @@ const Registro = () => {
     finally {
       recaptchaRef.current?.reset();
     }
-
-
-  }
-
-
-
-  const onSubmit = (values: FormValues) => {
-    // Perform authentication logic or send data to the server
-    setValuesForm(values)
-    recaptchaRef.current?.execute()
-
   };
 
   const formik = useFormik({
@@ -198,13 +189,7 @@ const Registro = () => {
               priority
             />
           </div>
-          <ReCAPTCHA
-            id='captcha'
-            size="invisible"
-            ref={recaptchaRef as LegacyRef<ReCAPTCHA>}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
-            onChange={onReCAPTCHAChange}
-          />
+
           <h2 className={styles.welcomeText}>¡Haz parte de nuestra gran comunidad!</h2>
           <form className={styles.formRegistro} onSubmit={formik.handleSubmit}>
 
@@ -271,6 +256,29 @@ const Registro = () => {
                 </div>
               )}
             </div>
+            <br />
+            <div className="w-full flex flex-col justify-center align-center">
+
+              <div>
+                <ReCAPTCHA
+                  id='captcha'
+                  onChange={onReCAPTCHAChange}
+                  ref={recaptchaRef as LegacyRef<ReCAPTCHA>}
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+                  style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "auto" }}
+
+                />
+              </div>
+              <div className='text-center'>
+                {captchaEmpty && (
+                  <h1 className={styles.errorMessage}>
+                    {"Debe completar el captcha"}
+                  </h1>
+                )}
+              </div>
+
+            </div>
+
 
 
 
