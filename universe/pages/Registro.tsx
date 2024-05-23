@@ -1,18 +1,19 @@
 import Image from 'next/image';
-import React from "react";
+import React, { LegacyRef, useRef } from "react";
 import { useFormik } from "formik";
 import { useRouter } from 'next/router';
 import { useState } from "react";
 import * as Yup from "yup";
 import styles from 'styles/registerStyle.module.css';
 import Recuadro from 'universe/Component/Recuadro';
-
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface FormValues {
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
+
 }
 
 const Registro = () => {
@@ -29,6 +30,11 @@ const Registro = () => {
   const [showRecuadro2, setShowRecuadro2] = useState(false);
 
   const [showRecuadro3, setShowRecuadro3] = useState(false);
+
+  const recaptchaRef = useRef<ReCAPTCHA>();
+  const [captchaEmpty, setCaptchaEmpty] = useState(true);
+
+
 
 
 
@@ -55,6 +61,7 @@ const Registro = () => {
       .matches(/^(?!\s*$).+$/, 'La confirmación de la contraseña no puede ser solo espacios en blanco')
       .oneOf([Yup.ref("password")], "Las contraseñas no coinciden")
       .required("Campo requerido"),
+
   });
 
 
@@ -76,12 +83,21 @@ const Registro = () => {
   const handleAceptarClick3 = () => {
     setShowRecuadro3(false);
   };
-  const onSubmit = async (values: FormValues) => {
-    // Perform authentication logic or send data to the server
-    console.log(values);
+
+  const onReCAPTCHAChange = (captchaCode: (string | null)) => {
+    if (!captchaCode) {
+      setCaptchaEmpty(true);
+      return
+    } else {
+      setCaptchaEmpty(false);
+    }
+  }
+
+
+  const registerInAPi = async (values: FormValues) => {
 
     try {
-      const res = await fetch('http://127.0.0.1:3333/api/register', {
+      const res = await fetch(`${process.env.URL_API_BACKEND}/api/register`, {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -89,9 +105,6 @@ const Registro = () => {
         },
         body: JSON.stringify({ "name": values.username, "email": values.email, "password": values.password })
       });
-
-     
-
       // ...
 
       if (res.ok) {
@@ -117,7 +130,44 @@ const Registro = () => {
       console.error('Error:', error);
       alert(error.message);
     }
+  }
+
+
+  const onSubmit = async (values: FormValues) => {
+    // Perform authentication logic or send data to the server
+    const token = recaptchaRef.current?.getValue();
+    if (!token) {
+      console.log('No token');
+      setCaptchaEmpty(true);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/registerCaptchaVerification", {
+        method: "POST",
+        body: JSON.stringify({ captcha: token }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        // If the response is ok than show the success alert
+        registerInAPi(values);
+
+      } else {
+        // Else throw an error with the message returned
+        // from the API
+        const error = await response.json();
+        throw new Error(error.message)
+      }
+    } catch (error) {
+
+    }
+    finally {
+      recaptchaRef.current?.reset();
+    }
   };
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -140,11 +190,9 @@ const Registro = () => {
             />
           </div>
 
-
           <h2 className={styles.welcomeText}>¡Haz parte de nuestra gran comunidad!</h2>
-
-
           <form className={styles.formRegistro} onSubmit={formik.handleSubmit}>
+
             <div className={styles.inputGroup}>
               <label htmlFor="username">Usuario:</label>
               <input
@@ -208,6 +256,33 @@ const Registro = () => {
                 </div>
               )}
             </div>
+            <br />
+            <div className="w-full flex flex-col justify-center align-center">
+
+              <div>
+                <ReCAPTCHA
+                  id='captcha'
+                  onChange={onReCAPTCHAChange}
+                  ref={recaptchaRef as LegacyRef<ReCAPTCHA>}
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+                  style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "auto" }}
+
+                />
+              </div>
+              <div className='text-center'>
+                {captchaEmpty && (
+                  <h1 className={styles.errorMessage}>
+                    {"Debe completar el captcha"}
+                  </h1>
+                )}
+              </div>
+
+            </div>
+
+
+
+
+
             <button type="submit" className={styles.registerButton}>
               REGISTRATE
             </button>
@@ -245,6 +320,7 @@ const Registro = () => {
           <Recuadro cerrar={handleAceptarClick3} titulo={'Usuario invalido'} descripcion={'El usuario ingresado ya esta en uso, intentelo de nuevo'} />
         </div>
       )}
+
 
 
 
