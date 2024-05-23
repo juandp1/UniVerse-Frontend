@@ -97,7 +97,7 @@ const Registro = () => {
   const registerInAPi = async (values: FormValues) => {
 
     try {
-      const res = await fetch('http://127.0.0.1:3333/api/register', {
+      const res = await fetch(`${process.env.URL_API_BACKEND}/api/register`, {
         method: 'POST',
         mode: 'cors',
         headers: {

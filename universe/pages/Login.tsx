@@ -44,7 +44,7 @@ const Login = () => {
     console.log(values);
 
     try {
-      const res = await fetch('http://127.0.0.1:3333/api/login', {
+      const res = await fetch(`${process.env.URL_API_BACKEND}/api/login`, {
         method: 'POST',
         mode: 'cors',
         headers: {
