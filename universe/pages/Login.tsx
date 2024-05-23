@@ -144,11 +144,11 @@ const Login = () => {
                   type="password"
                   id="password"
                   placeholder="Token 2fa"
-                  className={`${styles.inputPassword} ${formik.touched.password && formik.errors.password ? styles.inputError : ""}`}
+                  className={`${styles.inputPassword} ${formik.touched.token && formik.errors.token ? styles.inputError : ""}`}
                   {...formik.getFieldProps("token")}
                 />
-                {formik.touched.password && formik.errors.password && (
-                  <div className={styles.errorMessage}>{formik.errors.password}</div>
+                {formik.touched.token && formik.errors.token && (
+                  <div className={styles.errorMessage}>{formik.errors.token}</div>
                 )}
               </div>
               <button type="submit" className={styles.loginButton}>
