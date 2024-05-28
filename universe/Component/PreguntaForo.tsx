@@ -28,7 +28,7 @@ function PreguntaForo({ id, title, description, score, topic_id, community_id, u
     const VoteQuestion = async (vote: string) => {
         
         try {
-            const res = await fetch('http://127.0.0.1/api/questions/' + id, {
+            const res = await fetch('http://127.0.0.1:3333/api/questions/' + id, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

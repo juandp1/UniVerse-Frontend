@@ -68,7 +68,7 @@ export default function ReunionesAnteriores() {
 				}-${referenceDate.getDate()} ${referenceDate.getHours()}:${referenceDate.getMinutes()}:${referenceDate.getSeconds()}`;
 
 				const res = await fetch(
-					"http://127.0.0.1/api/meetings/community/" + localStorage.getItem("comunidad_ID"),
+					"http://127.0.0.1:3333/api/meetings/community/" + localStorage.getItem("comunidad_ID"),
 					{
 						method: "POST",
 						headers: {
@@ -118,7 +118,7 @@ export default function ReunionesAnteriores() {
 	};
 	const deleteReunion = async () => {
 		try {
-			const res = await fetch("http://127.0.0.1/api/meeting/id/" + id_reunion, {
+			const res = await fetch("http://127.0.0.1:3333/api/meeting/id/" + id_reunion, {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",
