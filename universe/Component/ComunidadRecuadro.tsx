@@ -34,7 +34,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
 
     const unirseComunidad = async () => {
         try {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/enter_community', {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/enter_community`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ function ComunidadRecuadro({ idComunidad, comunityName, descripcion, editar, eli
     
     const entrarComunidad = async () => {
         try {
-            const res = await fetch(`https://universe-backend.azurewebsites.net/api/is_member`, {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/is_member`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

@@ -128,7 +128,7 @@ const EditarPerfil = () => {
         console.log(values);
 
         try {
-            const res = await fetch(`https://universe-backend.azurewebsites.net/api/user/${localStorage.getItem("user_ID")}`, {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/user/${localStorage.getItem("user_ID")}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

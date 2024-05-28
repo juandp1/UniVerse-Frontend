@@ -114,7 +114,7 @@ export default function PestaniaComunidad() {
         const fetchData = async () => { // se trae la informacion de las comunidades que existen al entrar a la pagina
             //setIsLoading(true)
             try {
-                const res = await fetch("https://universe-backend.azurewebsites.net/api/communities", {
+                const res = await fetch(`${process.env.URL_API_BACKEND}/api/communities`, {
                     method: 'GET',
                     mode: 'cors',
                     headers: {
@@ -138,7 +138,7 @@ export default function PestaniaComunidad() {
         const fetchData = async () => { // se trae la informacion de los labels que existen al entrar a la pagina
             //setIsLoading(true)
             try {
-                const res = await fetch("https://universe-backend.azurewebsites.net/api/labels", {
+                const res = await fetch(`${process.env.URL_API_BACKEND}/api/labels`, {
                     method: 'GET',
                     mode: 'cors',
                     headers: {
@@ -184,7 +184,7 @@ export default function PestaniaComunidad() {
     }
     const abandonarComunidad = async () => {
         try {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/leave_community', {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/leave_community`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -280,7 +280,7 @@ export default function PestaniaComunidad() {
     const crearComunidad = async (values: Comunidad) => {
         console.log(JSON.stringify({ "name": values.nameComunidad, "description": values.descripcion, "label": optionType }))
         try {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/community', {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/community`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -319,7 +319,7 @@ export default function PestaniaComunidad() {
     //UPDATE COMUNIDAD
     const updateComunidad = async (values: Comunidad) => {
         try {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/community/name/' + comunityName, {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/community/name/` + comunityName, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -370,7 +370,7 @@ export default function PestaniaComunidad() {
     }
     const deleteComunidad = async () => {
         try {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/community/name/' + comunityName, {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/community/name/` + comunityName, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -433,7 +433,7 @@ export default function PestaniaComunidad() {
 
         } else {
             try {
-                const res = await fetch('https://universe-backend.azurewebsites.net/api/community/similar_name/' + name, {
+                const res = await fetch(`${process.env.URL_API_BACKEND}/api/community/similar_name/` + name, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
