@@ -36,7 +36,7 @@ function Navbar() {
             const token = localStorage.getItem('token');
 
             // Realizar la petición al backend para cerrar la sesión
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/logout', {
+            const res = await fetch('http://127.0.0.1/api/logout', {
                 method: 'DELETE',
                 mode: 'cors',
                 headers: {
@@ -76,7 +76,7 @@ function Navbar() {
 
         if (token) {
             setTimeout(async () => {
-                const res = await fetch('https://universe-backend.azurewebsites.net/api/logout', {
+                const res = await fetch('http://127.0.0.1/api/logout', {
                     method: 'DELETE',
                     mode: 'cors',
                     headers: {

@@ -48,7 +48,7 @@ export default function PropuestasDocumentos() {
 		const fetchData = async () => {
 			// se trae la información de las propuestas de documentos que existen al entrar a la página.
 			try {
-				const res = await fetch(`https://universe-backend.azurewebsites.net/api/community/${localStorage.getItem("comunidad_ID")}/propose`, {
+				const res = await fetch(`http://127.0.0.1/api/community/${localStorage.getItem("comunidad_ID")}/propose`, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",

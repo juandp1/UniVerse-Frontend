@@ -18,7 +18,7 @@ export default function EstadisticasComunidad() {
 	useEffect(() => {
 		const fetchNumUsers = async () => {
 			try {
-				const res = await fetch("https://universe-backend.azurewebsites.net/api/statistics/num_users_per_comm", {
+				const res = await fetch("http://127.0.0.1/api/statistics/num_users_per_comm", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",

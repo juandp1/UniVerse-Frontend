@@ -69,7 +69,7 @@ export default function Reuniones() {
 	  
 		try {
 		  const res = await fetch(
-			"https://universe-backend.azurewebsites.net/api/community/" +
+			"http://127.0.0.1/api/community/" +
 			  localStorage.getItem("comunidad_ID") +
 			  "/meetings",
 			{
