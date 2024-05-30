@@ -191,7 +191,7 @@ const Registro = () => {
           </div>
 
           <h2 className={styles.welcomeText}>¡Haz parte de nuestra gran comunidad!</h2>
-          <form className={styles.formRegistro} onSubmit={formik.handleSubmit}>
+          <form data-testid="registration-form" className={styles.formRegistro} onSubmit={formik.handleSubmit}>
 
             <div className={styles.inputGroup}>
               <label htmlFor="username">Usuario:</label>
