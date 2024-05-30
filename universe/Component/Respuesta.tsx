@@ -23,7 +23,7 @@ function Respuesta({
     const VoteResponse = async (vote: string) => {
         console.log("voteee")
         try {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/responses/'+num_response, {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/responses/`+num_response, {
                 method: 'POST',
                 mode: "cors",
                 headers: {

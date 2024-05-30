@@ -128,7 +128,7 @@ export default function HomeComunidad() {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const res = await fetch("https://universe-backend.azurewebsites.net/api/is_admin", {
+				const res = await fetch(`${process.env.URL_API_BACKEND}/api/is_admin`, {
 					method: "POST",
 					mode: "cors",
 					headers: {
@@ -163,7 +163,7 @@ export default function HomeComunidad() {
 		const fetchNextMeeting = async () => {
 			try {
 				const res = await fetch(
-					"https://universe-backend.azurewebsites.net/api/community/" +
+					`${process.env.URL_API_BACKEND}/api/community/` +
 						localStorage.getItem("comunidad_ID") +
 						"/next_meeting",
 					{
@@ -196,7 +196,7 @@ export default function HomeComunidad() {
 		const fetchNextTopic = async () => {
 			try {
 				const res = await fetch(
-					"https://universe-backend.azurewebsites.net/api/topics/recent_topic/" + localStorage.getItem("comunidad_ID"),
+					`${process.env.URL_API_BACKEND}/api/topics/recent_topic/` + localStorage.getItem("comunidad_ID"),
 					{
 						method: "GET",
 						headers: {
@@ -227,7 +227,7 @@ export default function HomeComunidad() {
 		const fetchNextQuestion = async () => {
 			try {
 				const res = await fetch(
-					"https://universe-backend.azurewebsites.net/api/questions/recent_question/" +
+					`${process.env.URL_API_BACKEND}/api/questions/recent_question/` +
 						localStorage.getItem("comunidad_ID"),
 					{
 						method: "GET",

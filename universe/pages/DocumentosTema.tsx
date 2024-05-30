@@ -126,7 +126,7 @@ export default function DocumentosTema() {
 			//setIsLoading(true)
 			try {
 				const res = await fetch(
-					`https://universe-backend.azurewebsites.net/api/community/${localStorage.getItem(
+					`${process.env.URL_API_BACKEND}/api/community/${localStorage.getItem(
 						"comunidad_ID"
 					)}/documents/${localStorage.getItem("Topic")}`,
 					{
@@ -156,7 +156,7 @@ export default function DocumentosTema() {
 		/**funcion para la creacion de un tema en el backend */
 		try {
 			const res = await fetch(
-				"https://universe-backend.azurewebsites.net/api/community/" +
+				`${process.env.URL_API_BACKEND}/api/community/` +
 					localStorage.getItem("comunidad_ID") +
 					"/delete_document/" +
 					document_id,
@@ -215,7 +215,7 @@ export default function DocumentosTema() {
 		reader.onload = async () => {
 			try {
 				const res = await fetch(
-					"https://universe-backend.azurewebsites.net/api/community/" + Community_id + "/documents",
+					`${process.env.URL_API_BACKEND}/api/community/` + Community_id + "/documents",
 					{
 						method: "POST",
 						headers: {

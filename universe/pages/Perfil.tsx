@@ -109,7 +109,7 @@ export default function Perfil() {
         const fetchData = async () => { // se trae la informacion de las comunidades que existen al entrar a la pagina
             //setIsLoading(true)
             try {
-                const res = await fetch("https://universe-backend.azurewebsites.net/api/communities", {
+                const res = await fetch(`${process.env.URL_API_BACKEND}/api/communities`, {
                     method: 'GET',
                     mode: 'cors',
                     headers: {
@@ -133,7 +133,7 @@ export default function Perfil() {
         const fetchData = async () => { // se trae la informacion de los labels que existen al entrar a la pagina
             //setIsLoading(true)
             try {
-                const res = await fetch("https://universe-backend.azurewebsites.net/api/labels", {
+                const res = await fetch(`${process.env.URL_API_BACKEND}/api/labels`, {
                     method: 'GET',
                     mode: 'cors',
                     headers: {
@@ -180,7 +180,7 @@ export default function Perfil() {
 
     const abandonarComunidad = async () => {
         try {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/leave_community', {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/leave_community`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -275,7 +275,7 @@ export default function Perfil() {
     //UPDATE COMUNIDAD
     const updateComunidad = async (values: Comunidad) => {
         try {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/community/name/' + comunityName, {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/community/name/` + comunityName, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -305,7 +305,7 @@ export default function Perfil() {
     }
     const deleteComunidad = async () => {
         try {
-            const res = await fetch('https://universe-backend.azurewebsites.net/api/community/name/' + comunityName, {
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/community/name/` + comunityName, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
