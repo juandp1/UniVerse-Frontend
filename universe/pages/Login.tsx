@@ -50,7 +50,7 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ "name": values.username, "email": values.username, "password": values.password, "token": values.token})
+        body: JSON.stringify({ "name": values.username, "email": values.username, "password": values.password, "token": values.token })
       });
 
       if (res.ok) {
@@ -89,6 +89,14 @@ const Login = () => {
 
   const handleRegisterClick = () => {
     router.push('/Registro');
+  };
+
+  const handleRecoverPasswordClick = () => {
+    router.push('/RecoverPassword');
+  };
+
+  const handleLost2faClick = () => {
+    router.push('/Lost2fa');
   };
 
   return (
@@ -154,6 +162,31 @@ const Login = () => {
               <button type="submit" className={styles.loginButton}>
                 INICIAR SESION
               </button>
+
+              <div className={styles.containerq}>
+
+                <div className={styles.loginLink}>
+                  <span
+                    className={styles.loginText}
+                    onClick={handleRecoverPasswordClick}
+                    role="button"
+                  >
+                    ¿Olvidaste la contraseña?
+                  </span>
+                </div>
+
+                <div className={styles.loginLink}>
+                  <span
+                    className={styles.loginText}
+                    onClick={handleLost2faClick}
+                    role="button"
+                  >
+                    ¿Perdiste tu token 2fa?
+                  </span>
+                </div>
+
+              </div>
+
             </form>
           </div>
 
@@ -187,7 +220,7 @@ const Login = () => {
 
       {showRecuadro && (
         <div className="modalOverlay">
-          <Recuadro cerrar={handleAceptarClick} titulo={'Datos invalidos'} descripcion={'El email/usuario o la contraseña ingresados no existen o son incorrectos, intentalo de nuevo'} />
+          <Recuadro cerrar={handleAceptarClick} titulo={'Datos invalidos'} descripcion={'El email/usuario, la contraseña o el token ingresados no existen o son incorrectos, intentalo de nuevo'} />
         </div>
       )}
 

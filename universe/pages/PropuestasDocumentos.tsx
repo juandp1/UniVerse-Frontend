@@ -48,7 +48,9 @@ export default function PropuestasDocumentos() {
 		const fetchData = async () => {
 			// se trae la información de las propuestas de documentos que existen al entrar a la página.
 			try {
+
 				const res = await fetch(`${process.env.URL_API_BACKEND}/api/community/${localStorage.getItem("comunidad_ID")}/propose`, {
+
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",

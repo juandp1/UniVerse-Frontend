@@ -70,7 +70,9 @@ export default function PaginaRespuestas() {
     useEffect(() => {
         const fetchData = async () => { // se trae la información de las preguntas que existen al entrar a la página./api/community/<int:community_id>/topic/<int:topic_id>/questions
             try {
+
                 const res = await fetch(`${process.env.URL_API_BACKEND}/api/question/`+ localStorage.getItem("question_id") +'/responses' , {
+
                     method: 'GET',
                     mode: "cors",
                     headers: {
@@ -101,7 +103,9 @@ export default function PaginaRespuestas() {
     const CrearRespuesta = async (values: Respuesta) => {
         /**funcion para crear una pregunta y llevarla al backend */
         try {
+
             const res = await fetch(`${process.env.URL_API_BACKEND}/api/responses`, {
+
                 method: 'POST',
                 mode: 'cors',
                 headers: {

@@ -38,7 +38,9 @@ function TarjetaDocumento({ idDocument, DocumentName, descripcion, docType, elim
 
     const verDocumento = async (): Promise<void> => {
         try {
+
             const res = await fetch(`${process.env.URL_API_BACKEND}/api/document/${idDocument}`, {
+
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

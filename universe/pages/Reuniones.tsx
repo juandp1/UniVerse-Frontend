@@ -69,7 +69,9 @@ export default function Reuniones() {
 	  
 		try {
 		  const res = await fetch(
+
 			`${process.env.URL_API_BACKEND}/api/community/` +
+
 			  localStorage.getItem("comunidad_ID") +
 			  "/meetings",
 			{

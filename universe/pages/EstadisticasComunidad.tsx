@@ -37,7 +37,9 @@ export default function EstadisticasComunidad() {
 		const fetchNumUsers = async () => {
 			try {
 				const res = await fetch(
+
 					`${process.env.URL_API_BACKEND}/api/statistics/users_per_comm/` + localStorage.getItem("comunidad_ID"),
+
 					{
 						method: "GET",
 
@@ -62,7 +64,9 @@ export default function EstadisticasComunidad() {
 		const fetchNumQuestions = async () => {
 			try {
 				const res = await fetch(
+
 					`${process.env.URL_API_BACKEND}/api/statistics/questions_per_comm/` + localStorage.getItem("comunidad_ID"),
+
 					{
 						method: "GET",
 						headers: {
@@ -86,7 +90,9 @@ export default function EstadisticasComunidad() {
 		const fetchNumTopics = async () => {
 			try {
 				const res = await fetch(
+
 					`${process.env.URL_API_BACKEND}/api/statistics/topics_per_comm/` + localStorage.getItem("comunidad_ID"),
+
 					{
 						method: "GET",
 						headers: {

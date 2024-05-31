@@ -244,8 +244,8 @@ button[type=submit] {
   display: flex;
   border-radius: 50px;
   background-color: #285F76;
-  width: 150px;
-  height: 35px;
+  /* width: 150px;
+  height: 35px; */
   justify-content: center;
   align-items: center;
 

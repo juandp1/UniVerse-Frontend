@@ -15,6 +15,7 @@ import Recuadro from "universe/Component/Recuadro";
 import { GetServerSideProps } from "next/types";
 import nookies from 'nookies';
 import Cookies from "js-cookie";
+import styles from '/styles/loginStyle.module.css';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	context.res.setHeader("Cache-Control", "no-store, must-revalidate");
@@ -46,10 +47,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const colorIcon = "#61EB8D";
 interface ProfileFormValues {
-    username: string;
-    email: string;
     act_password: string;
     new_password: string;
+    token_2fa: string;
 }
 
 const EditarPerfil = () => {
@@ -60,6 +60,7 @@ const EditarPerfil = () => {
     const [showRecuadro2, setShowRecuadro2] = useState(false);
     const [showRecuadro3, setShowRecuadro3] = useState(false);
     const [showRecuadro4, setShowRecuadro4] = useState(false);
+    const [showRecuadro5, setShowRecuadro5] = useState(false);
 
     const handleAceptarClick = () => {
         setShowRecuadro(false);
@@ -80,12 +81,27 @@ const EditarPerfil = () => {
 
     };
 
-    const initialValues: ProfileFormValues = {
-        username: "",
-        email: "",
+    const handleAceptarClick5 = () => {
+        setShowRecuadro5(false);
+
+    };
+
+    const [name, setName] = useState<string | null>(null);
+    useEffect(() => {
+        setName(localStorage.getItem("name"));
+    }, []);
+
+    const [email, setEmail] = useState<string | null>(null);
+    useEffect(() => {
+        setEmail(localStorage.getItem("email"));
+    }, []);
+
+
+    const initialValues: ProfileFormValues = ({
         act_password: "",
         new_password: "",
-    };
+        token_2fa: ""
+    });
 
     const router = useRouter();
     const [storedPassword, setStoredPassword] = useState<string | null>(null);
@@ -98,17 +114,6 @@ const EditarPerfil = () => {
 
 
     const validationSchema = Yup.object().shape({
-        username: Yup.string()
-            .trim('El nombre de usuario no puede comenzar ni terminar con espacios en blanco')
-            .matches(/^\S*$/, 'Los espacios no estan permitidos')
-            .required("Campo requerido")
-            .min(5, "El nombre de usuario debe incluir al menos 8 caracteres")
-            .max(15, "El nombre de usuario no debe sobrepasar los 15 caracteres"),
-        email: Yup.string()
-            .trim('El email no puede comenzar ni terminar con espacios en blanco')
-            .email("El email ingresado no es válido")
-            .matches(/^\S*$/, 'Los espacios no estan permitidos')
-            .required("Campo requerido"),
         act_password: Yup.string()
             .trim('La contraseña no puede comenzar ni terminar con espacios en blanco')
             .min(8, "La contraseña debe incluir al menos 8 caracteres")
@@ -120,6 +125,9 @@ const EditarPerfil = () => {
             .oneOf([Yup.ref("act_password")], "Las contraseñas no coinciden")
             .matches(/^\S*$/, 'Los espacios no estan permitidos')
             .required("Campo requerido"),
+        token_2fa: Yup.string()
+            .matches(/^\S*$/, 'Los espacios no estan permitidos')
+            .required("Campo requerido"),
     })
 
 
@@ -128,13 +136,15 @@ const EditarPerfil = () => {
         console.log(values);
 
         try {
-            const res = await fetch(`${process.env.URL_API_BACKEND}/api/user/${localStorage.getItem("user_ID")}`, {
-                method: "PUT",
+
+            const res = await fetch(`http://127.0.0.1:3333/api/user/${localStorage.getItem("user_ID")}`, {
+                method: "POST",
+
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${Cookies.get("token")}`,
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-                body: JSON.stringify({ "name": values.username, "email": values.email, "password": values.new_password })
+                body: JSON.stringify({ "name": name , "email": email, "password": values.new_password, "token_2fa": values.token_2fa })
             });
 
             if (res.ok) {
@@ -155,6 +165,8 @@ const EditarPerfil = () => {
                         setShowRecuadro4(true);
                         break;
                 }
+            } else if (res.status === 401) {
+                setShowRecuadro5(true);
             }
         } catch (error: any) {
             console.error('Error:', error);
@@ -192,33 +204,14 @@ const EditarPerfil = () => {
                     <form className={style.formProfile} onSubmit={formik.handleSubmit}>
                         <div className={style.inputContainer}>
                             <div className={style.component1}>
-                                <h4 style={{ alignSelf: 'flex-start', marginTop: '5px' }}>Cambiar nombre de usuario:</h4>
-                                <input
-                                    type="text"
-                                    id="username"
-                                    placeholder="Nuevo usuario"
-                                    className={`${style.inputUsername} ${formik.touched.username && formik.errors.username ? style.inputError : ""}`}
-                                    {...formik.getFieldProps("username")}
-                                />
-                                {formik.touched.username && formik.errors.username && (
-                                    <div className="errorMessage">{formik.errors.username}</div>
-                                )}
+                                <h4 style={{ alignSelf: 'flex-start', marginTop: '5px' }}>Nombre de usuario:</h4>
+                                <div className={style.textContainer}>
+                                    <div>
+                                        <h5>{name}</h5> 
+                                    </div>
+                                </div>
 
-                                <h4 style={{ alignSelf: 'flex-start', marginTop: '20px' }}>Cambiar email registrado:</h4>
-                                <input
-                                    type="text"
-                                    id="email"
-                                    placeholder="Usuario o email registrado"
-                                    className={`${style.inputEmail} ${formik.touched.email && formik.errors.email ? style.inputError : ""}`}
-                                    {...formik.getFieldProps("email")}
-                                />
-                                {formik.touched.email && formik.errors.email && (
-                                    <div className="errorMessage">{formik.errors.email}</div>
-                                )}
-
-                            </div>
-                            <div className={style.component2}>
-                                <h4 style={{ alignSelf: 'flex-start', marginTop: '5px' }}>Ingrese su nueva contraseña:</h4>
+                                <h4 style={{ alignSelf: 'flex-start', marginTop: '20px' }}>Ingrese su nueva contraseña:</h4>
                                 <input
                                     type="password"
                                     id="act_password"
@@ -229,6 +222,16 @@ const EditarPerfil = () => {
                                 {formik.touched.act_password && formik.errors.act_password && (
                                     <div className="errorMessage">{formik.errors.act_password}</div>
                                 )}
+
+
+                            </div>
+                            <div className={style.component2}>
+                                <h4 style={{ alignSelf: 'flex-start', marginTop: '5px' }}>Email registrado:</h4>
+                                <div className={style.textContainer}>
+                                    <div>
+                                        <h5>{email}</h5>
+                                    </div>
+                                </div>
 
 
                                 <h4 style={{ alignSelf: 'flex-start', marginTop: '20px' }}>Confirmar contraseña:</h4>
@@ -246,8 +249,22 @@ const EditarPerfil = () => {
                             </div>
                         </div>
 
+                        <div className={styles.inputGroup}>
+                            <label htmlFor="password">Token 2fa:</label>
+                            <input
+                            type="password"
+                            id="token_2fa"
+                            placeholder="Token 2fa"
+                            className={`${styles.inputPassword} ${formik.touched.token_2fa && formik.errors.token_2fa ? styles.inputError : ""}`}
+                            {...formik.getFieldProps("token_2fa")}
+                            />
+                            {formik.touched.token_2fa && formik.errors.token_2fa && (
+                            <div className={styles.errorMessage}>{formik.errors.token_2fa}</div>
+                            )}
+                        </div>
+
                         <button type="submit" className={style.rectangleButton}>
-                            <h6>CONFIRMAR CAMBIOS</h6>
+                            <h6>Confirmar cambios</h6>
                         </button>
 
 
@@ -287,7 +304,11 @@ const EditarPerfil = () => {
                 </div>
             )}
 
-
+            {showRecuadro5 && (
+                <div className="modalOverlay">
+                    <Recuadro cerrar={handleAceptarClick5} titulo={'Token 2fa Incorrecto'} descripcion={'El token 2fa ingresado no corresponde, intentelo de nuevo'} />
+                </div>
+            )}
 
 
 

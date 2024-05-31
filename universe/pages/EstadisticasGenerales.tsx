@@ -18,7 +18,9 @@ export default function EstadisticasComunidad() {
 	useEffect(() => {
 		const fetchNumUsers = async () => {
 			try {
+
 				const res = await fetch(`${process.env.URL_API_BACKEND}/api/statistics/num_users_per_comm`, {
+
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
