@@ -128,7 +128,9 @@ export default function HomeComunidad() {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const res = await fetch("http://127.0.0.1:3333/api/is_admin", {
+
+				const res = await fetch(`${process.env.URL_API_BACKEND}/api/is_admin`, {
+
 					method: "POST",
 					mode: "cors",
 					headers: {
@@ -163,7 +165,9 @@ export default function HomeComunidad() {
 		const fetchNextMeeting = async () => {
 			try {
 				const res = await fetch(
-					"http://127.0.0.1:3333/api/community/" +
+
+					`${process.env.URL_API_BACKEND}/api/community/` +
+
 						localStorage.getItem("comunidad_ID") +
 						"/next_meeting",
 					{
@@ -196,7 +200,9 @@ export default function HomeComunidad() {
 		const fetchNextTopic = async () => {
 			try {
 				const res = await fetch(
-					"http://127.0.0.1:3333/api/topics/recent_topic/" + localStorage.getItem("comunidad_ID"),
+
+					`${process.env.URL_API_BACKEND}/api/topics/recent_topic/` + localStorage.getItem("comunidad_ID"),
+
 					{
 						method: "GET",
 						headers: {
@@ -227,7 +233,9 @@ export default function HomeComunidad() {
 		const fetchNextQuestion = async () => {
 			try {
 				const res = await fetch(
-					"http://127.0.0.1:3333/api/questions/recent_question/" +
+
+					`${process.env.URL_API_BACKEND}/api/questions/recent_question/` +
+
 						localStorage.getItem("comunidad_ID"),
 					{
 						method: "GET",

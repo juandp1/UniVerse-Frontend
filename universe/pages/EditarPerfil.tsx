@@ -136,8 +136,10 @@ const EditarPerfil = () => {
         console.log(values);
 
         try {
+
             const res = await fetch(`http://127.0.0.1:3333/api/user/${localStorage.getItem("user_ID")}`, {
                 method: "POST",
+
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -14,7 +14,9 @@ function PropuestaDocumento({ id, tituloDocumento, descripcionDocumento }: Props
 	const aceptar = async (idDocumento: number) => {
 		try {
 			const res = await fetch(
-				"http://127.0.0.1:3333/api/community/" + localStorage.getItem("comunidad_ID") + "/accept_document",
+
+				`${process.env.URL_API_BACKEND}/api/community/` + localStorage.getItem("comunidad_ID") + "/accept_document",
+
 				{
 					method: "POST",
 					headers: {
@@ -38,7 +40,9 @@ function PropuestaDocumento({ id, tituloDocumento, descripcionDocumento }: Props
 	const rechazar = async (idDocumento: number) => {
 		try {
 			const res = await fetch(
-				"http://127.0.0.1:3333/api/community/" + localStorage.getItem("comunidad_ID") + "/reject_document",
+
+				`${process.env.URL_API_BACKEND}/api/community/` + localStorage.getItem("comunidad_ID") + "/reject_document",
+
 				{
 					method: "POST",
 					headers: {

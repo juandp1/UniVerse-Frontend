@@ -36,7 +36,9 @@ function Navbar() {
             const token = localStorage.getItem('token');
 
             // Realizar la petición al backend para cerrar la sesión
-            const res = await fetch('http://127.0.0.1:3333/api/logout', {
+
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/logout`, {
+
                 method: 'DELETE',
                 mode: 'cors',
                 headers: {
@@ -76,7 +78,9 @@ function Navbar() {
 
         if (token) {
             setTimeout(async () => {
-                const res = await fetch('http://127.0.0.1:3333/api/logout', {
+
+                const res = await fetch(`${process.env.URL_API_BACKEND}/api/logout`, {
+
                     method: 'DELETE',
                     mode: 'cors',
                     headers: {

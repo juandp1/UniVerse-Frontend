@@ -23,7 +23,9 @@ function Respuesta({
     const VoteResponse = async (vote: string) => {
         console.log("voteee")
         try {
-            const res = await fetch('http://127.0.0.1:3333/api/responses/'+num_response, {
+
+            const res = await fetch(`${process.env.URL_API_BACKEND}/api/responses/`+num_response, {
+
                 method: 'POST',
                 mode: "cors",
                 headers: {
