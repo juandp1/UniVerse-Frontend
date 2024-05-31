@@ -43,6 +43,18 @@
     min-height: 200px;
   }
   
+  .formverify {
+    background-color: transparent;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    transition: 850ms;
+    width: 100%;
+    min-height: auto !important;
+  }
+
   .inputGroup {
     display: flex;
     flex-direction: column;

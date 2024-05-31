@@ -410,7 +410,7 @@ export default function Perfil() {
 
 
                         <button className={style.rectangleButton} style={{ marginBottom: '10px' }} onClick={editarPerfil}>
-                            <h6>EDITAR PERFIL</h6>
+                            <h6>Cambiar contraseña</h6>
                         </button>
 
 
