@@ -290,7 +290,7 @@ const Lost2fa = () => {
 
       {recoverMessage && (
         <div className="modalOverlay">
-          <Recuadro cerrar={handleAceptarClick} titulo={'Recuperar contraseña'} descripcion={'Se ha enviado un correo electrónico con un código. Por favor ingréselo a continuación:'}>
+          <Recuadro cerrar={handleAceptarClick} titulo={'Recuperar token 2af'} descripcion={'Se ha enviado un correo electrónico con un código. Por favor ingréselo a continuación:'}>
             <form className={styles.formverify} onSubmit={verificationFormik.handleSubmit}>
               <div className={styles.inputGroup}>
                 <input
